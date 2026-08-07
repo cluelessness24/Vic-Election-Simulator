@@ -153,4 +153,13 @@ export const SCENARIO_PRESETS: ScenarioPreset[] = [
     oneNationSwing: 0,
     codeString: '.............I.....I................I.I.............I......................I............',
   }),
+  createPreset({
+  id: 'custom_scenario_69',
+  name: 'Stalemate',
+  description: 'Scenario with swings: Coalition (+2.6%), Greens (+0%), One Nation (+4.1%).',
+  coalitionSwing: 2.6,
+  greensSwing: 0,
+  oneNationSwing: 4.1,
+  codeString: '...............L...................A..........LO.....................L.A.......O.O......',
+}),
 ];
