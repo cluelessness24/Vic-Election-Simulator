@@ -1,0 +1,6 @@
+{
+  "name": "Victorian Election Explorer",
+  "description": "An interactive dashboard exploring Victorian state election scenarios, featuring a custom SVG electorate map and a live parliamentary seat hemicycle.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
