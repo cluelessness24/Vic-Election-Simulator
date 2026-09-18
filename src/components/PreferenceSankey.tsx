@@ -4,6 +4,7 @@ import {
   runInstantRunoff,
   getPartyColor,
   getPartyLabel,
+  getPartyCode,
   getScopeBaselineData,
   PreferenceModelDeltas,
   EliminationStage,
@@ -24,6 +25,7 @@ interface PreferenceSankeyProps {
   scopeTitle: string;
   preferenceDeltas: PreferenceModelDeltas;
   onUpdatePrimaryDelta: (party: PartyGroup, deltaPct: number) => void;
+  onBatchUpdatePrimaryDeltas?: (deltas: Partial<Record<PartyGroup, number>>) => void;
   onUpdateTransferFlow: (fromParty: PartyGroup, toParty: PartyGroup, newPct: number) => void;
   onResetDeltas: () => void;
   onClearScope?: () => void;
@@ -34,6 +36,7 @@ export const PreferenceSankey: React.FC<PreferenceSankeyProps> = ({
   scopeTitle,
   preferenceDeltas,
   onUpdatePrimaryDelta,
+  onBatchUpdatePrimaryDeltas,
   onUpdateTransferFlow,
   onResetDeltas,
   onClearScope,
@@ -76,6 +79,82 @@ export const PreferenceSankey: React.FC<PreferenceSankeyProps> = ({
     });
     return res;
   }, [baseline, preferenceDeltas]);
+
+  // Parties that currently have 0% or dropped off the primary count
+  const zeroParties = useMemo(() => {
+    return parties.filter(p => (currentPrimaries[p] || 0) <= 0);
+  }, [currentPrimaries]);
+
+  // Put a 0% / dropped off party back in with 1% primary, taking evenly from other active parties
+  const handlePutPartyBack = (targetParty: PartyGroup) => {
+    const totalFormal = baseline.totalFormalVotes || 1;
+    // Target is exactly 1.0% of total formal votes
+    const targetVotes = Math.max(1, Math.round(0.01 * totalFormal));
+    const baselineVotes = baseline.primaryVotes[targetParty] || 0;
+    // Delta needed for target party so that: baselineVotes + (delta/100)*totalFormal = targetVotes
+    const targetDelta = Number((((targetVotes - baselineVotes) / totalFormal) * 100).toFixed(1));
+
+    // Active other parties currently holding >0% votes
+    const activeOtherParties = parties.filter(
+      p => p !== targetParty && (currentPrimaries[p] || 0) > 0
+    );
+
+    const deltasToApply: Partial<Record<PartyGroup, number>> = {
+      [targetParty]: targetDelta,
+    };
+
+    if (activeOtherParties.length > 0) {
+      // 1.0% is deducted evenly across the other active parties
+      const deductionPerParty = Number((1.0 / activeOtherParties.length).toFixed(2));
+      activeOtherParties.forEach(p => {
+        const currentDelta = preferenceDeltas.primaryDeltas[p] || 0;
+        deltasToApply[p] = Number((currentDelta - deductionPerParty).toFixed(2));
+      });
+    }
+
+    if (onBatchUpdatePrimaryDeltas) {
+      onBatchUpdatePrimaryDeltas(deltasToApply);
+    } else {
+      Object.entries(deltasToApply).forEach(([p, delta]) => {
+        onUpdatePrimaryDelta(p as PartyGroup, delta);
+      });
+    }
+  };
+
+  // Put all 0% / dropped off parties back in with 1% primary each, taking evenly from active parties
+  const handlePutAllZeroPartiesBack = () => {
+    const totalFormal = baseline.totalFormalVotes || 1;
+    const activeOtherParties = parties.filter(
+      p => !zeroParties.includes(p) && (currentPrimaries[p] || 0) > 0
+    );
+
+    if (zeroParties.length === 0 || activeOtherParties.length === 0) return;
+
+    const totalPctToDistribute = zeroParties.length * 1.0;
+    const deductionPerParty = Number((totalPctToDistribute / activeOtherParties.length).toFixed(2));
+
+    const deltasToApply: Partial<Record<PartyGroup, number>> = {};
+
+    zeroParties.forEach(targetParty => {
+      const targetVotes = Math.max(1, Math.round(0.01 * totalFormal));
+      const baselineVotes = baseline.primaryVotes[targetParty] || 0;
+      const targetDelta = Number((((targetVotes - baselineVotes) / totalFormal) * 100).toFixed(1));
+      deltasToApply[targetParty] = targetDelta;
+    });
+
+    activeOtherParties.forEach(p => {
+      const currentDelta = preferenceDeltas.primaryDeltas[p] || 0;
+      deltasToApply[p] = Number((currentDelta - deductionPerParty).toFixed(2));
+    });
+
+    if (onBatchUpdatePrimaryDeltas) {
+      onBatchUpdatePrimaryDeltas(deltasToApply);
+    } else {
+      Object.entries(deltasToApply).forEach(([p, delta]) => {
+        onUpdatePrimaryDelta(p as PartyGroup, delta);
+      });
+    }
+  };
 
   // Calculate current adjusted transfer flows
   const currentTransferFlows = useMemo(() => {
@@ -633,7 +712,11 @@ export const PreferenceSankey: React.FC<PreferenceSankeyProps> = ({
 
         {/* Hovered Ribbon Info Tooltip */}
         {hoveredRibbon && (
-          <div className="absolute bottom-2 left-2 right-2 bg-slate-900/90 backdrop-blur border border-white/10 px-3 py-1.5 rounded flex items-center justify-between text-[11px] text-slate-300">
+          <div
+            className={`absolute left-2 right-2 ${
+              zeroParties.length > 0 ? 'bottom-10' : 'bottom-2'
+            } bg-slate-900/90 backdrop-blur border border-white/10 px-3 py-1.5 rounded flex items-center justify-between text-[11px] text-slate-300 pointer-events-none z-10`}
+          >
             <div className="flex items-center gap-1.5">
               <span
                 className="w-2 h-2 rounded-full"
@@ -655,6 +738,32 @@ export const PreferenceSankey: React.FC<PreferenceSankeyProps> = ({
               <span>{hoveredRibbon.votes.toLocaleString()} votes</span>
               <span className="text-amber-400 font-bold">{hoveredRibbon.pct}% of flow</span>
             </div>
+          </div>
+        )}
+
+        {/* 0% or Dropped-off Parties Badge Buttons at the bottom of the Sankey container */}
+        {zeroParties.length > 0 && (
+          <div className="mt-2 pt-1.5 border-t border-white/10 flex items-center gap-1.5 px-1 flex-wrap">
+            {zeroParties.map(p => {
+              const color = getPartyColor(p);
+              const code = getPartyCode(p);
+              return (
+                <button
+                  key={p}
+                  id={`restore-party-badge-${p.toLowerCase()}`}
+                  onClick={() => handlePutPartyBack(p)}
+                  className="inline-flex items-center justify-center px-2 py-0.5 rounded text-[10px] font-bold tracking-tight border transition-all cursor-pointer shadow-sm hover:brightness-125 active:scale-95"
+                  style={{
+                    backgroundColor: `${color}20`,
+                    borderColor: `${color}60`,
+                    color: color,
+                  }}
+                  title={`Restore ${getPartyLabel(p)} with 1% primary`}
+                >
+                  + {code}
+                </button>
+              );
+            })}
           </div>
         )}
       </div>
@@ -701,7 +810,7 @@ export const PreferenceSankey: React.FC<PreferenceSankeyProps> = ({
       <div className="flex items-start gap-2 p-2.5 rounded bg-blue-500/10 border border-blue-500/20 text-blue-300 text-[11px] leading-relaxed">
         <Info size={14} className="shrink-0 mt-0.5 text-blue-400" />
         <span>
-          <strong>Interactive Controls:</strong> Drag the primary percentage badges on the 1st round to shift primary votes, or drag the percentage badges on the transfer ribbons to model changes in preference distributions.
+          <strong>Interactive Controls:</strong> Drag the primary percentage badges on the 1st round to shift primary votes, or drag the percentage badges on the transfer ribbons to model changes in preference distributions. Any parties at 0% or dropped off can be reintroduced with 1% primary (distributed evenly from other parties) using the restoration buttons.
         </span>
       </div>
     </div>

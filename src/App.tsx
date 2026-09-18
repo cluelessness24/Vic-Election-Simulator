@@ -252,6 +252,46 @@ export default function App() {
     }
   };
 
+  const handleBatchUpdatePrimaryDeltas = (deltas: Partial<Record<PartyGroup, number>>) => {
+    if (selectedId) {
+      setSeatPreferenceDeltas((prev) => {
+        const current = prev[selectedId] || INITIAL_PREFERENCE_DELTAS;
+        return {
+          ...prev,
+          [selectedId]: {
+            ...current,
+            primaryDeltas: {
+              ...current.primaryDeltas,
+              ...deltas,
+            },
+          },
+        };
+      });
+    } else if (selectedRegionId) {
+      setRegionalPreferenceDeltas((prev) => {
+        const current = prev[selectedRegionId] || INITIAL_PREFERENCE_DELTAS;
+        return {
+          ...prev,
+          [selectedRegionId]: {
+            ...current,
+            primaryDeltas: {
+              ...current.primaryDeltas,
+              ...deltas,
+            },
+          },
+        };
+      });
+    } else {
+      setGlobalPreferenceDeltas((prev) => ({
+        ...prev,
+        primaryDeltas: {
+          ...prev.primaryDeltas,
+          ...deltas,
+        },
+      }));
+    }
+  };
+
   const handleUpdateTransferFlow = (fromParty: PartyGroup, toParty: PartyGroup, newPct: number) => {
     const keyMap: Record<PartyGroup, string> = {
       ALP: 'toALP',
@@ -427,14 +467,10 @@ export default function App() {
             <VoteIcon size={22} className="stroke-[1.5]" />
           </div>
           <div className="flex flex-col">
-            <span className="text-[10px] uppercase tracking-[0.3em] opacity-50 font-bold mb-1">
-              2026 State Election Simulator
-            </span>
             <h1 className="serif text-white text-3xl tracking-tight leading-none">
-              Victorian Legislative Assembly
+              Jordon's Victorian Election Simulator
             </h1>
             <p className="text-xs text-slate-400 font-sans mt-2 flex items-center gap-1.5 flex-wrap">
-              <span>Interactive Model</span>
               <span className="text-white/15">•</span>
               <span className="bg-white/5 text-slate-300 px-2 py-0.5 rounded border border-white/5 font-medium">88 Seats Total</span>
               <span className="text-white/15">•</span>
@@ -515,6 +551,7 @@ export default function App() {
                 onSelectRegion={setSelectedRegionId}
                 preferenceDeltas={currentActivePreferenceDeltas}
                 onUpdatePrimaryDelta={handleUpdatePrimaryDelta}
+                onBatchUpdatePrimaryDeltas={handleBatchUpdatePrimaryDeltas}
                 onUpdateTransferFlow={handleUpdateTransferFlow}
                 onResetPreferenceDeltas={handleResetPreferenceDeltas}
                 selectedSeatId={selectedId}
@@ -566,6 +603,7 @@ export default function App() {
                 onSelectRegion={setSelectedRegionId}
                 preferenceDeltas={currentActivePreferenceDeltas}
                 onUpdatePrimaryDelta={handleUpdatePrimaryDelta}
+                onBatchUpdatePrimaryDeltas={handleBatchUpdatePrimaryDeltas}
                 onUpdateTransferFlow={handleUpdateTransferFlow}
                 onResetPreferenceDeltas={handleResetPreferenceDeltas}
                 selectedSeatId={selectedId}

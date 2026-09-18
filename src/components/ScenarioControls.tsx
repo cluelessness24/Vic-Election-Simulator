@@ -32,6 +32,7 @@ interface ScenarioControlsProps {
   // Preference flow props
   preferenceDeltas: PreferenceModelDeltas;
   onUpdatePrimaryDelta: (party: PartyGroup, deltaPct: number) => void;
+  onBatchUpdatePrimaryDeltas?: (deltas: Partial<Record<PartyGroup, number>>) => void;
   onUpdateTransferFlow: (fromParty: PartyGroup, toParty: PartyGroup, newPct: number) => void;
   onResetPreferenceDeltas: () => void;
   selectedSeatId: string | null;
@@ -56,6 +57,7 @@ export const ScenarioControls: React.FC<ScenarioControlsProps> = ({
   onSelectRegion,
   preferenceDeltas,
   onUpdatePrimaryDelta,
+  onBatchUpdatePrimaryDeltas,
   onUpdateTransferFlow,
   onResetPreferenceDeltas,
   selectedSeatId,
@@ -407,6 +409,7 @@ export const ScenarioControls: React.FC<ScenarioControlsProps> = ({
             scopeTitle={scopeTitle}
             preferenceDeltas={preferenceDeltas}
             onUpdatePrimaryDelta={onUpdatePrimaryDelta}
+            onBatchUpdatePrimaryDeltas={onBatchUpdatePrimaryDeltas}
             onUpdateTransferFlow={onUpdateTransferFlow}
             onResetDeltas={onResetPreferenceDeltas}
             onClearScope={

@@ -94,7 +94,11 @@ export function runInstantRunoff(
     const eliminatedVotes = currentTallies[eliminated];
 
     const remainingParties = activeParties.slice(1);
-    const flowConfig = transferFlows[eliminated] || STATE_DEFAULT_TRANSFERS[eliminated];
+    let flowConfig = transferFlows[eliminated] || STATE_DEFAULT_TRANSFERS[eliminated];
+    const totalFlowSum = (flowConfig.toALP || 0) + (flowConfig.toCoalition || 0) + (flowConfig.toGreens || 0) + (flowConfig.toOneNation || 0) + (flowConfig.toOther || 0);
+    if (totalFlowSum <= 0 && STATE_DEFAULT_TRANSFERS[eliminated]) {
+      flowConfig = STATE_DEFAULT_TRANSFERS[eliminated];
+    }
 
     // Calculate raw transfer weights to remaining parties
     const weights: Record<PartyGroup, number> = {
@@ -221,6 +225,21 @@ export function getPartyColor(party: PartyGroup): string {
   }
 }
 
+export function getPartyCode(party: PartyGroup): string {
+  switch (party) {
+    case 'ALP':
+      return 'ALP';
+    case 'COALITION':
+      return 'LIB/NAT';
+    case 'GRN':
+      return 'GRN';
+    case 'ON':
+      return 'ON';
+    case 'OTH':
+      return 'OTH';
+  }
+}
+
 // Get aggregate primary votes and transfer flows for:
 // - Whole State (if scope === null)
 // - A specific region (if scope in REGIONS)
@@ -237,11 +256,18 @@ export function getScopeBaselineData(scopeId: string | null): {
   if (scopeId && PREFERENCE_DATA[scopeId]) {
     // Single Seat
     const seat = PREFERENCE_DATA[scopeId];
+    const flows: Record<PartyGroup, PartyTransferFlow> = JSON.parse(JSON.stringify(seat.transferFlows));
+    parties.forEach(p => {
+      const sum = (flows[p]?.toALP || 0) + (flows[p]?.toCoalition || 0) + (flows[p]?.toGreens || 0) + (flows[p]?.toOneNation || 0) + (flows[p]?.toOther || 0);
+      if (sum <= 0 && STATE_DEFAULT_TRANSFERS[p]) {
+        flows[p] = { ...STATE_DEFAULT_TRANSFERS[p] };
+      }
+    });
     return {
       totalFormalVotes: seat.totalFormalVotes,
       primaryVotes: { ...seat.primaryVotes },
       primaryPercentages: { ...seat.primaryPercentages },
-      transferFlows: JSON.parse(JSON.stringify(seat.transferFlows)),
+      transferFlows: flows,
       seatCount: 1,
     };
   }
@@ -370,6 +396,12 @@ export function simulateElectorateWithPreferences(
 
   // Calculate adjusted transfer flows
   const adjustedFlows: Record<PartyGroup, PartyTransferFlow> = JSON.parse(JSON.stringify(baseline.transferFlows));
+  parties.forEach(p => {
+    const sum = (adjustedFlows[p]?.toALP || 0) + (adjustedFlows[p]?.toCoalition || 0) + (adjustedFlows[p]?.toGreens || 0) + (adjustedFlows[p]?.toOneNation || 0) + (adjustedFlows[p]?.toOther || 0);
+    if (sum <= 0 && STATE_DEFAULT_TRANSFERS[p]) {
+      adjustedFlows[p] = { ...STATE_DEFAULT_TRANSFERS[p] };
+    }
+  });
 
   parties.forEach(src => {
     const overrides = {
