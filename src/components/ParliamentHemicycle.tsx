@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Electorate, PARTIES, PartyCode } from '../data';
 import { motion, AnimatePresence } from 'motion/react';
-import { RefreshCw, CheckCircle2 } from 'lucide-react';
+import { RefreshCw, CheckCircle2, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface ParliamentHemicycleProps {
   electorates: (Electorate & { currentParty: PartyCode; margin: number })[];
@@ -34,6 +34,9 @@ export const ParliamentHemicycle: React.FC<ParliamentHemicycleProps> = ({
   customOverridesCount,
   onClearOverrides,
 }) => {
+  // Collapsible state for Seat Tally & Shift box (collapsed by default)
+  const [isSeatTallyExpanded, setIsSeatTallyExpanded] = useState(false);
+
   // SVG size parameters
   const width = 500;
   const height = 280;
@@ -191,9 +194,27 @@ export const ParliamentHemicycle: React.FC<ParliamentHemicycleProps> = ({
     <div className="flex flex-col h-full bg-card rounded-lg border-subtle p-6 shadow-sm">
       <div className="flex flex-col mb-4">
         <h3 className="serif text-white italic text-xl">Parliament Chamber Map</h3>
-        <p className="text-xs text-slate-400 font-sans mt-1">
-          Concentric seating arch of 88 Legislative Assembly seats. 45+ needed for a majority.
-        </p>
+        <div className="flex items-center justify-between gap-2 flex-wrap mt-1">
+          <p className="text-xs text-slate-400 font-sans">
+            {selectedId ? (
+              <span className="text-slate-300 flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 bg-blue-400 rounded-full" />
+                Selected: <span className="text-white font-semibold underline">{electorates.find(e => e.id === selectedId)?.name || selectedId}</span>
+              </span>
+            ) : (
+              "Concentric seating arch of 88 Legislative Assembly seats. 45+ needed for a majority."
+            )}
+          </p>
+          {selectedId && (
+            <button
+              onClick={() => onSelect('')}
+              id="clear-seat-selection-hemicycle"
+              className="bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 px-2 py-0.5 rounded text-[10px] font-bold border border-amber-500/30 cursor-pointer transition-colors"
+            >
+              Clear Selection
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Hemicycle SVG Container */}
@@ -455,79 +476,101 @@ export const ParliamentHemicycle: React.FC<ParliamentHemicycleProps> = ({
         };
 
         return (
-          <div className="flex flex-col gap-2.5 mt-5 pt-5 border-t border-white/10">
+          <div className="flex flex-col gap-2 mt-4 pt-3 border-t border-white/10">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] uppercase tracking-wider opacity-50 font-bold text-slate-400">
-                Seat Tally & Shift
-              </span>
-              {customOverridesCount > 0 && (
-                <button
-                  id="clear-overrides-btn-hemi"
-                  onClick={onClearOverrides}
-                  className="flex items-center gap-1.5 text-[10px] text-amber-400 hover:text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 px-2 py-1 rounded border border-amber-500/30 font-medium transition-all duration-150 cursor-pointer animate-pulse"
-                >
-                  <RefreshCw size={10} className="animate-spin" />
-                  <span>Clear {customOverridesCount} seat overrides</span>
-                </button>
-              )}
+              <button
+                id="toggle-seat-tally-btn"
+                onClick={() => setIsSeatTallyExpanded((prev) => !prev)}
+                className="flex items-center gap-1.5 text-[11px] font-bold text-slate-300 hover:text-white transition-colors cursor-pointer py-1 px-1.5 -ml-1.5 rounded hover:bg-white/5"
+                title={isSeatTallyExpanded ? "Click to collapse Seat Tally" : "Click to expand Seat Tally"}
+              >
+                <span className="text-[10px] uppercase tracking-wider text-slate-400">
+                  Seat Tally & Shift
+                </span>
+                {isSeatTallyExpanded ? (
+                  <ChevronUp size={13} className="text-slate-400" />
+                ) : (
+                  <ChevronDown size={13} className="text-slate-400" />
+                )}
+              </button>
+
+              <div className="flex items-center gap-2">
+                {!isSeatTallyExpanded && (
+                  <span className="text-[10px] text-slate-500 font-sans">
+                    ALP {partyCounts.ALP} · COAL {partyCounts.LIB + partyCounts.NAT} · GRN {partyCounts.GRN}
+                  </span>
+                )}
+                {customOverridesCount > 0 && (
+                  <button
+                    id="clear-overrides-btn-hemi"
+                    onClick={onClearOverrides}
+                    className="flex items-center gap-1.5 text-[10px] text-amber-400 hover:text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 px-2 py-1 rounded border border-amber-500/30 font-medium transition-all duration-150 cursor-pointer animate-pulse"
+                  >
+                    <RefreshCw size={10} className="animate-spin" />
+                    <span>Clear {customOverridesCount} seat overrides</span>
+                  </button>
+                )}
+              </div>
             </div>
 
-            {/* Seats Table */}
-            <div className="overflow-hidden rounded border border-white/10">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="bg-white/5 text-[10px] font-sans font-semibold text-slate-400 uppercase border-b border-white/10">
-                    <th className="py-2.5 px-3">Party</th>
-                    <th className="py-2.5 px-3 text-center">Seat Share</th>
-                    <th className="py-2.5 px-3 text-center">Tally</th>
-                    <th className="py-2.5 px-3 text-right">Swing vs '22</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/5 text-xs text-slate-300">
-                  {(['ALP', 'LIB', 'NAT', 'GRN', 'ON', 'IND'] as PartyCode[]).map((partyCode) => {
-                    const party = PARTIES[partyCode];
-                    const count = partyCounts[partyCode];
-                    const change = gainsLosses[partyCode];
-                    const isWinner =
-                      (partyCode === 'ALP' && count >= 45) ||
-                      ((partyCode === 'LIB' || partyCode === 'NAT') &&
-                        partyCounts.LIB + partyCounts.NAT >= 45);
+            {/* Collapsible Seats Table */}
+            {isSeatTallyExpanded && (
+              <div className="overflow-hidden rounded border border-white/10 mt-1 animate-fadeIn">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-white/5 text-[10px] font-sans font-semibold text-slate-400 uppercase border-b border-white/10">
+                      <th className="py-2.5 px-3">Party</th>
+                      <th className="py-2.5 px-3 text-center">Seat Share</th>
+                      <th className="py-2.5 px-3 text-center">Tally</th>
+                      <th className="py-2.5 px-3 text-right">Swing vs '22</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-white/5 text-xs text-slate-300">
+                    {(['ALP', 'LIB', 'NAT', 'GRN', 'ON', 'IND'] as PartyCode[]).map((partyCode) => {
+                      const party = PARTIES[partyCode];
+                      const count = partyCounts[partyCode];
+                      const change = gainsLosses[partyCode];
+                      const isWinner =
+                        (partyCode === 'ALP' && count >= 45) ||
+                        ((partyCode === 'LIB' || partyCode === 'NAT') &&
+                          partyCounts.LIB + partyCounts.NAT >= 45);
 
-                    return (
-                      <tr key={partyCode} className="hover:bg-white/5 transition-colors">
-                        <td className="py-2.5 px-3 font-medium text-white flex items-center gap-1.5">
-                          <span
-                            className="w-2.5 h-2.5 rounded-full inline-block shrink-0"
-                            style={{ backgroundColor: party.color }}
-                          />
-                          <span>{party.name}</span>
-                          {isWinner && (
-                            <CheckCircle2 size={12} className="text-green-400" />
-                          )}
-                        </td>
-                        <td className="py-2.5 px-3 text-center text-[11px] text-slate-400 font-mono">
-                          {((count / 88) * 100).toFixed(1)}%
-                        </td>
-                        <td className="py-2.5 px-3 text-center font-bold text-white font-mono text-sm">
-                          {count}
-                        </td>
-                        <td
-                          className={`py-2.5 px-3 text-right font-mono font-bold text-[11px] ${
-                            change > 0
-                              ? 'text-green-400'
-                              : change < 0
-                              ? 'text-red-400'
-                              : 'text-slate-500'
-                          }`}
-                        >
-                          {formattingGainLoss(change)}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
+                      return (
+                        <tr key={partyCode} className="hover:bg-white/5 transition-colors">
+                          <td className="py-2 px-3 font-medium text-white flex items-center gap-1.5">
+                            <span
+                              className="w-2.5 h-2.5 rounded-full inline-block shrink-0"
+                              style={{ backgroundColor: party.color }}
+                            />
+                            <span>{party.name}</span>
+                            {isWinner && (
+                              <CheckCircle2 size={12} className="text-green-400" />
+                            )}
+                          </td>
+                          <td className="py-2 px-3 text-center text-[11px] text-slate-400 font-mono">
+                            {((count / 88) * 100).toFixed(1)}%
+                          </td>
+                          <td className="py-2 px-3 text-center font-bold text-white font-mono text-sm">
+                            {count}
+                          </td>
+                          <td
+                            className={`py-2 px-3 text-right font-mono font-bold text-[11px] ${
+                              change > 0
+                                ? 'text-green-400'
+                                : change < 0
+                                ? 'text-red-400'
+                                : 'text-slate-500'
+                            }`}
+                          >
+                            {formattingGainLoss(change)}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         );
       })()}

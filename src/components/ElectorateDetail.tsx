@@ -6,13 +6,14 @@
 import React from 'react';
 import { Electorate, PARTIES, PartyCode, REGIONS } from '../data';
 import { motion } from 'motion/react';
-import { User, Users, Compass, ShieldAlert, Award, RotateCcw, GraduationCap, Home, DollarSign, Heart, Calendar } from 'lucide-react';
+import { User, Users, Compass, ShieldAlert, Award, RotateCcw, GraduationCap, Home, DollarSign, Heart, Calendar, X } from 'lucide-react';
 import { getABSDemographics } from '../utils/demographics';
 
 interface ElectorateDetailProps {
   electorate: (Electorate & { currentParty: PartyCode; margin: number }) | null;
   customOverrides: Record<string, PartyCode>;
   onOverrideSeat: (seatId: string, party: PartyCode | null) => void;
+  onClearSeatSelection?: () => void;
 }
 
 interface StatBarProps {
@@ -50,6 +51,7 @@ export const ElectorateDetail: React.FC<ElectorateDetailProps> = ({
   electorate,
   customOverrides,
   onOverrideSeat,
+  onClearSeatSelection,
 }) => {
   const [activeTab, setActiveTab] = React.useState<'election' | 'demographics'>('election');
 
@@ -98,8 +100,21 @@ export const ElectorateDetail: React.FC<ElectorateDetailProps> = ({
     <div className="flex flex-col h-full bg-card rounded-lg border-subtle p-6 shadow-sm">
       <div className="flex items-start justify-between gap-4 mb-4">
         <div>
-          <div className="text-[10px] uppercase font-bold tracking-wider text-slate-400 font-sans">
-            Electorate Profile
+          <div className="flex items-center gap-2 mb-0.5">
+            <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 font-sans">
+              Electorate Profile
+            </span>
+            {onClearSeatSelection && (
+              <button
+                onClick={onClearSeatSelection}
+                id="clear-seat-selection-btn"
+                title="Deselect this electorate"
+                className="bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 px-2 py-0.5 rounded text-[10px] font-bold border border-amber-500/30 flex items-center gap-1 cursor-pointer transition-colors"
+              >
+                <X size={10} />
+                <span>Clear Selection</span>
+              </button>
+            )}
           </div>
           <h3 className="font-sans font-bold text-white text-xl tracking-tight">
             {electorate.name}

@@ -13,9 +13,18 @@ import { ElectorateList } from './components/ElectorateList';
 import { Vote, RefreshCw, Layers, Vote as VoteIcon, Info, X, Copy, Check, Download, Upload, FileCode } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { encodeOverrides, decodeOverrides, getAlphabeticalElectorates, PARTY_TO_CHAR } from './utils/overridesString';
+import {
+  PartyGroup,
+  PreferenceModelDeltas,
+  INITIAL_PREFERENCE_DELTAS,
+  simulateElectorateWithPreferences,
+} from './utils/preferenceEngine';
 
 export default function App() {
-  // 1. STATE MANAGEMENT
+  // 0. SIMULATION MODE (TAB CONTROL) - Defaults to preference flow simulator
+  const [activeSimulatorTab, setActiveSimulatorTab] = useState<'swing_pad' | 'preference_flow'>('preference_flow');
+
+  // 1. STATE MANAGEMENT - SWING PAD
   const [coalitionSwing, setCoalitionSwing] = useState<number>(0);
   const [greensSwing, setGreensSwing] = useState<number>(0);
   const [oneNationSwing, setOneNationSwing] = useState<number>(0);
@@ -27,6 +36,11 @@ export default function App() {
   const [regionalCoalitionSwings, setRegionalCoalitionSwings] = useState<Record<string, number>>({});
   const [regionalGreensSwings, setRegionalGreensSwings] = useState<Record<string, number>>({});
   const [regionalOneNationSwings, setRegionalOneNationSwings] = useState<Record<string, number>>({});
+
+  // 1b. STATE MANAGEMENT - PREFERENCE FLOW SIMULATOR
+  const [globalPreferenceDeltas, setGlobalPreferenceDeltas] = useState<PreferenceModelDeltas>(INITIAL_PREFERENCE_DELTAS);
+  const [regionalPreferenceDeltas, setRegionalPreferenceDeltas] = useState<Record<string, PreferenceModelDeltas>>({});
+  const [seatPreferenceDeltas, setSeatPreferenceDeltas] = useState<Record<string, PreferenceModelDeltas>>({});
 
   // Selection & Hover syncing states
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -43,25 +57,52 @@ export default function App() {
   // 2. DYNAMIC COMPUTATION OF STATE
   const simulatedElectorates = useMemo(() => {
     return ELECTORATES_DATA.map((e) => {
-      // Apply region-specific swing if present, otherwise fall back to global swing
-      const cSwing = regionalCoalitionSwings[e.region] !== undefined ? regionalCoalitionSwings[e.region] : coalitionSwing;
-      const gSwing = regionalGreensSwings[e.region] !== undefined ? regionalGreensSwings[e.region] : greensSwing;
-      const oSwing = regionalOneNationSwings[e.region] !== undefined ? regionalOneNationSwings[e.region] : oneNationSwing;
+      if (activeSimulatorTab === 'preference_flow') {
+        const { party, margin } = simulateElectorateWithPreferences(
+          e,
+          globalPreferenceDeltas,
+          regionalPreferenceDeltas,
+          seatPreferenceDeltas,
+          customOverrides
+        );
+        return {
+          ...e,
+          currentParty: party,
+          margin,
+        };
+      } else {
+        // Apply region-specific swing if present, otherwise fall back to global swing
+        const cSwing = regionalCoalitionSwings[e.region] !== undefined ? regionalCoalitionSwings[e.region] : coalitionSwing;
+        const gSwing = regionalGreensSwings[e.region] !== undefined ? regionalGreensSwings[e.region] : greensSwing;
+        const oSwing = regionalOneNationSwings[e.region] !== undefined ? regionalOneNationSwings[e.region] : oneNationSwing;
 
-      const { party, margin } = calculateSimulatedWinner(
-        e,
-        cSwing,
-        gSwing,
-        oSwing,
-        customOverrides
-      );
-      return {
-        ...e,
-        currentParty: party,
-        margin,
-      };
+        const { party, margin } = calculateSimulatedWinner(
+          e,
+          cSwing,
+          gSwing,
+          oSwing,
+          customOverrides
+        );
+        return {
+          ...e,
+          currentParty: party,
+          margin,
+        };
+      }
     });
-  }, [coalitionSwing, greensSwing, oneNationSwing, customOverrides, regionalCoalitionSwings, regionalGreensSwings, regionalOneNationSwings]);
+  }, [
+    activeSimulatorTab,
+    coalitionSwing,
+    greensSwing,
+    oneNationSwing,
+    customOverrides,
+    regionalCoalitionSwings,
+    regionalGreensSwings,
+    regionalOneNationSwings,
+    globalPreferenceDeltas,
+    regionalPreferenceDeltas,
+    seatPreferenceDeltas,
+  ]);
 
   const selectedElectorate = useMemo(() => {
     if (!selectedId) return null;
@@ -69,6 +110,33 @@ export default function App() {
   }, [selectedId, simulatedElectorates]);
 
   // 3. HANDLERS
+
+  // Reset function
+  const handleResetAll = () => {
+    setCoalitionSwing(0);
+    setGreensSwing(0);
+    setOneNationSwing(0);
+    setCustomOverrides({});
+    setRegionalCoalitionSwings({});
+    setRegionalGreensSwings({});
+    setRegionalOneNationSwings({});
+    setSelectedRegionId(null);
+    setActivePresetId('actual_2022');
+    setSelectedId(null);
+    setPaintBrushParty(null);
+    setGlobalPreferenceDeltas(INITIAL_PREFERENCE_DELTAS);
+    setRegionalPreferenceDeltas({});
+    setSeatPreferenceDeltas({});
+  };
+
+  // User Directive 3: "changing the tab should reset the model"
+  const handleTabChange = (newTab: 'swing_pad' | 'preference_flow') => {
+    if (newTab !== activeSimulatorTab) {
+      handleResetAll();
+      setActiveSimulatorTab(newTab);
+    }
+  };
+
   const handleApplyPreset = (presetId: string) => {
     const preset = SCENARIO_PRESETS.find((p) => p.id === presetId);
     if (!preset) return;
@@ -93,34 +161,24 @@ export default function App() {
       }
       return copy;
     });
-    setActivePresetId('custom'); // Flag as custom scenario
+    setActivePresetId('custom');
   };
 
   const handleSeatClick = (id: string) => {
+    if (!id) {
+      setSelectedId(null);
+      return;
+    }
     if (paintBrushParty) {
       handleOverrideSeat(id, paintBrushParty);
     } else {
-      setSelectedId(id);
+      setSelectedId((prev) => (prev === id ? null : id));
     }
   };
 
   const handleClearOverrides = () => {
     setCustomOverrides({});
     setActivePresetId('custom');
-  };
-
-  const handleResetAll = () => {
-    setCoalitionSwing(0);
-    setGreensSwing(0);
-    setOneNationSwing(0);
-    setCustomOverrides({});
-    setRegionalCoalitionSwings({});
-    setRegionalGreensSwings({});
-    setRegionalOneNationSwings({});
-    setSelectedRegionId(null);
-    setActivePresetId('actual_2022');
-    setSelectedId(null);
-    setPaintBrushParty(null);
   };
 
   const handleSetCoalitionSwing = (val: number) => {
@@ -149,6 +207,118 @@ export default function App() {
     }
     setActivePresetId('custom');
   };
+
+  // Preference Simulator Handlers
+  const handleUpdatePrimaryDelta = (party: PartyGroup, deltaPct: number) => {
+    if (selectedId) {
+      // Seat level
+      setSeatPreferenceDeltas((prev) => {
+        const current = prev[selectedId] || INITIAL_PREFERENCE_DELTAS;
+        return {
+          ...prev,
+          [selectedId]: {
+            ...current,
+            primaryDeltas: {
+              ...current.primaryDeltas,
+              [party]: deltaPct,
+            },
+          },
+        };
+      });
+    } else if (selectedRegionId) {
+      // Region level
+      setRegionalPreferenceDeltas((prev) => {
+        const current = prev[selectedRegionId] || INITIAL_PREFERENCE_DELTAS;
+        return {
+          ...prev,
+          [selectedRegionId]: {
+            ...current,
+            primaryDeltas: {
+              ...current.primaryDeltas,
+              [party]: deltaPct,
+            },
+          },
+        };
+      });
+    } else {
+      // State level
+      setGlobalPreferenceDeltas((prev) => ({
+        ...prev,
+        primaryDeltas: {
+          ...prev.primaryDeltas,
+          [party]: deltaPct,
+        },
+      }));
+    }
+  };
+
+  const handleUpdateTransferFlow = (fromParty: PartyGroup, toParty: PartyGroup, newPct: number) => {
+    const keyMap: Record<PartyGroup, string> = {
+      ALP: 'toALP',
+      COALITION: 'toCoalition',
+      GRN: 'toGreens',
+      ON: 'toOneNation',
+      OTH: 'toOther',
+    };
+    const targetKey = keyMap[toParty];
+
+    const updater = (current: PreferenceModelDeltas): PreferenceModelDeltas => {
+      const existingOverrides = current.transferOverrides[fromParty] || {};
+      return {
+        ...current,
+        transferOverrides: {
+          ...current.transferOverrides,
+          [fromParty]: {
+            ...existingOverrides,
+            [targetKey]: newPct,
+          },
+        },
+      };
+    };
+
+    if (selectedId) {
+      setSeatPreferenceDeltas((prev) => ({
+        ...prev,
+        [selectedId]: updater(prev[selectedId] || INITIAL_PREFERENCE_DELTAS),
+      }));
+    } else if (selectedRegionId) {
+      setRegionalPreferenceDeltas((prev) => ({
+        ...prev,
+        [selectedRegionId]: updater(prev[selectedRegionId] || INITIAL_PREFERENCE_DELTAS),
+      }));
+    } else {
+      setGlobalPreferenceDeltas(updater);
+    }
+  };
+
+  const handleResetPreferenceDeltas = () => {
+    if (selectedId) {
+      setSeatPreferenceDeltas((prev) => {
+        const copy = { ...prev };
+        delete copy[selectedId];
+        return copy;
+      });
+    } else if (selectedRegionId) {
+      setRegionalPreferenceDeltas((prev) => {
+        const copy = { ...prev };
+        delete copy[selectedRegionId];
+        return copy;
+      });
+    } else {
+      setGlobalPreferenceDeltas(INITIAL_PREFERENCE_DELTAS);
+    }
+  };
+
+  // Active preference deltas for current scope
+  const currentActivePreferenceDeltas = useMemo(() => {
+    if (selectedId && seatPreferenceDeltas[selectedId]) {
+      return seatPreferenceDeltas[selectedId];
+    }
+    if (selectedRegionId && regionalPreferenceDeltas[selectedRegionId]) {
+      return regionalPreferenceDeltas[selectedRegionId];
+    }
+    return globalPreferenceDeltas;
+  }, [selectedId, selectedRegionId, seatPreferenceDeltas, regionalPreferenceDeltas, globalPreferenceDeltas]);
 
   const activeCoalitionSwing = selectedRegionId !== null ? (regionalCoalitionSwings[selectedRegionId] ?? coalitionSwing) : coalitionSwing;
   const activeGreensSwing = selectedRegionId !== null ? (regionalGreensSwings[selectedRegionId] ?? greensSwing) : greensSwing;
@@ -198,45 +368,54 @@ export default function App() {
     navigator.clipboard.writeText(presetSnippet).then(() => {
       setCopiedSnippetFeedback(true);
       setTimeout(() => setCopiedSnippetFeedback(false), 2000);
-      setFeedbackMessage({ type: 'success', text: 'Copied TypeScript preset code snippet! Paste into src/presets.ts to save as code preset.' });
-      setTimeout(() => setFeedbackMessage(null), 4000);
     });
   };
 
-  const handleApplyImportString = (strToApply?: string) => {
-    const targetString = strToApply !== undefined ? strToApply : importStringInput;
-    if (!targetString || targetString.trim().length === 0) {
-      setFeedbackMessage({ type: 'error', text: 'Please enter or paste a valid configuration string first.' });
-      setTimeout(() => setFeedbackMessage(null), 3500);
+  const handleApplyImportedString = (str: string) => {
+    const trimmed = str.trim();
+    if (!trimmed) {
+      setFeedbackMessage({ type: 'error', text: 'Please enter or paste an override string.' });
       return;
     }
-    const decoded = decodeOverrides(targetString);
-    const count = Object.keys(decoded).length;
-    setCustomOverrides(decoded);
-    setActivePresetId('custom');
-    setFeedbackMessage({ type: 'success', text: `Successfully restored configuration: ${count} seat overrides applied!` });
-    setTimeout(() => setFeedbackMessage(null), 4000);
+
+    try {
+      const decodedMap = decodeOverrides(trimmed);
+      setCustomOverrides(decodedMap);
+      setActivePresetId('custom');
+      setImportStringInput('');
+      const count = Object.keys(decodedMap).length;
+      setFeedbackMessage({
+        type: 'success',
+        text: `Successfully imported scenario with ${count} manual seat override${count !== 1 ? 's' : ''}!`,
+      });
+      setTimeout(() => setFeedbackMessage(null), 4000);
+    } catch (err: any) {
+      setFeedbackMessage({
+        type: 'error',
+        text: err?.message || 'Failed to parse override string format.',
+      });
+    }
   };
 
   const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
     const reader = new FileReader();
     reader.onload = (event) => {
-      const text = event.target?.result as string;
-      if (text) {
-        const cleanedText = text.trim();
-        setImportStringInput(cleanedText);
-        handleApplyImportString(cleanedText);
+      const content = event.target?.result as string;
+      if (content) {
+        handleApplyImportedString(content);
       }
     };
+    reader.onerror = () => {
+      setFeedbackMessage({ type: 'error', text: 'Failed to read uploaded file.' });
+    };
     reader.readAsText(file);
-    e.target.value = ''; // Reset input
+    e.target.value = '';
   };
 
-  const alphabeticalElectorates = useMemo(() => {
-    return getAlphabeticalElectorates();
-  }, []);
+  const alphabeticalElectorates = useMemo(() => getAlphabeticalElectorates(), []);
 
   return (
     <div className="min-h-screen bg-[#0A0C10] text-[#E0E0E0] font-sans selection:bg-white/10 selection:text-white flex flex-col p-4 md:p-6 lg:p-8">
@@ -313,48 +492,109 @@ export default function App() {
         </div>
 
         {/* ROW 2: CONTROLS, PROFILE & DIRECTORY */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-          
-          {/* Scenario & Swing Controls */}
-          <div className="md:col-span-1 flex flex-col h-full">
-            <ScenarioControls
-              coalitionSwing={activeCoalitionSwing}
-              setCoalitionSwing={handleSetCoalitionSwing}
-              greensSwing={activeGreensSwing}
-              setGreensSwing={handleSetGreensSwing}
-              oneNationSwing={activeOneNationSwing}
-              setOneNationSwing={handleSetOneNationSwing}
-              activePresetId={activePresetId}
-              onApplyPreset={handleApplyPreset}
-              customOverridesCount={customOverridesCount}
-              onClearOverrides={handleClearOverrides}
-              electorates={simulatedElectorates}
-              selectedRegionId={selectedRegionId}
-              onSelectRegion={setSelectedRegionId}
-            />
-          </div>
+        {activeSimulatorTab === 'preference_flow' ? (
+          /* Preference Flow View: expanded controls for Sankey diagram layout */
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            {/* Preference Flow Simulator Panel (Col span 7 or 8) */}
+            <div className="lg:col-span-7 xl:col-span-8 flex flex-col h-full">
+              <ScenarioControls
+                activeSimulatorTab={activeSimulatorTab}
+                onChangeSimulatorTab={handleTabChange}
+                coalitionSwing={activeCoalitionSwing}
+                setCoalitionSwing={handleSetCoalitionSwing}
+                greensSwing={activeGreensSwing}
+                setGreensSwing={handleSetGreensSwing}
+                oneNationSwing={activeOneNationSwing}
+                setOneNationSwing={handleSetOneNationSwing}
+                activePresetId={activePresetId}
+                onApplyPreset={handleApplyPreset}
+                customOverridesCount={customOverridesCount}
+                onClearOverrides={handleClearOverrides}
+                electorates={simulatedElectorates}
+                selectedRegionId={selectedRegionId}
+                onSelectRegion={setSelectedRegionId}
+                preferenceDeltas={currentActivePreferenceDeltas}
+                onUpdatePrimaryDelta={handleUpdatePrimaryDelta}
+                onUpdateTransferFlow={handleUpdateTransferFlow}
+                onResetPreferenceDeltas={handleResetPreferenceDeltas}
+                selectedSeatId={selectedId}
+                onClearSeatSelection={() => setSelectedId(null)}
+              />
+            </div>
 
-          {/* Selected Electorate Details Profile */}
-          <div className="md:col-span-1 flex flex-col h-full">
-            <ElectorateDetail
-              electorate={selectedElectorate}
-              customOverrides={customOverrides}
-              onOverrideSeat={handleOverrideSeat}
-            />
-          </div>
+            {/* Selected Electorate Details Profile (Col span 5 or 4) */}
+            <div className="lg:col-span-5 xl:col-span-4 flex flex-col h-full">
+              <ElectorateDetail
+                electorate={selectedElectorate}
+                customOverrides={customOverrides}
+                onOverrideSeat={handleOverrideSeat}
+                onClearSeatSelection={() => setSelectedId(null)}
+              />
+            </div>
 
-          {/* Search & Directory List */}
-          <div className="md:col-span-1 flex flex-col h-full">
-            <ElectorateList
-              electorates={simulatedElectorates}
-              selectedId={selectedId}
-              onSelect={handleSeatClick}
-              hoveredId={hoveredId}
-              onHover={setHoveredId}
-            />
+            {/* Electorates Directory full width below */}
+            <div className="col-span-full flex flex-col">
+              <ElectorateList
+                electorates={simulatedElectorates}
+                selectedId={selectedId}
+                onSelect={handleSeatClick}
+                hoveredId={hoveredId}
+                onHover={setHoveredId}
+              />
+            </div>
           </div>
+        ) : (
+          /* Standard 3-Column View for Swing Pad */
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+            {/* Scenario & Swing Controls */}
+            <div className="md:col-span-1 flex flex-col h-full">
+              <ScenarioControls
+                activeSimulatorTab={activeSimulatorTab}
+                onChangeSimulatorTab={handleTabChange}
+                coalitionSwing={activeCoalitionSwing}
+                setCoalitionSwing={handleSetCoalitionSwing}
+                greensSwing={activeGreensSwing}
+                setGreensSwing={handleSetGreensSwing}
+                oneNationSwing={activeOneNationSwing}
+                setOneNationSwing={handleSetOneNationSwing}
+                activePresetId={activePresetId}
+                onApplyPreset={handleApplyPreset}
+                customOverridesCount={customOverridesCount}
+                onClearOverrides={handleClearOverrides}
+                electorates={simulatedElectorates}
+                selectedRegionId={selectedRegionId}
+                onSelectRegion={setSelectedRegionId}
+                preferenceDeltas={currentActivePreferenceDeltas}
+                onUpdatePrimaryDelta={handleUpdatePrimaryDelta}
+                onUpdateTransferFlow={handleUpdateTransferFlow}
+                onResetPreferenceDeltas={handleResetPreferenceDeltas}
+                selectedSeatId={selectedId}
+                onClearSeatSelection={() => setSelectedId(null)}
+              />
+            </div>
 
-        </div>
+            {/* Selected Electorate Details Profile */}
+            <div className="md:col-span-1 flex flex-col h-full">
+              <ElectorateDetail
+                electorate={selectedElectorate}
+                customOverrides={customOverrides}
+                onOverrideSeat={handleOverrideSeat}
+                onClearSeatSelection={() => setSelectedId(null)}
+              />
+            </div>
+
+            {/* Search & Directory List */}
+            <div className="md:col-span-1 flex flex-col h-full">
+              <ElectorateList
+                electorates={simulatedElectorates}
+                selectedId={selectedId}
+                onSelect={handleSeatClick}
+                hoveredId={hoveredId}
+                onHover={setHoveredId}
+              />
+            </div>
+          </div>
+        )}
 
         {/* CUSTOM SEAT OVERRIDES STRING MANAGER (IMPORT/EXPORT) */}
         <div id="overrides-string-manager" className="bg-[#161B22] border border-white/10 rounded-lg p-6 shadow-xl flex flex-col gap-5 mt-6">
@@ -368,15 +608,15 @@ export default function App() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-            {/* COLUMN 1: EXPORT */}
-            <div className="flex flex-col gap-4">
-              <div className="flex flex-col gap-1.5">
-                <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold block">
-                  Export Configuration String
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* EXPORT PANEL */}
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">
+                  Active Scenario Override String
                 </span>
-                <span className="text-[10px] text-slate-500 leading-normal">
-                  Copy this string or download it as a text file. Positions representing overridden seats show party initials (A/L/N/G/O/I); non-overridden seats show as a dot (.).
+                <span className="text-[10px] font-mono text-amber-400/80">
+                  {customOverridesCount} seat{customOverridesCount !== 1 ? 's' : ''} overridden
                 </span>
               </div>
 
@@ -448,67 +688,47 @@ export default function App() {
                     <span className="font-mono font-bold text-slate-500 bg-white/5 w-4 h-4 rounded flex items-center justify-center">.</span>
                     <span className="text-slate-400">No Override</span>
                   </div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="font-mono font-bold text-red-500 bg-red-500/10 w-4 h-4 rounded flex items-center justify-center">A</span>
-                    <span className="text-slate-400">Labor</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="font-mono font-bold text-blue-500 bg-blue-500/10 w-4 h-4 rounded flex items-center justify-center">L</span>
-                    <span className="text-slate-400">Liberal</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="font-mono font-bold text-emerald-500 bg-emerald-500/10 w-4 h-4 rounded flex items-center justify-center">N</span>
-                    <span className="text-slate-400">National</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="font-mono font-bold text-green-500 bg-green-500/10 w-4 h-4 rounded flex items-center justify-center">G</span>
-                    <span className="text-slate-400">Greens</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="font-mono font-bold text-orange-500 bg-orange-500/10 w-4 h-4 rounded flex items-center justify-center">O</span>
-                    <span className="text-slate-400">One Nation</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="font-mono font-bold text-neutral-400 bg-neutral-400/10 w-4 h-4 rounded flex items-center justify-center">I</span>
-                    <span className="text-slate-400">Independent</span>
-                  </div>
+                  {Object.entries(PARTY_TO_CHAR).map(([party, char]) => (
+                    <div key={party} className="flex items-center gap-1.5">
+                      <span
+                        className="font-mono font-bold text-white w-4 h-4 rounded flex items-center justify-center text-[10px]"
+                        style={{ backgroundColor: PARTIES[party as PartyCode]?.color || '#555' }}
+                      >
+                        {char}
+                      </span>
+                      <span className="text-slate-300">{PARTIES[party as PartyCode]?.name || party}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
 
-            {/* COLUMN 2: IMPORT */}
-            <div className="flex flex-col gap-4">
-              <div className="flex flex-col gap-1.5">
-                <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold block">
-                  Import / Restore Configuration
-                </span>
-                <span className="text-[10px] text-slate-500 leading-normal">
-                  Paste an 88-character overrides string directly below or choose an exported <code>.txt</code> file to restore those exact seat overrides.
-                </span>
-              </div>
+            {/* IMPORT PANEL */}
+            <div className="flex flex-col gap-3">
+              <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">
+                Restore From String or File
+              </span>
 
-              <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-2">
                 <input
                   type="text"
-                  placeholder="Paste configuration string here (e.g. ............A.........G....)"
+                  placeholder="Paste 88-character scenario string (e.g. ................L..N...)"
                   value={importStringInput}
                   onChange={(e) => setImportStringInput(e.target.value)}
-                  aria-label="Paste overrides string input"
-                  className="w-full bg-[#0A0C10] border border-white/10 rounded px-3 py-2.5 text-xs font-mono text-slate-300 placeholder:text-slate-600 focus:outline-none focus:border-white/20"
+                  className="w-full bg-[#0A0C10] border border-white/10 rounded px-3 py-2.5 text-xs font-mono text-white placeholder:text-slate-600 focus:outline-none focus:border-amber-500/50"
                 />
               </div>
 
               <div className="flex flex-wrap gap-2.5">
                 <button
-                  id="btn-apply-import"
-                  onClick={() => handleApplyImportString()}
-                  className="flex-1 min-w-[140px] flex items-center justify-center gap-1.5 text-xs font-bold bg-white/10 hover:bg-white/15 border border-white/10 hover:border-white/20 text-white px-4 py-2.5 rounded transition-all duration-150 cursor-pointer"
+                  id="btn-apply-imported-string"
+                  onClick={() => handleApplyImportedString(importStringInput)}
+                  className="flex-1 min-w-[140px] flex items-center justify-center gap-1.5 text-xs font-semibold bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/30 text-amber-300 px-4 py-2.5 rounded transition-all duration-150 cursor-pointer"
                 >
-                  <Check size={14} />
-                  <span>Apply Overrides</span>
+                  <span>Apply String</span>
                 </button>
 
-                <div className="flex-1 min-w-[140px]">
+                <div className="flex-1 min-w-[140px] relative">
                   <input
                     type="file"
                     id="file-override-upload"
@@ -598,13 +818,12 @@ export default function App() {
       </main>
 
       {/* FOOTER */}
-      <footer className="max-w-7xl mx-auto w-full mt-10 border-t border-white/10 pt-6 pb-2 text-center flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-xs text-slate-500 font-sans">
-        <div className="flex items-center gap-1.5 justify-center sm:justify-start">
-          <Info size={12} className="text-slate-500" />
-          <span>Calculations based on 2PP state margins and standard uniform swing formulas.</span>
-        </div>
-        <div>
-          Victorian State Elections scenario planning model • Data synced from VEC 2022 actuals.
+      <footer className="max-w-7xl mx-auto w-full mt-10 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-sans">
+        <p>© 2026 Victorian Election Simulator. Data modeled on 2022 VEC redistributions, results & preferences.</p>
+        <div className="flex items-center gap-4">
+          <span className="hover:text-slate-400 transition-colors">Victorian Electoral Commission (VEC)</span>
+          <span>•</span>
+          <span className="hover:text-slate-400 transition-colors">Parliament of Victoria</span>
         </div>
       </footer>
 

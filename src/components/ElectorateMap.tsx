@@ -39,8 +39,8 @@ export const ElectorateMap: React.FC<ElectorateMapProps> = ({
     return groups;
   }, [electorates]);
 
-  // Abstract SVG path for Victorian state outline
-  const victoriaOutlinePath = "M 35 150 L 35 70 L 120 65 L 180 80 L 230 65 L 280 80 L 320 60 L 360 85 L 420 75 L 480 110 L 530 145 L 610 185 L 670 210 L 750 250 L 740 265 L 710 280 L 670 315 L 630 350 L 590 380 L 555 405 L 535 440 L 520 450 L 505 440 L 485 415 L 450 415 L 435 425 L 415 410 L 380 415 L 350 415 L 340 395 L 325 390 L 315 410 L 290 415 L 265 428 L 240 435 L 220 415 L 200 400 L 170 390 L 140 385 L 110 365 L 75 350 L 55 350 L 35 320 Z";
+  // Simplified SVG path for Victorian state outline converted from Wikipedia Commons SVG-Koort_Viktoria.svg
+  const victoriaOutlinePath = "M 21.1 12.2 L 15 13.3 L 23.3 388.1 L 47.3 401.8 L 53.7 416 L 69.6 419.6 L 84.6 404.3 L 103.9 406.7 L 117.1 416.9 L 135.7 413 L 172 437.3 L 234.9 463.9 L 257.2 448.3 L 273.6 427.8 L 305.9 410.6 L 327 407.1 L 328.6 393.2 L 305.2 397.2 L 302.4 391.7 L 349.3 369.9 L 362.5 384.9 L 361.9 396.4 L 347.8 414.8 L 327.3 414.6 L 343.7 428.8 L 356.2 428.6 L 360.3 421.5 L 371.6 420.3 L 374.2 405.7 L 388.9 403.5 L 396 416.7 L 388.2 419.7 L 383.9 431.7 L 403.1 445.8 L 416.1 441.4 L 430.2 449.1 L 414.2 445.8 L 426.9 467.7 L 438.6 460.8 L 444.9 463.3 L 444.7 457.6 L 459.8 486.1 L 468.2 489.6 L 472.1 456.2 L 469.5 453.3 L 461.3 465.7 L 448.5 451.5 L 462 445.2 L 478 448.9 L 502.6 438.9 L 504.8 442.2 L 577 381.4 L 613.1 367.4 L 663.2 358.1 L 724 360.6 L 742.6 349.4 L 746.5 339.9 L 741.3 334.4 L 750.6 335 L 750.4 341.5 L 764.9 337.2 L 619.5 264.8 L 618.3 241.3 L 605.6 221.6 L 604.4 196.6 L 591.8 188.8 L 535.7 189.6 L 529 200.9 L 482.9 186.3 L 468.4 194.5 L 436.5 192.2 L 434.9 187.8 L 424.1 191.7 L 396.3 174.3 L 386.5 180.2 L 353 181.1 L 354 202.2 L 333.6 202.9 L 309.4 187.4 L 303.5 172.6 L 282.1 162.6 L 276 152.2 L 246.2 137.3 L 241.7 140.6 L 232.9 123.1 L 219.9 117.6 L 215.3 109.2 L 215.4 79.6 L 195.2 72.1 L 176.3 73.6 L 168.2 58 L 159.9 63.6 L 157.9 78.4 L 146.3 80 L 139.4 59.7 L 130.7 58.4 L 132.6 37.9 L 120.3 34.1 L 116.1 21.7 L 76.3 16 L 58 27.1 L 56.7 22.4 L 21.1 12.2 Z M 376.9 408.1 L 375.9 417.2 L 374.2 420.8 L 382.2 421.6 L 385.3 419.2 L 386.7 415.4 L 393.6 413.6 L 388.3 410 L 386.3 411.1 L 376.9 408.1 Z M 371.3 424 L 368.2 424.2 L 360.3 430.1 L 366.4 430.8 L 370.1 432.9 L 370.2 431.3 L 375.2 431.3 L 379.7 434.4 L 379.5 436.3 L 382.6 437 L 380.7 434.4 L 380.5 432.4 L 381.7 431.5 L 375.8 429.3 L 376.5 425.4 L 371.3 424 Z";
 
   return (
     <div className="flex flex-col h-full bg-card rounded-lg border-subtle p-6 shadow-sm overflow-hidden select-none">
@@ -62,6 +62,25 @@ export const ElectorateMap: React.FC<ElectorateMapProps> = ({
                   className="bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 px-2 py-0.5 rounded text-[10px] font-bold border border-amber-500/30 cursor-pointer"
                 >
                   Clear Region Filter
+                </button>
+                {selectedId && (
+                  <button
+                    onClick={() => onSelect('')}
+                    className="bg-white/10 hover:bg-white/20 text-slate-200 px-2 py-0.5 rounded text-[10px] font-semibold border border-white/20 cursor-pointer"
+                  >
+                    Clear Seat Selection
+                  </button>
+                )}
+              </span>
+            ) : selectedId ? (
+              <span className="text-slate-300 font-medium flex items-center gap-2 flex-wrap">
+                <span className="w-1.5 h-1.5 bg-blue-400 rounded-full" />
+                Selected Seat: <span className="text-white underline font-semibold">{electorates.find(e => e.id === selectedId)?.name || selectedId}</span>.
+                <button
+                  onClick={() => onSelect('')}
+                  className="bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 px-2 py-0.5 rounded text-[10px] font-bold border border-amber-500/30 cursor-pointer"
+                >
+                  Clear Seat Selection
                 </button>
               </span>
             ) : (
@@ -261,15 +280,6 @@ export const ElectorateMap: React.FC<ElectorateMapProps> = ({
             opacity="0.5"
           />
         </svg>
-
-        {/* Legend overlays for geographic alignment */}
-        <div className="absolute bottom-3 left-4 text-[10px] font-sans text-slate-400 bg-[#161B22]/90 backdrop-blur-sm px-2.5 py-1.5 rounded-md border border-white/10 flex flex-col gap-0.5">
-          <span className="font-semibold text-white">Cartogram Geography</span>
-          <span>• Center: Greater Melbourne</span>
-          <span>• West: Ballarat, Geelong, Otways</span>
-          <span>• North: Bendigo, Macedon, Mildura</span>
-          <span>• East: Gippsland, Mornington, Evelyn</span>
-        </div>
       </div>
     </div>
   );
