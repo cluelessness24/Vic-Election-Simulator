@@ -73,8 +73,8 @@ export const ScenarioControls: React.FC<ScenarioControlsProps> = ({
 
   // Calculate coordinates (x, y) of current point in triangle
   const currentCoords = useMemo(() => {
-    const wT = oneNationSwing / 15;
-    const C = coalitionSwing / 10;
+    const wT = Math.max(0, Math.min(1, oneNationSwing / 20));
+    const C = coalitionSwing / 20;
     let wR = (1 - wT + C) / 2;
     let wL = (1 - wT - C) / 2;
     
@@ -117,8 +117,8 @@ export const ScenarioControls: React.FC<ScenarioControlsProps> = ({
       }
     }
 
-    const calculatedCoalitionSwing = (wR - wL) * 10;
-    const calculatedOneNationSwing = wT * 15;
+    const calculatedCoalitionSwing = (wR - wL) * 20;
+    const calculatedOneNationSwing = wT * 20;
 
     setCoalitionSwing(Number(calculatedCoalitionSwing.toFixed(1)));
     setOneNationSwing(Number(calculatedOneNationSwing.toFixed(1)));
@@ -302,17 +302,17 @@ export const ScenarioControls: React.FC<ScenarioControlsProps> = ({
                 {/* Corner Hotspots */}
                 <circle cx="25" cy="135" r="4" fill="#E61E2B" className="animate-pulse" />
                 <text x="12" y="151" fill="#E61E2B" fontSize="8" fontWeight="bold" textAnchor="start" className="font-sans">
-                  Labor
+                  Labor (+20%)
                 </text>
 
                 <circle cx="215" cy="135" r="4" fill="#0047AB" className="animate-pulse" />
                 <text x="228" y="151" fill="#60A5FA" fontSize="8" fontWeight="bold" textAnchor="end" className="font-sans">
-                  Coalition
+                  Coalition (+20%)
                 </text>
 
                 <circle cx="120" cy="20" r="4" fill="#FF6600" className="animate-pulse" />
                 <text x="120" y="12" fill="#FF6600" fontSize="8" fontWeight="bold" textAnchor="middle" className="font-sans">
-                  One Nation
+                  One Nation (+20%)
                 </text>
 
                 {/* Interactive Draggable Handle cursor */}

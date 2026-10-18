@@ -31,38 +31,38 @@ export interface ElectoratePreferenceData {
 export const STATE_DEFAULT_TRANSFERS: Record<PartyGroup, PartyTransferFlow> = {
   "ALP": {
     "toALP": 0,
-    "toCoalition": 29.5,
-    "toGreens": 20.7,
+    "toCoalition": 29.3,
+    "toGreens": 20.9,
     "toOneNation": 0,
-    "toOther": 49.8
+    "toOther": 49.9
   },
   "COALITION": {
-    "toALP": 39.1,
-    "toCoalition": 0,
-    "toGreens": 25,
+    "toALP": 36.1,
+    "toCoalition": 5.7,
+    "toGreens": 24.3,
     "toOneNation": 0,
-    "toOther": 35.9
+    "toOther": 33.8
   },
   "GRN": {
-    "toALP": 67.2,
-    "toCoalition": 18.6,
+    "toALP": 70.4,
+    "toCoalition": 18.2,
     "toGreens": 0,
     "toOneNation": 0.1,
-    "toOther": 14.1
+    "toOther": 11.3
   },
   "ON": {
-    "toALP": 19.3,
-    "toCoalition": 72.5,
-    "toGreens": 8.2,
+    "toALP": 19.1,
+    "toCoalition": 74.1,
+    "toGreens": 6.8,
     "toOneNation": 0,
     "toOther": 0
   },
   "OTH": {
-    "toALP": 26.9,
-    "toCoalition": 40.4,
-    "toGreens": 31.3,
-    "toOneNation": 1.4,
-    "toOther": 0
+    "toALP": 19.3,
+    "toCoalition": 27.4,
+    "toGreens": 20.9,
+    "toOneNation": 1,
+    "toOther": 31.5
   }
 };
 
@@ -72,5631 +72,6271 @@ export const PREFERENCE_DATA: Record<string, ElectoratePreferenceData> = {
     "name": "Melbourne",
     "region": "northern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 127557,
+    "totalFormalVotes": 42519,
     "primaryVotes": {
-      "ALP": 16926,
-      "COALITION": 7522,
-      "GRN": 25593,
-      "ON": 0,
-      "OTH": 48628
+        "ALP": 13033,
+        "COALITION": 7522,
+        "GRN": 15855,
+        "ON": 0,
+        "OTH": 6109
     },
     "primaryPercentages": {
-      "ALP": 13.3,
-      "COALITION": 5.9,
-      "GRN": 20.1,
-      "ON": 0,
-      "OTH": 38.1
+        "ALP": 30.7,
+        "COALITION": 17.7,
+        "GRN": 37.3,
+        "ON": 0,
+        "OTH": 14.4
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 31.8,
-        "toCoalition": 0,
-        "toGreens": 68.2,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 19.1,
-        "toCoalition": 17.2,
-        "toGreens": 63.6,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 31.8,
+            "toCoalition": 0,
+            "toGreens": 68.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 15.1,
+            "toCoalition": 13.6,
+            "toGreens": 50.3,
+            "toOneNation": 0,
+            "toOther": 21
+        }
     },
     "twoPartyPreferred": {
-      "alp": 63371,
-      "coalition": 35298,
-      "alpPercent": 64.2,
-      "coalitionPercent": 35.8
+        "alp": 16926,
+        "coalition": 25593,
+        "alpPercent": 39.81,
+        "coalitionPercent": 60.2
     }
-  },
+},
   "brunswick": {
     "electorateId": "brunswick",
     "name": "Brunswick",
     "region": "northern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 130335,
+    "totalFormalVotes": 43445,
     "primaryVotes": {
-      "ALP": 13854,
-      "COALITION": 5632,
-      "GRN": 23959,
-      "ON": 0,
-      "OTH": 50816
+        "ALP": 12392,
+        "COALITION": 4723,
+        "GRN": 18959,
+        "ON": 0,
+        "OTH": 7371
     },
     "primaryPercentages": {
-      "ALP": 10.6,
-      "COALITION": 4.3,
-      "GRN": 18.4,
-      "ON": 0,
-      "OTH": 39
+        "ALP": 28.5,
+        "COALITION": 10.9,
+        "GRN": 43.6,
+        "ON": 0,
+        "OTH": 17
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 19.8,
-        "toCoalition": 12.3,
-        "toGreens": 67.8,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 16.4,
+            "toCoalition": 10.2,
+            "toGreens": 56,
+            "toOneNation": 0,
+            "toOther": 17.4
+        }
     },
     "twoPartyPreferred": {
-      "alp": 64725,
-      "coalition": 29536,
-      "alpPercent": 68.7,
-      "coalitionPercent": 31.3
+        "alp": 13854,
+        "coalition": 5632,
+        "alpPercent": 31.89,
+        "coalitionPercent": 12.96
     }
-  },
+},
   "richmond": {
     "electorateId": "richmond",
     "name": "Richmond",
     "region": "northern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 119193,
+    "totalFormalVotes": 39731,
     "primaryVotes": {
-      "ALP": 16959,
-      "COALITION": 7456,
-      "GRN": 22772,
-      "ON": 0,
-      "OTH": 45198
+        "ALP": 13037,
+        "COALITION": 7456,
+        "GRN": 13771,
+        "ON": 0,
+        "OTH": 5467
     },
     "primaryPercentages": {
-      "ALP": 14.2,
-      "COALITION": 6.3,
-      "GRN": 19.1,
-      "ON": 0,
-      "OTH": 37.9
+        "ALP": 32.8,
+        "COALITION": 18.8,
+        "GRN": 34.7,
+        "ON": 0,
+        "OTH": 13.8
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 31.9,
-        "toCoalition": 0,
-        "toGreens": 68.1,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 22.9,
-        "toCoalition": 16.7,
-        "toGreens": 60.3,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 0,
+            "toCoalition": 0,
+            "toGreens": 68.1,
+            "toOneNation": 0,
+            "toOther": 31.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 0,
+            "toCoalition": 13.3,
+            "toGreens": 47.9,
+            "toOneNation": 0,
+            "toOther": 38.8
+        }
     },
     "twoPartyPreferred": {
-      "alp": 61655,
-      "coalition": 30730,
-      "alpPercent": 66.7,
-      "coalitionPercent": 33.3
+        "alp": 16959,
+        "coalition": 22772,
+        "alpPercent": 42.68,
+        "coalitionPercent": 57.3
     }
-  },
+},
   "northcote": {
     "electorateId": "northcote",
     "name": "Northcote",
     "region": "northern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 127926,
+    "totalFormalVotes": 42642,
     "primaryVotes": {
-      "ALP": 21413,
-      "COALITION": 5735,
-      "GRN": 21229,
-      "ON": 0,
-      "OTH": 49449
+        "ALP": 17303,
+        "COALITION": 5205,
+        "GRN": 12797,
+        "ON": 0,
+        "OTH": 7337
     },
     "primaryPercentages": {
-      "ALP": 16.7,
-      "COALITION": 4.5,
-      "GRN": 16.6,
-      "ON": 0,
-      "OTH": 38.7
+        "ALP": 40.6,
+        "COALITION": 12.2,
+        "GRN": 30,
+        "ON": 0,
+        "OTH": 17.2
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 38.1,
-        "toCoalition": 0,
-        "toGreens": 58.5,
-        "toOneNation": 0,
-        "toOther": 3.4
-      },
-      "GRN": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 20.2,
-        "toCoalition": 18.7,
-        "toGreens": 61.1,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 60.9,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 15.5,
+            "toCoalition": 16,
+            "toGreens": 45.7,
+            "toOneNation": 0,
+            "toOther": 22.7
+        }
     },
     "twoPartyPreferred": {
-      "alp": 64393,
-      "coalition": 33433,
-      "alpPercent": 65.8,
-      "coalitionPercent": 34.2
+        "alp": 21413,
+        "coalition": 21229,
+        "alpPercent": 50.22,
+        "coalitionPercent": 49.8
     }
-  },
+},
   "preston": {
     "electorateId": "preston",
     "name": "Preston",
     "region": "northern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 119571,
+    "totalFormalVotes": 39857,
     "primaryVotes": {
-      "ALP": 20761,
-      "COALITION": 6883,
-      "GRN": 19096,
-      "ON": 0,
-      "OTH": 51805
+        "ALP": 14999,
+        "COALITION": 6883,
+        "GRN": 6027,
+        "ON": 0,
+        "OTH": 11948
     },
     "primaryPercentages": {
-      "ALP": 17.4,
-      "COALITION": 5.8,
-      "GRN": 16,
-      "ON": 0,
-      "OTH": 43.3
+        "ALP": 37.6,
+        "COALITION": 17.3,
+        "GRN": 15.1,
+        "ON": 0,
+        "OTH": 30
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 32.7,
-        "toCoalition": 0,
-        "toGreens": 67.3,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 22,
-        "toCoalition": 22.7,
-        "toGreens": 55.4,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 32.7,
+            "toCoalition": 0,
+            "toGreens": 67.3,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 16.8,
+            "toCoalition": 17.4,
+            "toGreens": 42.5,
+            "toOneNation": 0,
+            "toOther": 23.3
+        }
     },
     "twoPartyPreferred": {
-      "alp": 61821,
-      "coalition": 36724,
-      "alpPercent": 62.7,
-      "coalitionPercent": 37.3
+        "alp": 20761,
+        "coalition": 19096,
+        "alpPercent": 52.09,
+        "coalitionPercent": 47.9
     }
-  },
+},
   "pascoe_vale": {
     "electorateId": "pascoe_vale",
     "name": "Pascoe Vale",
     "region": "northern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 120819,
+    "totalFormalVotes": 40273,
     "primaryVotes": {
-      "ALP": 20950,
-      "COALITION": 8461,
-      "GRN": 19323,
-      "ON": 0,
-      "OTH": 47440
+        "ALP": 15611,
+        "COALITION": 8461,
+        "GRN": 9034,
+        "ON": 0,
+        "OTH": 7167
     },
     "primaryPercentages": {
-      "ALP": 17.3,
-      "COALITION": 7,
-      "GRN": 16,
-      "ON": 0,
-      "OTH": 39.3
+        "ALP": 38.8,
+        "COALITION": 21,
+        "GRN": 22.4,
+        "ON": 0,
+        "OTH": 17.8
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 38,
-        "toCoalition": 0,
-        "toGreens": 62,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 20.7,
-        "toCoalition": 23.7,
-        "toGreens": 55.7,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 38,
+            "toCoalition": 0,
+            "toGreens": 62,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 15.2,
+            "toCoalition": 17.3,
+            "toGreens": 40.8,
+            "toOneNation": 0,
+            "toOther": 26.7
+        }
     },
     "twoPartyPreferred": {
-      "alp": 58816,
-      "coalition": 37358,
-      "alpPercent": 61.2,
-      "coalitionPercent": 38.8
+        "alp": 20950,
+        "coalition": 19323,
+        "alpPercent": 52.02,
+        "coalitionPercent": 48
     }
-  },
+},
   "broadmeadows": {
     "electorateId": "broadmeadows",
     "name": "Broadmeadows",
     "region": "northern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 69560,
+    "totalFormalVotes": 34780,
     "primaryVotes": {
-      "ALP": 18063,
-      "COALITION": 10416,
-      "GRN": 6301,
-      "ON": 0,
-      "OTH": 7929
+        "ALP": 15899,
+        "COALITION": 8044,
+        "GRN": 2908,
+        "ON": 0,
+        "OTH": 7929
     },
     "primaryPercentages": {
-      "ALP": 26,
-      "COALITION": 15,
-      "GRN": 9.1,
-      "ON": 0,
-      "OTH": 11.4
+        "ALP": 45.7,
+        "COALITION": 23.1,
+        "GRN": 8.4,
+        "ON": 0,
+        "OTH": 22.8
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 27.3,
-        "toCoalition": 29.9,
-        "toGreens": 42.8,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 20.3,
+            "toCoalition": 22.2,
+            "toGreens": 31.8,
+            "toOneNation": 0,
+            "toOther": 25.7
+        }
     },
     "twoPartyPreferred": {
-      "alp": 26983,
-      "coalition": 15726,
-      "alpPercent": 63.2,
-      "coalitionPercent": 36.8
+        "alp": 18063,
+        "coalition": 10416,
+        "alpPercent": 51.94,
+        "coalitionPercent": 29.95
     }
-  },
+},
   "thomastown": {
     "electorateId": "thomastown",
     "name": "Thomastown",
     "region": "northern_metro",
     "hasOfficialDistribution": false,
-    "totalFormalVotes": 74839,
+    "totalFormalVotes": 37476,
     "primaryVotes": {
-      "ALP": 24658,
-      "COALITION": 12705,
-      "GRN": 2557,
-      "ON": 0,
-      "OTH": 6520
+        "ALP": 19396,
+        "COALITION": 9003,
+        "GRN": 2557,
+        "ON": 0,
+        "OTH": 6520
     },
     "primaryPercentages": {
-      "ALP": 32.9,
-      "COALITION": 17,
-      "GRN": 3.4,
-      "ON": 0,
-      "OTH": 8.7
+        "ALP": 51.8,
+        "COALITION": 24,
+        "GRN": 6.8,
+        "ON": 0,
+        "OTH": 17.4
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 29.5,
-        "toGreens": 20.7,
-        "toOneNation": 0,
-        "toOther": 49.8
-      },
-      "COALITION": {
-        "toALP": 34.5,
-        "toCoalition": 0,
-        "toGreens": 64.8,
-        "toOneNation": 0,
-        "toOther": 0.7
-      },
-      "GRN": {
-        "toALP": 45.3,
-        "toCoalition": 10.4,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 44.3
-      },
-      "ON": {
-        "toALP": 19.3,
-        "toCoalition": 72.5,
-        "toGreens": 8.2,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 23.7,
-        "toCoalition": 27.9,
-        "toGreens": 48.3,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 26.9,
+            "toCoalition": 40.4,
+            "toGreens": 31.3,
+            "toOneNation": 1.4,
+            "toOther": 0
+        }
     },
     "twoPartyPreferred": {
-      "alp": 30132,
-      "coalition": 16308,
-      "alpPercent": 64.9,
-      "coalitionPercent": 35.1
+        "alp": 24658,
+        "coalition": 12705,
+        "alpPercent": 66,
+        "coalitionPercent": 34
     }
-  },
+},
   "bundoora": {
     "electorateId": "bundoora",
     "name": "Bundoora",
     "region": "northern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 80672,
+    "totalFormalVotes": 40336,
     "primaryVotes": {
-      "ALP": 20316,
-      "COALITION": 13296,
-      "GRN": 6724,
-      "ON": 0,
-      "OTH": 4570
+        "ALP": 19288,
+        "COALITION": 11167,
+        "GRN": 5311,
+        "ON": 0,
+        "OTH": 4570
     },
     "primaryPercentages": {
-      "ALP": 25.2,
-      "COALITION": 16.5,
-      "GRN": 8.3,
-      "ON": 0,
-      "OTH": 5.7
+        "ALP": 47.8,
+        "COALITION": 27.7,
+        "GRN": 13.2,
+        "ON": 0,
+        "OTH": 11.3
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 22.5,
-        "toCoalition": 46.6,
-        "toGreens": 30.9,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 16.5,
+            "toCoalition": 34.2,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 49.3
+        }
     },
     "twoPartyPreferred": {
-      "alp": 27284,
-      "coalition": 17622,
-      "alpPercent": 60.8,
-      "coalitionPercent": 39.2
+        "alp": 20316,
+        "coalition": 13296,
+        "alpPercent": 50.37,
+        "coalitionPercent": 32.96
     }
-  },
+},
   "mill_park": {
     "electorateId": "mill_park",
     "name": "Mill Park",
     "region": "northern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 75596,
+    "totalFormalVotes": 37798,
     "primaryVotes": {
-      "ALP": 19106,
-      "COALITION": 10288,
-      "GRN": 3162,
-      "ON": 0,
-      "OTH": 7075
+        "ALP": 18857,
+        "COALITION": 9797,
+        "GRN": 2761,
+        "ON": 0,
+        "OTH": 6383
     },
     "primaryPercentages": {
-      "ALP": 25.3,
-      "COALITION": 13.6,
-      "GRN": 4.2,
-      "ON": 0,
-      "OTH": 9.4
+        "ALP": 49.9,
+        "COALITION": 25.9,
+        "GRN": 7.3,
+        "ON": 0,
+        "OTH": 16.9
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 21.8,
-        "toCoalition": 43,
-        "toGreens": 35.1,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 0,
+            "toCoalition": 26.8,
+            "toGreens": 21.9,
+            "toOneNation": 0,
+            "toOther": 51.3
+        }
     },
     "twoPartyPreferred": {
-      "alp": 24063,
-      "coalition": 15568,
-      "alpPercent": 60.7,
-      "coalitionPercent": 39.3
+        "alp": 19106,
+        "coalition": 10288,
+        "alpPercent": 50.55,
+        "coalitionPercent": 27.22
     }
-  },
+},
   "greenvale": {
     "electorateId": "greenvale",
     "name": "Greenvale",
     "region": "northern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 75372,
+    "totalFormalVotes": 37686,
     "primaryVotes": {
-      "ALP": 19309,
-      "COALITION": 12709,
-      "GRN": 2194,
-      "ON": 0,
-      "OTH": 13186
+        "ALP": 15628,
+        "COALITION": 9568,
+        "GRN": 2194,
+        "ON": 0,
+        "OTH": 10296
     },
     "primaryPercentages": {
-      "ALP": 25.6,
-      "COALITION": 16.9,
-      "GRN": 2.9,
-      "ON": 0,
-      "OTH": 17.5
+        "ALP": 41.5,
+        "COALITION": 25.4,
+        "GRN": 5.8,
+        "ON": 0,
+        "OTH": 27.3
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 45.3,
-        "toCoalition": 10.4,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 44.3
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 41,
-        "toCoalition": 48.5,
-        "toGreens": 10.5,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 45.3,
+            "toCoalition": 10.4,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 44.3
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 25.6,
+            "toCoalition": 30.3,
+            "toGreens": 6.5,
+            "toOneNation": 0,
+            "toOther": 37.6
+        }
     },
     "twoPartyPreferred": {
-      "alp": 27134,
-      "coalition": 20264,
-      "alpPercent": 57.2,
-      "coalitionPercent": 42.8
+        "alp": 19309,
+        "coalition": 12709,
+        "alpPercent": 51.24,
+        "coalitionPercent": 33.72
     }
-  },
+},
   "bulleen": {
     "electorateId": "bulleen",
     "name": "Bulleen",
     "region": "eastern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 85918,
+    "totalFormalVotes": 42959,
     "primaryVotes": {
-      "ALP": 14829,
-      "COALITION": 22374,
-      "GRN": 5756,
-      "ON": 0,
-      "OTH": 3686
+        "ALP": 14052,
+        "COALITION": 20645,
+        "GRN": 4576,
+        "ON": 0,
+        "OTH": 3686
     },
     "primaryPercentages": {
-      "ALP": 17.3,
-      "COALITION": 26,
-      "GRN": 6.7,
-      "ON": 0,
-      "OTH": 4.3
+        "ALP": 32.7,
+        "COALITION": 48.1,
+        "GRN": 10.7,
+        "ON": 0,
+        "OTH": 8.6
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 21.1,
-        "toCoalition": 46.9,
-        "toGreens": 32,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 16,
+            "toCoalition": 35.5,
+            "toGreens": 24.3,
+            "toOneNation": 0,
+            "toOther": 24.2
+        }
     },
     "twoPartyPreferred": {
-      "alp": 20664,
-      "coalition": 25981,
-      "alpPercent": 44.3,
-      "coalitionPercent": 55.7
+        "alp": 14829,
+        "coalition": 22374,
+        "alpPercent": 34.52,
+        "coalitionPercent": 52.08
     }
-  },
+},
   "croydon": {
     "electorateId": "croydon",
     "name": "Croydon",
     "region": "eastern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 91278,
+    "totalFormalVotes": 45639,
     "primaryVotes": {
-      "ALP": 22193,
-      "COALITION": 23446,
-      "GRN": 4940,
-      "ON": 0,
-      "OTH": 5530
+        "ALP": 15564,
+        "COALITION": 19605,
+        "GRN": 4940,
+        "ON": 0,
+        "OTH": 5530
     },
     "primaryPercentages": {
-      "ALP": 24.3,
-      "COALITION": 25.7,
-      "GRN": 5.4,
-      "ON": 0,
-      "OTH": 6.1
+        "ALP": 34.1,
+        "COALITION": 43,
+        "GRN": 10.8,
+        "ON": 0,
+        "OTH": 12.1
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 76.3,
-        "toCoalition": 23.7,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 29.1,
-        "toCoalition": 41.2,
-        "toGreens": 29.7,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 76.3,
+            "toCoalition": 23.7,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 24.7,
+            "toCoalition": 35,
+            "toGreens": 25.2,
+            "toOneNation": 0,
+            "toOther": 15
+        }
     },
     "twoPartyPreferred": {
-      "alp": 28251,
-      "coalition": 27858,
-      "alpPercent": 50.4,
-      "coalitionPercent": 49.6
+        "alp": 22193,
+        "coalition": 23446,
+        "alpPercent": 48.63,
+        "coalitionPercent": 51.37
     }
-  },
+},
   "warrandyte": {
     "electorateId": "warrandyte",
     "name": "Warrandyte",
     "region": "eastern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 90150,
+    "totalFormalVotes": 45075,
     "primaryVotes": {
-      "ALP": 15495,
-      "COALITION": 23112,
-      "GRN": 6468,
-      "ON": 0,
-      "OTH": 3502
+        "ALP": 14946,
+        "COALITION": 21344,
+        "GRN": 5283,
+        "ON": 0,
+        "OTH": 3502
     },
     "primaryPercentages": {
-      "ALP": 17.2,
-      "COALITION": 25.6,
-      "GRN": 7.2,
-      "ON": 0,
-      "OTH": 3.9
+        "ALP": 33.2,
+        "COALITION": 47.4,
+        "GRN": 11.7,
+        "ON": 0,
+        "OTH": 7.8
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 15.7,
-        "toCoalition": 50.5,
-        "toGreens": 33.8,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 13.7,
+            "toCoalition": 44.1,
+            "toGreens": 29.5,
+            "toOneNation": 0,
+            "toOther": 12.7
+        }
     },
     "twoPartyPreferred": {
-      "alp": 21597,
-      "coalition": 26980,
-      "alpPercent": 44.5,
-      "coalitionPercent": 55.5
+        "alp": 15495,
+        "coalition": 23112,
+        "alpPercent": 34.38,
+        "coalitionPercent": 51.27
     }
-  },
+},
   "ferntree_gully": {
     "electorateId": "ferntree_gully",
     "name": "Ferntree Gully",
     "region": "eastern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 85198,
+    "totalFormalVotes": 41867,
     "primaryVotes": {
-      "ALP": 23101,
-      "COALITION": 19498,
-      "GRN": 3151,
-      "ON": 0,
-      "OTH": 6665
+        "ALP": 17196,
+        "COALITION": 12331,
+        "GRN": 6344,
+        "ON": 0,
+        "OTH": 5996
     },
     "primaryPercentages": {
-      "ALP": 27.1,
-      "COALITION": 22.9,
-      "GRN": 3.7,
-      "ON": 0,
-      "OTH": 7.8
+        "ALP": 41.1,
+        "COALITION": 29.5,
+        "GRN": 15.2,
+        "ON": 0,
+        "OTH": 14.3
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 74.3,
-        "toCoalition": 25.7,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 23.5,
-        "toCoalition": 44.5,
-        "toGreens": 32,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 81.2,
+            "toCoalition": 18.8,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 14.7,
+            "toCoalition": 20.5,
+            "toGreens": 42.6,
+            "toOneNation": 0,
+            "toOther": 22.2
+        }
     },
     "twoPartyPreferred": {
-      "alp": 27746,
-      "coalition": 24669,
-      "alpPercent": 52.9,
-      "coalitionPercent": 47.1
+        "alp": 26146,
+        "coalition": 15721,
+        "alpPercent": 62.45,
+        "coalitionPercent": 37.55
     }
-  },
+},
   "box_hill": {
     "electorateId": "box_hill",
     "name": "Box Hill",
     "region": "eastern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 88712,
+    "totalFormalVotes": 44356,
     "primaryVotes": {
-      "ALP": 25383,
-      "COALITION": 18973,
-      "GRN": 6267,
-      "ON": 0,
-      "OTH": 4156
+        "ALP": 18340,
+        "COALITION": 15593,
+        "GRN": 6267,
+        "ON": 0,
+        "OTH": 4156
     },
     "primaryPercentages": {
-      "ALP": 28.6,
-      "COALITION": 21.4,
-      "GRN": 7.1,
-      "ON": 0,
-      "OTH": 4.7
+        "ALP": 41.3,
+        "COALITION": 35.2,
+        "GRN": 14.1,
+        "ON": 0,
+        "OTH": 9.4
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 82.2,
-        "toCoalition": 17.8,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 21.5,
-        "toCoalition": 49.2,
-        "toGreens": 29.3,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 82.2,
+            "toCoalition": 17.8,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 15,
+            "toCoalition": 34.3,
+            "toGreens": 20.4,
+            "toOneNation": 0,
+            "toOther": 30.3
+        }
     },
     "twoPartyPreferred": {
-      "alp": 31798,
-      "coalition": 22981,
-      "alpPercent": 58,
-      "coalitionPercent": 42
+        "alp": 25383,
+        "coalition": 18973,
+        "alpPercent": 57.23,
+        "coalitionPercent": 42.77
     }
-  },
+},
   "ringwood": {
     "electorateId": "ringwood",
     "name": "Ringwood",
     "region": "eastern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 91506,
+    "totalFormalVotes": 45753,
     "primaryVotes": {
-      "ALP": 26322,
-      "COALITION": 19431,
-      "GRN": 7105,
-      "ON": 0,
-      "OTH": 5330
+        "ALP": 17851,
+        "COALITION": 15467,
+        "GRN": 7105,
+        "ON": 0,
+        "OTH": 5330
     },
     "primaryPercentages": {
-      "ALP": 28.8,
-      "COALITION": 21.2,
-      "GRN": 7.8,
-      "ON": 0,
-      "OTH": 5.8
+        "ALP": 39,
+        "COALITION": 33.8,
+        "GRN": 15.5,
+        "ON": 0,
+        "OTH": 11.6
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 80.6,
-        "toCoalition": 19.4,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 27.7,
-        "toCoalition": 42.7,
-        "toGreens": 29.6,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 80.6,
+            "toCoalition": 19.4,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 22.1,
+            "toCoalition": 34,
+            "toGreens": 23.6,
+            "toOneNation": 0,
+            "toOther": 20.3
+        }
     },
     "twoPartyPreferred": {
-      "alp": 34146,
-      "coalition": 24042,
-      "alpPercent": 58.7,
-      "coalitionPercent": 41.3
+        "alp": 26322,
+        "coalition": 19431,
+        "alpPercent": 57.53,
+        "coalitionPercent": 42.47
     }
-  },
+},
   "bayswater": {
     "electorateId": "bayswater",
     "name": "Bayswater",
     "region": "eastern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 85198,
+    "totalFormalVotes": 42599,
     "primaryVotes": {
-      "ALP": 23101,
-      "COALITION": 19498,
-      "GRN": 3151,
-      "ON": 0,
-      "OTH": 6665
+        "ALP": 17609,
+        "COALITION": 15174,
+        "GRN": 3151,
+        "ON": 0,
+        "OTH": 6665
     },
     "primaryPercentages": {
-      "ALP": 27.1,
-      "COALITION": 22.9,
-      "GRN": 3.7,
-      "ON": 0,
-      "OTH": 7.8
+        "ALP": 41.3,
+        "COALITION": 35.6,
+        "GRN": 7.4,
+        "ON": 0,
+        "OTH": 15.6
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 74.3,
-        "toCoalition": 25.7,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 23.5,
-        "toCoalition": 44.5,
-        "toGreens": 32,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 74.3,
+            "toCoalition": 25.7,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 17.1,
+            "toCoalition": 32.4,
+            "toGreens": 23.3,
+            "toOneNation": 0,
+            "toOther": 27.1
+        }
     },
     "twoPartyPreferred": {
-      "alp": 27746,
-      "coalition": 24669,
-      "alpPercent": 52.9,
-      "coalitionPercent": 47.1
+        "alp": 23101,
+        "coalition": 19498,
+        "alpPercent": 54.23,
+        "coalitionPercent": 45.77
     }
-  },
+},
   "glen_waverley": {
     "electorateId": "glen_waverley",
     "name": "Glen Waverley",
     "region": "eastern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 89334,
+    "totalFormalVotes": 44667,
     "primaryVotes": {
-      "ALP": 23809,
-      "COALITION": 20858,
-      "GRN": 4279,
-      "ON": 0,
-      "OTH": 4294
+        "ALP": 18153,
+        "COALITION": 17941,
+        "GRN": 4279,
+        "ON": 0,
+        "OTH": 4294
     },
     "primaryPercentages": {
-      "ALP": 26.7,
-      "COALITION": 23.3,
-      "GRN": 4.8,
-      "ON": 0,
-      "OTH": 4.8
+        "ALP": 40.6,
+        "COALITION": 40.2,
+        "GRN": 9.6,
+        "ON": 0,
+        "OTH": 9.6
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 80.6,
-        "toCoalition": 19.4,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 21.5,
-        "toCoalition": 41.4,
-        "toGreens": 37.1,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 80.6,
+            "toCoalition": 19.4,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 16.9,
+            "toCoalition": 32.4,
+            "toGreens": 29.1,
+            "toOneNation": 0,
+            "toOther": 21.6
+        }
     },
     "twoPartyPreferred": {
-      "alp": 28726,
-      "coalition": 24514,
-      "alpPercent": 54,
-      "coalitionPercent": 46
+        "alp": 23809,
+        "coalition": 20858,
+        "alpPercent": 53.3,
+        "coalitionPercent": 46.7
     }
-  },
+},
   "ashwood": {
     "electorateId": "ashwood",
     "name": "Ashwood",
     "region": "eastern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 89420,
+    "totalFormalVotes": 44710,
     "primaryVotes": {
-      "ALP": 25106,
-      "COALITION": 19604,
-      "GRN": 6612,
-      "ON": 0,
-      "OTH": 3466
+        "ALP": 18014,
+        "COALITION": 16618,
+        "GRN": 6612,
+        "ON": 0,
+        "OTH": 3466
     },
     "primaryPercentages": {
-      "ALP": 28.1,
-      "COALITION": 21.9,
-      "GRN": 7.4,
-      "ON": 0,
-      "OTH": 3.9
+        "ALP": 40.3,
+        "COALITION": 37.2,
+        "GRN": 14.8,
+        "ON": 0,
+        "OTH": 7.8
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 83.6,
-        "toCoalition": 16.4,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 16.7,
-        "toCoalition": 49.3,
-        "toGreens": 34,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 83.6,
+            "toCoalition": 16.4,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 12.3,
+            "toCoalition": 36.3,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 26.3
+        }
     },
     "twoPartyPreferred": {
-      "alp": 31511,
-      "coalition": 23277,
-      "alpPercent": 57.5,
-      "coalitionPercent": 42.5
+        "alp": 25106,
+        "coalition": 19604,
+        "alpPercent": 56.15,
+        "coalitionPercent": 43.85
     }
-  },
+},
   "eltham": {
     "electorateId": "eltham",
     "name": "Eltham",
     "region": "eastern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 87688,
+    "totalFormalVotes": 43844,
     "primaryVotes": {
-      "ALP": 25870,
-      "COALITION": 17974,
-      "GRN": 5897,
-      "ON": 0,
-      "OTH": 2823
+        "ALP": 19509,
+        "COALITION": 15615,
+        "GRN": 5897,
+        "ON": 0,
+        "OTH": 2823
     },
     "primaryPercentages": {
-      "ALP": 29.5,
-      "COALITION": 20.5,
-      "GRN": 6.7,
-      "ON": 0,
-      "OTH": 3.2
+        "ALP": 44.5,
+        "COALITION": 35.6,
+        "GRN": 13.4,
+        "ON": 0,
+        "OTH": 6.4
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 85,
-        "toCoalition": 15,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 19.3,
-        "toCoalition": 47.3,
-        "toGreens": 33.4,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 85,
+            "toCoalition": 15,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 16.1,
+            "toCoalition": 39.4,
+            "toGreens": 27.9,
+            "toOneNation": 0,
+            "toOther": 16.5
+        }
     },
     "twoPartyPreferred": {
-      "alp": 31701,
-      "coalition": 20863,
-      "alpPercent": 60.3,
-      "coalitionPercent": 39.7
+        "alp": 25870,
+        "coalition": 17974,
+        "alpPercent": 59,
+        "coalitionPercent": 41
     }
-  },
+},
   "ivanhoe": {
     "electorateId": "ivanhoe",
     "name": "Ivanhoe",
     "region": "eastern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 81198,
+    "totalFormalVotes": 40599,
     "primaryVotes": {
-      "ALP": 25476,
-      "COALITION": 15123,
-      "GRN": 7808,
-      "ON": 0,
-      "OTH": 2892
+        "ALP": 17333,
+        "COALITION": 12566,
+        "GRN": 7808,
+        "ON": 0,
+        "OTH": 2892
     },
     "primaryPercentages": {
-      "ALP": 31.4,
-      "COALITION": 18.6,
-      "GRN": 9.6,
-      "ON": 0,
-      "OTH": 3.6
+        "ALP": 42.7,
+        "COALITION": 31,
+        "GRN": 19.2,
+        "ON": 0,
+        "OTH": 7.1
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 85.2,
-        "toCoalition": 14.8,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 20.7,
-        "toCoalition": 43.2,
-        "toGreens": 36.1,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 85.2,
+            "toCoalition": 14.8,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 17.7,
+            "toCoalition": 36.9,
+            "toGreens": 30.8,
+            "toOneNation": 0,
+            "toOther": 14.7
+        }
     },
     "twoPartyPreferred": {
-      "alp": 33065,
-      "coalition": 18234,
-      "alpPercent": 64.5,
-      "coalitionPercent": 35.5
+        "alp": 25476,
+        "coalition": 15123,
+        "alpPercent": 62.75,
+        "coalitionPercent": 37.25
     }
-  },
+},
   "brighton": {
     "electorateId": "brighton",
     "name": "Brighton",
     "region": "southern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 82392,
+    "totalFormalVotes": 41196,
     "primaryVotes": {
-      "ALP": 11850,
-      "COALITION": 20730,
-      "GRN": 8616,
-      "ON": 0,
-      "OTH": 6561
+        "ALP": 10164,
+        "COALITION": 18791,
+        "GRN": 5680,
+        "ON": 0,
+        "OTH": 6561
     },
     "primaryPercentages": {
-      "ALP": 14.4,
-      "COALITION": 25.2,
-      "GRN": 10.5,
-      "ON": 0,
-      "OTH": 8
+        "ALP": 24.7,
+        "COALITION": 45.6,
+        "GRN": 13.8,
+        "ON": 0,
+        "OTH": 15.9
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 25.7,
-        "toCoalition": 29.6,
-        "toGreens": 44.7,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 21.5,
+            "toCoalition": 24.7,
+            "toGreens": 37.4,
+            "toOneNation": 0,
+            "toOther": 16.4
+        }
     },
     "twoPartyPreferred": {
-      "alp": 21921,
-      "coalition": 25836,
-      "alpPercent": 45.9,
-      "coalitionPercent": 54.1
+        "alp": 11850,
+        "coalition": 20730,
+        "alpPercent": 28.76,
+        "coalitionPercent": 50.32
     }
-  },
+},
   "caulfield": {
     "electorateId": "caulfield",
     "name": "Caulfield",
     "region": "southern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 81366,
+    "totalFormalVotes": 40683,
     "primaryVotes": {
-      "ALP": 19500,
-      "COALITION": 21922,
-      "GRN": 6447,
-      "ON": 0,
-      "OTH": 4108
+        "ALP": 11301,
+        "COALITION": 18088,
+        "GRN": 6447,
+        "ON": 0,
+        "OTH": 4847
     },
     "primaryPercentages": {
-      "ALP": 24,
-      "COALITION": 26.9,
-      "GRN": 7.9,
-      "ON": 0,
-      "OTH": 5
+        "ALP": 27.8,
+        "COALITION": 44.5,
+        "GRN": 15.8,
+        "ON": 0,
+        "OTH": 11.9
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 24.3,
-        "toCoalition": 0,
-        "toGreens": 15.1,
-        "toOneNation": 0,
-        "toOther": 60.6
-      },
-      "GRN": {
-        "toALP": 82.5,
-        "toCoalition": 17.5,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 26.5,
-        "toCoalition": 26.4,
-        "toGreens": 47.1,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 82.5,
+            "toCoalition": 17.5,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 21.3,
+            "toCoalition": 28.9,
+            "toGreens": 36.6,
+            "toOneNation": 0,
+            "toOther": 13.2
+        }
     },
     "twoPartyPreferred": {
-      "alp": 26877,
-      "coalition": 25100,
-      "alpPercent": 51.7,
-      "coalitionPercent": 48.3
+        "alp": 19500,
+        "coalition": 21183,
+        "alpPercent": 47.93,
+        "coalitionPercent": 52.07
     }
-  },
+},
   "hawthorn": {
     "electorateId": "hawthorn",
     "name": "Hawthorn",
     "region": "southern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 88620,
+    "totalFormalVotes": 44310,
     "primaryVotes": {
-      "ALP": 21383,
-      "COALITION": 23510,
-      "GRN": 4927,
-      "ON": 0,
-      "OTH": 10273
+        "ALP": 9799,
+        "COALITION": 18728,
+        "GRN": 4927,
+        "ON": 0,
+        "OTH": 10856
     },
     "primaryPercentages": {
-      "ALP": 24.1,
-      "COALITION": 26.5,
-      "GRN": 5.6,
-      "ON": 0,
-      "OTH": 11.6
+        "ALP": 22.1,
+        "COALITION": 42.3,
+        "GRN": 11.1,
+        "ON": 0,
+        "OTH": 24.5
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 29.8,
-        "toCoalition": 0,
-        "toGreens": 16.7,
-        "toOneNation": 0,
-        "toOther": 53.5
-      },
-      "GRN": {
-        "toALP": 37,
-        "toCoalition": 9.3,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 53.7
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 72.2,
-        "toCoalition": 25.5,
-        "toGreens": 2.4,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 37,
+            "toCoalition": 9.3,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 53.7
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 66.9,
+            "toCoalition": 25.8,
+            "toGreens": 2.5,
+            "toOneNation": 0,
+            "toOther": 4.8
+        }
     },
     "twoPartyPreferred": {
-      "alp": 32912,
-      "coalition": 27181,
-      "alpPercent": 54.8,
-      "coalitionPercent": 45.2
+        "alp": 21383,
+        "coalition": 22927,
+        "alpPercent": 48.26,
+        "coalitionPercent": 51.74
     }
-  },
+},
   "kew": {
     "electorateId": "kew",
     "name": "Kew",
     "region": "southern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 87184,
+    "totalFormalVotes": 43592,
     "primaryVotes": {
-      "ALP": 20063,
-      "COALITION": 23529,
-      "GRN": 3612,
-      "ON": 0,
-      "OTH": 10763
+        "ALP": 9896,
+        "COALITION": 19321,
+        "GRN": 3612,
+        "ON": 0,
+        "OTH": 10763
     },
     "primaryPercentages": {
-      "ALP": 23,
-      "COALITION": 27,
-      "GRN": 4.1,
-      "ON": 0,
-      "OTH": 12.3
+        "ALP": 22.7,
+        "COALITION": 44.3,
+        "GRN": 8.3,
+        "ON": 0,
+        "OTH": 24.7
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 40.7,
-        "toCoalition": 11.3,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 47.9
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 67.8,
-        "toCoalition": 29.8,
-        "toGreens": 2.5,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 40.7,
+            "toCoalition": 11.3,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 47.9
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 65,
+            "toCoalition": 28.5,
+            "toGreens": 2.4,
+            "toOneNation": 0,
+            "toOther": 4.1
+        }
     },
     "twoPartyPreferred": {
-      "alp": 30367,
-      "coalition": 27600,
-      "alpPercent": 52.4,
-      "coalitionPercent": 47.6
+        "alp": 20063,
+        "coalition": 23529,
+        "alpPercent": 46.02,
+        "coalitionPercent": 53.98
     }
-  },
+},
   "malvern": {
     "electorateId": "malvern",
     "name": "Malvern",
     "region": "southern_metro",
     "hasOfficialDistribution": false,
-    "totalFormalVotes": 81551,
+    "totalFormalVotes": 40801,
     "primaryVotes": {
-      "ALP": 17000,
-      "COALITION": 23750,
-      "GRN": 6390,
-      "ON": 0,
-      "OTH": 2287
+        "ALP": 10686,
+        "COALITION": 21438,
+        "GRN": 6390,
+        "ON": 0,
+        "OTH": 2287
     },
     "primaryPercentages": {
-      "ALP": 20.8,
-      "COALITION": 29.1,
-      "GRN": 7.8,
-      "ON": 0,
-      "OTH": 2.8
+        "ALP": 26.2,
+        "COALITION": 52.5,
+        "GRN": 15.7,
+        "ON": 0,
+        "OTH": 5.6
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 17.1,
-        "toGreens": 82.9,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 20.8,
-        "toCoalition": 0,
-        "toGreens": 14.3,
-        "toOneNation": 0,
-        "toOther": 64.8
-      },
-      "GRN": {
-        "toALP": 69.4,
-        "toCoalition": 16.1,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 14.5
-      },
-      "ON": {
-        "toALP": 19.3,
-        "toCoalition": 72.5,
-        "toGreens": 8.2,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 32.6,
-        "toCoalition": 35.8,
-        "toGreens": 31.6,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 26.9,
+            "toCoalition": 40.4,
+            "toGreens": 31.3,
+            "toOneNation": 1.4,
+            "toOther": 0
+        }
     },
     "twoPartyPreferred": {
-      "alp": 23397,
-      "coalition": 26030,
-      "alpPercent": 47.3,
-      "coalitionPercent": 52.7
+        "alp": 17000,
+        "coalition": 23750,
+        "alpPercent": 41.72,
+        "coalitionPercent": 58.28
     }
-  },
+},
   "sandringham": {
     "electorateId": "sandringham",
     "name": "Sandringham",
     "region": "southern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 81024,
+    "totalFormalVotes": 40512,
     "primaryVotes": {
-      "ALP": 11825,
-      "COALITION": 20737,
-      "GRN": 7950,
-      "ON": 0,
-      "OTH": 5354
+        "ALP": 10426,
+        "COALITION": 18783,
+        "GRN": 5949,
+        "ON": 0,
+        "OTH": 5354
     },
     "primaryPercentages": {
-      "ALP": 14.6,
-      "COALITION": 25.6,
-      "GRN": 9.8,
-      "ON": 0,
-      "OTH": 6.6
+        "ALP": 25.7,
+        "COALITION": 46.4,
+        "GRN": 14.7,
+        "ON": 0,
+        "OTH": 13.2
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 26.1,
-        "toCoalition": 36.5,
-        "toGreens": 37.4,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 22.2,
+            "toCoalition": 31,
+            "toGreens": 31.7,
+            "toOneNation": 0,
+            "toOther": 15.1
+        }
     },
     "twoPartyPreferred": {
-      "alp": 20537,
-      "coalition": 25329,
-      "alpPercent": 44.8,
-      "coalitionPercent": 55.2
+        "alp": 11825,
+        "coalition": 20737,
+        "alpPercent": 29.19,
+        "coalitionPercent": 51.19
     }
-  },
+},
   "prahran": {
     "electorateId": "prahran",
     "name": "Prahran",
     "region": "southern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 117729,
+    "totalFormalVotes": 39243,
     "primaryVotes": {
-      "ALP": 10421,
-      "COALITION": 14909,
-      "GRN": 24334,
-      "ON": 0,
-      "OTH": 41581
+        "ALP": 10421,
+        "COALITION": 12198,
+        "GRN": 14286,
+        "ON": 0,
+        "OTH": 2338
     },
     "primaryPercentages": {
-      "ALP": 8.9,
-      "COALITION": 12.7,
-      "GRN": 20.7,
-      "ON": 0,
-      "OTH": 35.3
+        "ALP": 26.6,
+        "COALITION": 31.1,
+        "GRN": 36.4,
+        "ON": 0,
+        "OTH": 6
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 17.1,
-        "toGreens": 82.9,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 17.3,
-        "toCoalition": 36.7,
-        "toGreens": 45.9,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 17.1,
+            "toGreens": 82.9,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 15.2,
+            "toCoalition": 32.3,
+            "toGreens": 40.4,
+            "toOneNation": 0,
+            "toOther": 12.1
+        }
     },
     "twoPartyPreferred": {
-      "alp": 43575,
-      "coalition": 47670,
-      "alpPercent": 47.8,
-      "coalitionPercent": 52.2
+        "alp": 24334,
+        "coalition": 14909,
+        "alpPercent": 62,
+        "coalitionPercent": 37.99
     }
-  },
+},
   "albert_park": {
     "electorateId": "albert_park",
     "name": "Albert Park",
     "region": "southern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 78220,
+    "totalFormalVotes": 39110,
     "primaryVotes": {
-      "ALP": 23916,
-      "COALITION": 15728,
-      "GRN": 8178,
-      "ON": 0,
-      "OTH": 4485
+        "ALP": 14254,
+        "COALITION": 11659,
+        "GRN": 8178,
+        "ON": 0,
+        "OTH": 5019
     },
     "primaryPercentages": {
-      "ALP": 30.6,
-      "COALITION": 20.1,
-      "GRN": 10.5,
-      "ON": 0,
-      "OTH": 5.7
+        "ALP": 36.4,
+        "COALITION": 29.8,
+        "GRN": 20.9,
+        "ON": 0,
+        "OTH": 12.8
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 8.4,
-        "toCoalition": 0,
-        "toGreens": 11.2,
-        "toOneNation": 0,
-        "toOther": 80.4
-      },
-      "GRN": {
-        "toALP": 83.8,
-        "toCoalition": 16.2,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 24.4,
-        "toCoalition": 35,
-        "toGreens": 40.7,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 83.8,
+            "toCoalition": 16.2,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 19,
+            "toCoalition": 30.6,
+            "toGreens": 31.5,
+            "toOneNation": 0,
+            "toOther": 18.9
+        }
     },
     "twoPartyPreferred": {
-      "alp": 32611,
-      "coalition": 19696,
-      "alpPercent": 62.3,
-      "coalitionPercent": 37.7
+        "alp": 23916,
+        "coalition": 15194,
+        "alpPercent": 61.15,
+        "coalitionPercent": 38.85
     }
-  },
+},
   "bentleigh": {
     "electorateId": "bentleigh",
     "name": "Bentleigh",
     "region": "southern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 90240,
+    "totalFormalVotes": 45120,
     "primaryVotes": {
-      "ALP": 26188,
-      "COALITION": 18932,
-      "GRN": 4845,
-      "ON": 0,
-      "OTH": 3218
+        "ALP": 20656,
+        "COALITION": 16401,
+        "GRN": 4845,
+        "ON": 0,
+        "OTH": 3218
     },
     "primaryPercentages": {
-      "ALP": 29,
-      "COALITION": 21,
-      "GRN": 5.4,
-      "ON": 0,
-      "OTH": 3.6
+        "ALP": 45.8,
+        "COALITION": 36.3,
+        "GRN": 10.7,
+        "ON": 0,
+        "OTH": 7.1
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 81,
-        "toCoalition": 19,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 20.1,
-        "toCoalition": 43.1,
-        "toGreens": 36.8,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 81,
+            "toCoalition": 19,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 17.2,
+            "toCoalition": 36.7,
+            "toGreens": 31.4,
+            "toOneNation": 0,
+            "toOther": 14.7
+        }
     },
     "twoPartyPreferred": {
-      "alp": 31136,
-      "coalition": 22047,
-      "alpPercent": 58.5,
-      "coalitionPercent": 41.5
+        "alp": 26188,
+        "coalition": 18932,
+        "alpPercent": 58.04,
+        "coalitionPercent": 41.96
     }
-  },
+},
   "oakleigh": {
     "electorateId": "oakleigh",
     "name": "Oakleigh",
     "region": "southern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 87820,
+    "totalFormalVotes": 43910,
     "primaryVotes": {
-      "ALP": 27876,
-      "COALITION": 16034,
-      "GRN": 7278,
-      "ON": 0,
-      "OTH": 4006
+        "ALP": 19778,
+        "COALITION": 12848,
+        "GRN": 7278,
+        "ON": 0,
+        "OTH": 4006
     },
     "primaryPercentages": {
-      "ALP": 31.7,
-      "COALITION": 18.3,
-      "GRN": 8.3,
-      "ON": 0,
-      "OTH": 4.6
+        "ALP": 45,
+        "COALITION": 29.3,
+        "GRN": 16.6,
+        "ON": 0,
+        "OTH": 9.1
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 84,
-        "toCoalition": 16,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 22,
-        "toCoalition": 45.1,
-        "toGreens": 32.9,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 84,
+            "toCoalition": 16,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 15.7,
+            "toCoalition": 32.2,
+            "toGreens": 23.5,
+            "toOneNation": 0,
+            "toOther": 28.7
+        }
     },
     "twoPartyPreferred": {
-      "alp": 35303,
-      "coalition": 19891,
-      "alpPercent": 64,
-      "coalitionPercent": 36
+        "alp": 27876,
+        "coalition": 16034,
+        "alpPercent": 63.48,
+        "coalitionPercent": 36.52
     }
-  },
+},
   "mordialloc": {
     "electorateId": "mordialloc",
     "name": "Mordialloc",
     "region": "southern_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 88118,
+    "totalFormalVotes": 44059,
     "primaryVotes": {
-      "ALP": 25640,
-      "COALITION": 18419,
-      "GRN": 4526,
-      "ON": 0,
-      "OTH": 6306
+        "ALP": 19398,
+        "COALITION": 13829,
+        "GRN": 4526,
+        "ON": 0,
+        "OTH": 6306
     },
     "primaryPercentages": {
-      "ALP": 29.1,
-      "COALITION": 20.9,
-      "GRN": 5.1,
-      "ON": 0,
-      "OTH": 7.2
+        "ALP": 44,
+        "COALITION": 31.4,
+        "GRN": 10.3,
+        "ON": 0,
+        "OTH": 14.3
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 76.8,
-        "toCoalition": 23.2,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 24,
-        "toCoalition": 50.1,
-        "toGreens": 25.8,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 76.8,
+            "toCoalition": 23.2,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 18.6,
+            "toCoalition": 38.8,
+            "toGreens": 20,
+            "toOneNation": 0,
+            "toOther": 22.6
+        }
     },
     "twoPartyPreferred": {
-      "alp": 31158,
-      "coalition": 23733,
-      "alpPercent": 56.8,
-      "coalitionPercent": 43.2
+        "alp": 25640,
+        "coalition": 18419,
+        "alpPercent": 58.19,
+        "coalitionPercent": 41.81
     }
-  },
+},
   "footscray": {
     "electorateId": "footscray",
     "name": "Footscray",
     "region": "western_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 121020,
+    "totalFormalVotes": 40340,
     "primaryVotes": {
-      "ALP": 21880,
-      "COALITION": 7214,
-      "GRN": 18460,
-      "ON": 0,
-      "OTH": 47034
+        "ALP": 17387,
+        "COALITION": 7214,
+        "GRN": 9045,
+        "ON": 0,
+        "OTH": 6694
     },
     "primaryPercentages": {
-      "ALP": 18.1,
-      "COALITION": 6,
-      "GRN": 15.3,
-      "ON": 0,
-      "OTH": 38.9
+        "ALP": 43.1,
+        "COALITION": 17.9,
+        "GRN": 22.4,
+        "ON": 0,
+        "OTH": 16.6
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 37,
-        "toCoalition": 0,
-        "toGreens": 63,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 20.2,
-        "toCoalition": 19.2,
-        "toGreens": 60.6,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 37,
+            "toCoalition": 0,
+            "toGreens": 63,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 17.7,
+            "toCoalition": 16.8,
+            "toGreens": 53.1,
+            "toOneNation": 0,
+            "toOther": 12.3
+        }
     },
     "twoPartyPreferred": {
-      "alp": 61039,
-      "coalition": 33549,
-      "alpPercent": 64.5,
-      "coalitionPercent": 35.5
+        "alp": 21880,
+        "coalition": 18460,
+        "alpPercent": 54.24,
+        "coalitionPercent": 45.8
     }
-  },
+},
   "kororoit": {
     "electorateId": "kororoit",
     "name": "Kororoit",
     "region": "western_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 80746,
+    "totalFormalVotes": 40373,
     "primaryVotes": {
-      "ALP": 21452,
-      "COALITION": 12533,
-      "GRN": 2650,
-      "ON": 0,
-      "OTH": 14074
+        "ALP": 17468,
+        "COALITION": 9801,
+        "GRN": 2650,
+        "ON": 0,
+        "OTH": 10454
     },
     "primaryPercentages": {
-      "ALP": 26.6,
-      "COALITION": 15.5,
-      "GRN": 3.3,
-      "ON": 0,
-      "OTH": 17.4
+        "ALP": 43.3,
+        "COALITION": 24.3,
+        "GRN": 6.6,
+        "ON": 0,
+        "OTH": 25.9
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 42.8,
-        "toCoalition": 16.4,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 40.9
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 48.5,
-        "toCoalition": 41,
-        "toGreens": 10.6,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 42.8,
+            "toCoalition": 16.4,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 40.9
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 25.3,
+            "toCoalition": 21.4,
+            "toGreens": 5.5,
+            "toOneNation": 0,
+            "toOther": 47.7
+        }
     },
     "twoPartyPreferred": {
-      "alp": 30995,
-      "coalition": 19714,
-      "alpPercent": 61.1,
-      "coalitionPercent": 38.9
+        "alp": 21452,
+        "coalition": 12533,
+        "alpPercent": 53.13,
+        "coalitionPercent": 31.04
     }
-  },
+},
   "laverton": {
     "electorateId": "laverton",
     "name": "Laverton",
     "region": "western_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 74274,
+    "totalFormalVotes": 37137,
     "primaryVotes": {
-      "ALP": 19364,
-      "COALITION": 10321,
-      "GRN": 7452,
-      "ON": 0,
-      "OTH": 8382
+        "ALP": 17026,
+        "COALITION": 8233,
+        "GRN": 3496,
+        "ON": 0,
+        "OTH": 8382
     },
     "primaryPercentages": {
-      "ALP": 26.1,
-      "COALITION": 13.9,
-      "GRN": 10,
-      "ON": 0,
-      "OTH": 11.3
+        "ALP": 45.8,
+        "COALITION": 22.2,
+        "GRN": 9.4,
+        "ON": 0,
+        "OTH": 22.6
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 27.9,
-        "toCoalition": 24.9,
-        "toGreens": 47.2,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 20.7,
+            "toCoalition": 18.5,
+            "toGreens": 35.1,
+            "toOneNation": 0,
+            "toOther": 25.7
+        }
     },
     "twoPartyPreferred": {
-      "alp": 29867,
-      "coalition": 15652,
-      "alpPercent": 65.6,
-      "coalitionPercent": 34.4
+        "alp": 19364,
+        "coalition": 10321,
+        "alpPercent": 52.14,
+        "coalitionPercent": 27.79
     }
-  },
+},
   "st_albans": {
     "electorateId": "st_albans",
     "name": "St Albans",
     "region": "western_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 71432,
+    "totalFormalVotes": 35716,
     "primaryVotes": {
-      "ALP": 21274,
-      "COALITION": 14442,
-      "GRN": 2416,
-      "ON": 0,
-      "OTH": 9140
+        "ALP": 15094,
+        "COALITION": 9066,
+        "GRN": 2416,
+        "ON": 0,
+        "OTH": 9140
     },
     "primaryPercentages": {
-      "ALP": 29.8,
-      "COALITION": 20.2,
-      "GRN": 3.4,
-      "ON": 0,
-      "OTH": 12.8
+        "ALP": 42.3,
+        "COALITION": 25.4,
+        "GRN": 6.8,
+        "ON": 0,
+        "OTH": 25.6
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 71.6,
-        "toCoalition": 28.4,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 27.4,
-        "toCoalition": 42.9,
-        "toGreens": 29.7,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 71.6,
+            "toCoalition": 28.4,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 20.3,
+            "toCoalition": 31.8,
+            "toGreens": 22.1,
+            "toOneNation": 0,
+            "toOther": 25.8
+        }
     },
     "twoPartyPreferred": {
-      "alp": 26566,
-      "coalition": 20706,
-      "alpPercent": 56.2,
-      "coalitionPercent": 43.8
+        "alp": 21274,
+        "coalition": 14442,
+        "alpPercent": 59.56,
+        "coalitionPercent": 40.44
     }
-  },
+},
   "sydenham": {
     "electorateId": "sydenham",
     "name": "Sydenham",
     "region": "western_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 87330,
+    "totalFormalVotes": 43665,
     "primaryVotes": {
-      "ALP": 22648,
-      "COALITION": 14584,
-      "GRN": 2547,
-      "ON": 0,
-      "OTH": 13094
+        "ALP": 18978,
+        "COALITION": 12661,
+        "GRN": 2547,
+        "ON": 0,
+        "OTH": 9479
     },
     "primaryPercentages": {
-      "ALP": 25.9,
-      "COALITION": 16.7,
-      "GRN": 2.9,
-      "ON": 0,
-      "OTH": 15
+        "ALP": 43.5,
+        "COALITION": 29,
+        "GRN": 5.8,
+        "ON": 0,
+        "OTH": 21.7
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 55.8,
-        "toCoalition": 18.5,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 25.6
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 29.8,
-        "toCoalition": 26.8,
-        "toGreens": 43.3,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 55.8,
+            "toCoalition": 18.5,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 25.6
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 16.8,
+            "toCoalition": 15.2,
+            "toGreens": 24.5,
+            "toOneNation": 0,
+            "toOther": 43.5
+        }
     },
     "twoPartyPreferred": {
-      "alp": 31455,
-      "coalition": 21418,
-      "alpPercent": 59.5,
-      "coalitionPercent": 40.5
+        "alp": 22648,
+        "coalition": 14584,
+        "alpPercent": 51.87,
+        "coalitionPercent": 33.4
     }
-  },
+},
   "tarneit": {
     "electorateId": "tarneit",
     "name": "Tarneit",
     "region": "western_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 77956,
+    "totalFormalVotes": 38978,
     "primaryVotes": {
-      "ALP": 19649,
-      "COALITION": 11774,
-      "GRN": 4329,
-      "ON": 0,
-      "OTH": 8733
+        "ALP": 18173,
+        "COALITION": 10438,
+        "GRN": 2883,
+        "ON": 0,
+        "OTH": 7484
     },
     "primaryPercentages": {
-      "ALP": 25.2,
-      "COALITION": 15.1,
-      "GRN": 5.6,
-      "ON": 0,
-      "OTH": 11.2
+        "ALP": 46.6,
+        "COALITION": 26.8,
+        "GRN": 7.4,
+        "ON": 0,
+        "OTH": 19.2
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 34.7,
-        "toCoalition": 31.4,
-        "toGreens": 34,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 21.9,
+            "toCoalition": 19.8,
+            "toGreens": 21.4,
+            "toOneNation": 0,
+            "toOther": 36.9
+        }
     },
     "twoPartyPreferred": {
-      "alp": 27762,
-      "coalition": 16723,
-      "alpPercent": 62.4,
-      "coalitionPercent": 37.6
+        "alp": 19649,
+        "coalition": 11774,
+        "alpPercent": 50.41,
+        "coalitionPercent": 30.21
     }
-  },
+},
   "williamstown": {
     "electorateId": "williamstown",
     "name": "Williamstown",
     "region": "western_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 77948,
+    "totalFormalVotes": 38974,
     "primaryVotes": {
-      "ALP": 24726,
-      "COALITION": 14248,
-      "GRN": 6013,
-      "ON": 0,
-      "OTH": 5860
+        "ALP": 16173,
+        "COALITION": 10928,
+        "GRN": 6013,
+        "ON": 0,
+        "OTH": 5860
     },
     "primaryPercentages": {
-      "ALP": 31.7,
-      "COALITION": 18.3,
-      "GRN": 7.7,
-      "ON": 0,
-      "OTH": 7.5
+        "ALP": 41.5,
+        "COALITION": 28,
+        "GRN": 15.4,
+        "ON": 0,
+        "OTH": 15
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 85.9,
-        "toCoalition": 14.1,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 23.5,
-        "toCoalition": 36.6,
-        "toGreens": 39.9,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 85.9,
+            "toCoalition": 14.1,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 18.2,
+            "toCoalition": 28.4,
+            "toGreens": 30.9,
+            "toOneNation": 0,
+            "toOther": 22.4
+        }
     },
     "twoPartyPreferred": {
-      "alp": 32183,
-      "coalition": 18664,
-      "alpPercent": 63.3,
-      "coalitionPercent": 36.7
+        "alp": 24726,
+        "coalition": 14248,
+        "alpPercent": 63.44,
+        "coalitionPercent": 36.56
     }
-  },
+},
   "point_cook": {
     "electorateId": "point_cook",
     "name": "Point Cook",
     "region": "western_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 78198,
+    "totalFormalVotes": 39099,
     "primaryVotes": {
-      "ALP": 22810,
-      "COALITION": 16289,
-      "GRN": 2657,
-      "ON": 0,
-      "OTH": 11134
+        "ALP": 15657,
+        "COALITION": 9651,
+        "GRN": 2657,
+        "ON": 0,
+        "OTH": 11134
     },
     "primaryPercentages": {
-      "ALP": 29.2,
-      "COALITION": 20.8,
-      "GRN": 3.4,
-      "ON": 0,
-      "OTH": 14.2
+        "ALP": 40,
+        "COALITION": 24.7,
+        "GRN": 6.8,
+        "ON": 0,
+        "OTH": 28.5
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 55.7,
-        "toCoalition": 44.3,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 27.8,
-        "toCoalition": 30.6,
-        "toGreens": 41.5,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 55.7,
+            "toCoalition": 44.3,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 19.1,
+            "toCoalition": 21,
+            "toGreens": 28.5,
+            "toOneNation": 0,
+            "toOther": 31.4
+        }
     },
     "twoPartyPreferred": {
-      "alp": 29590,
-      "coalition": 23300,
-      "alpPercent": 55.9,
-      "coalitionPercent": 44.1
+        "alp": 22810,
+        "coalition": 16289,
+        "alpPercent": 58.34,
+        "coalitionPercent": 41.66
     }
-  },
+},
   "werribee": {
     "electorateId": "werribee",
     "name": "Werribee",
     "region": "western_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 77206,
+    "totalFormalVotes": 38603,
     "primaryVotes": {
-      "ALP": 19912,
-      "COALITION": 13483,
-      "GRN": 5208,
-      "ON": 0,
-      "OTH": 8699
+        "ALP": 17512,
+        "COALITION": 9779,
+        "GRN": 2613,
+        "ON": 0,
+        "OTH": 8699
     },
     "primaryPercentages": {
-      "ALP": 25.8,
-      "COALITION": 17.5,
-      "GRN": 6.7,
-      "ON": 0,
-      "OTH": 11.3
+        "ALP": 45.4,
+        "COALITION": 25.3,
+        "GRN": 6.8,
+        "ON": 0,
+        "OTH": 22.5
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 27.6,
-        "toCoalition": 42.6,
-        "toGreens": 29.8,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 18.2,
+            "toCoalition": 28.1,
+            "toGreens": 19.7,
+            "toOneNation": 0,
+            "toOther": 33.9
+        }
     },
     "twoPartyPreferred": {
-      "alp": 27577,
-      "coalition": 19725,
-      "alpPercent": 58.3,
-      "coalitionPercent": 41.7
+        "alp": 19912,
+        "coalition": 13483,
+        "alpPercent": 51.58,
+        "coalitionPercent": 34.93
     }
-  },
+},
   "melton": {
     "electorateId": "melton",
     "name": "Melton",
     "region": "western_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 75238,
+    "totalFormalVotes": 37619,
     "primaryVotes": {
-      "ALP": 20538,
-      "COALITION": 17081,
-      "GRN": 1711,
-      "ON": 0,
-      "OTH": 12560
+        "ALP": 14193,
+        "COALITION": 9155,
+        "GRN": 1711,
+        "ON": 0,
+        "OTH": 12560
     },
     "primaryPercentages": {
-      "ALP": 27.3,
-      "COALITION": 22.7,
-      "GRN": 2.3,
-      "ON": 0,
-      "OTH": 16.7
+        "ALP": 37.7,
+        "COALITION": 24.3,
+        "GRN": 4.5,
+        "ON": 0,
+        "OTH": 33.4
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 53.3,
-        "toCoalition": 10,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 36.7
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 36.9,
-        "toCoalition": 56.8,
-        "toGreens": 6.2,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 53.3,
+            "toCoalition": 10,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 36.7
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 24,
+            "toCoalition": 37,
+            "toGreens": 4.1,
+            "toOneNation": 0,
+            "toOther": 35
+        }
     },
     "twoPartyPreferred": {
-      "alp": 26925,
-      "coalition": 24965,
-      "alpPercent": 51.9,
-      "coalitionPercent": 48.1
+        "alp": 20538,
+        "coalition": 17081,
+        "alpPercent": 54.59,
+        "coalitionPercent": 45.41
     }
-  },
+},
   "niddrie": {
     "electorateId": "niddrie",
     "name": "Niddrie",
     "region": "western_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 84484,
+    "totalFormalVotes": 42242,
     "primaryVotes": {
-      "ALP": 23949,
-      "COALITION": 18293,
-      "GRN": 3117,
-      "ON": 0,
-      "OTH": 6214
+        "ALP": 18567,
+        "COALITION": 14344,
+        "GRN": 3117,
+        "ON": 0,
+        "OTH": 6214
     },
     "primaryPercentages": {
-      "ALP": 28.3,
-      "COALITION": 21.7,
-      "GRN": 3.7,
-      "ON": 0,
-      "OTH": 7.4
+        "ALP": 44,
+        "COALITION": 34,
+        "GRN": 7.4,
+        "ON": 0,
+        "OTH": 14.7
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 71.5,
-        "toCoalition": 28.5,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 31.5,
-        "toCoalition": 41.6,
-        "toGreens": 26.9,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 71.5,
+            "toCoalition": 28.5,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 23.2,
+            "toCoalition": 30.7,
+            "toGreens": 19.8,
+            "toOneNation": 0,
+            "toOther": 26.3
+        }
     },
     "twoPartyPreferred": {
-      "alp": 28855,
-      "coalition": 22718,
-      "alpPercent": 56,
-      "coalitionPercent": 44
+        "alp": 23949,
+        "coalition": 18293,
+        "alpPercent": 56.69,
+        "coalitionPercent": 43.31
     }
-  },
+},
   "rowville": {
     "electorateId": "rowville",
     "name": "Rowville",
     "region": "se_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 86738,
+    "totalFormalVotes": 43369,
     "primaryVotes": {
-      "ALP": 20095,
-      "COALITION": 23274,
-      "GRN": 3055,
-      "ON": 0,
-      "OTH": 8431
+        "ALP": 14283,
+        "COALITION": 17600,
+        "GRN": 3055,
+        "ON": 0,
+        "OTH": 8431
     },
     "primaryPercentages": {
-      "ALP": 23.2,
-      "COALITION": 26.8,
-      "GRN": 3.5,
-      "ON": 0,
-      "OTH": 9.7
+        "ALP": 32.9,
+        "COALITION": 40.6,
+        "GRN": 7,
+        "ON": 0,
+        "OTH": 19.4
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 66.6,
-        "toCoalition": 14.6,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 18.9
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 36.6,
-        "toCoalition": 56.2,
-        "toGreens": 7.2,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 66.6,
+            "toCoalition": 14.6,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 18.9
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 29.9,
+            "toCoalition": 45.9,
+            "toGreens": 5.9,
+            "toOneNation": 0,
+            "toOther": 18.3
+        }
     },
     "twoPartyPreferred": {
-      "alp": 25926,
-      "coalition": 28929,
-      "alpPercent": 47.3,
-      "coalitionPercent": 52.7
+        "alp": 20095,
+        "coalition": 23274,
+        "alpPercent": 46.33,
+        "coalitionPercent": 53.67
     }
-  },
+},
   "berwick": {
     "electorateId": "berwick",
     "name": "Berwick",
     "region": "se_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 88578,
+    "totalFormalVotes": 44289,
     "primaryVotes": {
-      "ALP": 16503,
-      "COALITION": 22192,
-      "GRN": 5594,
-      "ON": 0,
-      "OTH": 4087
+        "ALP": 15874,
+        "COALITION": 20031,
+        "GRN": 4297,
+        "ON": 0,
+        "OTH": 4087
     },
     "primaryPercentages": {
-      "ALP": 18.6,
-      "COALITION": 25.1,
-      "GRN": 6.3,
-      "ON": 0,
-      "OTH": 4.6
+        "ALP": 35.8,
+        "COALITION": 45.2,
+        "GRN": 9.7,
+        "ON": 0,
+        "OTH": 9.2
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 15.4,
-        "toCoalition": 52.9,
-        "toGreens": 31.7,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 11.7,
+            "toCoalition": 40.2,
+            "toGreens": 24.1,
+            "toOneNation": 0,
+            "toOther": 24
+        }
     },
     "twoPartyPreferred": {
-      "alp": 21984,
-      "coalition": 26392,
-      "alpPercent": 45.4,
-      "coalitionPercent": 54.6
+        "alp": 16503,
+        "coalition": 22192,
+        "alpPercent": 37.26,
+        "coalitionPercent": 50.11
     }
-  },
+},
   "carrum": {
     "electorateId": "carrum",
     "name": "Carrum",
     "region": "se_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 86600,
+    "totalFormalVotes": 43300,
     "primaryVotes": {
-      "ALP": 21666,
-      "COALITION": 13247,
-      "GRN": 3341,
-      "ON": 0,
-      "OTH": 6032
+        "ALP": 21586,
+        "COALITION": 13141,
+        "GRN": 3282,
+        "ON": 0,
+        "OTH": 5291
     },
     "primaryPercentages": {
-      "ALP": 25,
-      "COALITION": 15.3,
-      "GRN": 3.9,
-      "ON": 0,
-      "OTH": 7
+        "ALP": 49.9,
+        "COALITION": 30.3,
+        "GRN": 7.6,
+        "ON": 0,
+        "OTH": 12.2
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 32.7,
-        "toCoalition": 43.3,
-        "toGreens": 24.1,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 8.1,
+            "toCoalition": 10.8,
+            "toGreens": 6,
+            "toOneNation": 0,
+            "toOther": 75.2
+        }
     },
     "twoPartyPreferred": {
-      "alp": 26984,
-      "coalition": 17302,
-      "alpPercent": 60.9,
-      "coalitionPercent": 39.1
+        "alp": 21666,
+        "coalition": 13247,
+        "alpPercent": 50.04,
+        "coalitionPercent": 30.59
     }
-  },
+},
   "cranbourne": {
     "electorateId": "cranbourne",
     "name": "Cranbourne",
     "region": "se_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 81644,
+    "totalFormalVotes": 40822,
     "primaryVotes": {
-      "ALP": 21931,
-      "COALITION": 12973,
-      "GRN": 2282,
-      "ON": 0,
-      "OTH": 12126
+        "ALP": 18853,
+        "COALITION": 11230,
+        "GRN": 2282,
+        "ON": 0,
+        "OTH": 8457
     },
     "primaryPercentages": {
-      "ALP": 26.9,
-      "COALITION": 15.9,
-      "GRN": 2.8,
-      "ON": 0,
-      "OTH": 14.9
+        "ALP": 46.2,
+        "COALITION": 27.5,
+        "GRN": 5.6,
+        "ON": 0,
+        "OTH": 20.7
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 56.3,
-        "toCoalition": 12.3,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 31.4
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 35.6,
-        "toCoalition": 37.9,
-        "toGreens": 26.4,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 56.3,
+            "toCoalition": 12.3,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 31.4
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 17.9,
+            "toCoalition": 19,
+            "toGreens": 13.3,
+            "toOneNation": 0,
+            "toOther": 49.8
+        }
     },
     "twoPartyPreferred": {
-      "alp": 29677,
-      "coalition": 19635,
-      "alpPercent": 60.2,
-      "coalitionPercent": 39.8
+        "alp": 21931,
+        "coalition": 12973,
+        "alpPercent": 53.72,
+        "coalitionPercent": 31.78
     }
-  },
+},
   "dandenong": {
     "electorateId": "dandenong",
     "name": "Dandenong",
     "region": "se_metro",
     "hasOfficialDistribution": false,
-    "totalFormalVotes": 79142,
+    "totalFormalVotes": 39507,
     "primaryVotes": {
-      "ALP": 27390,
-      "COALITION": 13206,
-      "GRN": 3215,
-      "ON": 0,
-      "OTH": 5179
+        "ALP": 21677,
+        "COALITION": 8475,
+        "GRN": 3215,
+        "ON": 0,
+        "OTH": 6140
     },
     "primaryPercentages": {
-      "ALP": 34.6,
-      "COALITION": 16.7,
-      "GRN": 4.1,
-      "ON": 0,
-      "OTH": 6.5
+        "ALP": 54.9,
+        "COALITION": 21.5,
+        "GRN": 8.1,
+        "ON": 0,
+        "OTH": 15.5
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 29.5,
-        "toGreens": 20.7,
-        "toOneNation": 0,
-        "toOther": 49.8
-      },
-      "COALITION": {
-        "toALP": 10.6,
-        "toCoalition": 0,
-        "toGreens": 6.8,
-        "toOneNation": 0,
-        "toOther": 82.6
-      },
-      "GRN": {
-        "toALP": 64.8,
-        "toCoalition": 15.7,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 19.6
-      },
-      "ON": {
-        "toALP": 19.3,
-        "toCoalition": 72.5,
-        "toGreens": 8.2,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 30.1,
-        "toCoalition": 41.3,
-        "toGreens": 28.6,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 26.9,
+            "toCoalition": 40.4,
+            "toGreens": 31.3,
+            "toOneNation": 1.4,
+            "toOther": 0
+        }
     },
     "twoPartyPreferred": {
-      "alp": 32703,
-      "coalition": 16287,
-      "alpPercent": 66.8,
-      "coalitionPercent": 33.2
+        "alp": 27390,
+        "coalition": 12245,
+        "alpPercent": 69.11,
+        "coalitionPercent": 30.89
     }
-  },
+},
   "frankston": {
     "electorateId": "frankston",
     "name": "Frankston",
     "region": "se_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 79882,
+    "totalFormalVotes": 39941,
     "primaryVotes": {
-      "ALP": 23429,
-      "COALITION": 17932,
-      "GRN": 5060,
-      "ON": 0,
-      "OTH": 5104
+        "ALP": 16595,
+        "COALITION": 11762,
+        "GRN": 5060,
+        "ON": 0,
+        "OTH": 6524
     },
     "primaryPercentages": {
-      "ALP": 29.3,
-      "COALITION": 22.4,
-      "GRN": 6.3,
-      "ON": 0,
-      "OTH": 6.4
+        "ALP": 41.5,
+        "COALITION": 29.4,
+        "GRN": 12.7,
+        "ON": 0,
+        "OTH": 16.3
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 7.6,
-        "toCoalition": 0,
-        "toGreens": 6.9,
-        "toOneNation": 0,
-        "toOther": 85.5
-      },
-      "GRN": {
-        "toALP": 78.5,
-        "toCoalition": 21.5,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 14.7,
-        "toCoalition": 46.6,
-        "toGreens": 38.6,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 78.5,
+            "toCoalition": 0,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 21.5
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 9.5,
+            "toCoalition": 0,
+            "toGreens": 23.5,
+            "toOneNation": 0,
+            "toOther": 67
+        }
     },
     "twoPartyPreferred": {
-      "alp": 28625,
-      "coalition": 22900,
-      "alpPercent": 55.6,
-      "coalitionPercent": 44.4
+        "alp": 23429,
+        "coalition": 16512,
+        "alpPercent": 58.66,
+        "coalitionPercent": 41.34
     }
-  },
+},
   "mulgrave": {
     "electorateId": "mulgrave",
     "name": "Mulgrave",
     "region": "se_metro",
     "hasOfficialDistribution": false,
-    "totalFormalVotes": 76138,
+    "totalFormalVotes": 37971,
     "primaryVotes": {
-      "ALP": 22976,
-      "COALITION": 15191,
-      "GRN": 1930,
-      "ON": 0,
-      "OTH": 10148
+        "ALP": 19365,
+        "COALITION": 6528,
+        "GRN": 1930,
+        "ON": 0,
+        "OTH": 10148
     },
     "primaryPercentages": {
-      "ALP": 30.2,
-      "COALITION": 20,
-      "GRN": 2.5,
-      "ON": 0,
-      "OTH": 13.3
+        "ALP": 51,
+        "COALITION": 17.2,
+        "GRN": 5.1,
+        "ON": 0,
+        "OTH": 26.7
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 29.5,
-        "toGreens": 20.7,
-        "toOneNation": 0,
-        "toOther": 49.8
-      },
-      "COALITION": {
-        "toALP": 10.6,
-        "toCoalition": 0,
-        "toGreens": 6.8,
-        "toOneNation": 0,
-        "toOther": 82.6
-      },
-      "GRN": {
-        "toALP": 64.8,
-        "toCoalition": 15.7,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 19.6
-      },
-      "ON": {
-        "toALP": 19.3,
-        "toCoalition": 72.5,
-        "toGreens": 8.2,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 30.1,
-        "toCoalition": 41.3,
-        "toGreens": 28.6,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 26.9,
+            "toCoalition": 40.4,
+            "toGreens": 31.3,
+            "toOneNation": 1.4,
+            "toOther": 0
+        }
     },
     "twoPartyPreferred": {
-      "alp": 29826,
-      "coalition": 20419,
-      "alpPercent": 59.4,
-      "coalitionPercent": 40.6
+        "alp": 22976,
+        "coalition": 15191,
+        "alpPercent": 60.2,
+        "coalitionPercent": 39.8
     }
-  },
+},
   "narre_warren_n": {
     "electorateId": "narre_warren_n",
     "name": "Narre Warren North",
     "region": "se_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 82740,
+    "totalFormalVotes": 41370,
     "primaryVotes": {
-      "ALP": 22764,
-      "COALITION": 14862,
-      "GRN": 2809,
-      "ON": 0,
-      "OTH": 10134
+        "ALP": 19350,
+        "COALITION": 11291,
+        "GRN": 2809,
+        "ON": 0,
+        "OTH": 7920
     },
     "primaryPercentages": {
-      "ALP": 27.5,
-      "COALITION": 18,
-      "GRN": 3.4,
-      "ON": 0,
-      "OTH": 12.2
+        "ALP": 46.8,
+        "COALITION": 27.3,
+        "GRN": 6.8,
+        "ON": 0,
+        "OTH": 19.1
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 14.2,
-        "toCoalition": 0,
-        "toGreens": 6,
-        "toOneNation": 0,
-        "toOther": 79.7
-      },
-      "GRN": {
-        "toALP": 60.6,
-        "toCoalition": 16.5,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 22.8
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 38,
-        "toCoalition": 41.1,
-        "toGreens": 20.9,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 60.6,
+            "toCoalition": 16.5,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 22.8
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 15.9,
+            "toCoalition": 20.5,
+            "toGreens": 8.5,
+            "toOneNation": 0,
+            "toOther": 55
+        }
     },
     "twoPartyPreferred": {
-      "alp": 29840,
-      "coalition": 20729,
-      "alpPercent": 59,
-      "coalitionPercent": 41
+        "alp": 22764,
+        "coalition": 13537,
+        "alpPercent": 55.03,
+        "coalitionPercent": 32.72
     }
-  },
+},
   "narre_warren_s": {
     "electorateId": "narre_warren_s",
     "name": "Narre Warren South",
     "region": "se_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 85718,
+    "totalFormalVotes": 42859,
     "primaryVotes": {
-      "ALP": 23247,
-      "COALITION": 15027,
-      "GRN": 2836,
-      "ON": 0,
-      "OTH": 9271
+        "ALP": 20562,
+        "COALITION": 12280,
+        "GRN": 2836,
+        "ON": 0,
+        "OTH": 7181
     },
     "primaryPercentages": {
-      "ALP": 27.1,
-      "COALITION": 17.5,
-      "GRN": 3.3,
-      "ON": 0,
-      "OTH": 10.8
+        "ALP": 48,
+        "COALITION": 28.7,
+        "GRN": 6.6,
+        "ON": 0,
+        "OTH": 16.8
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 9.9,
-        "toCoalition": 0,
-        "toGreens": 7.5,
-        "toOneNation": 0,
-        "toOther": 82.6
-      },
-      "GRN": {
-        "toALP": 59.3,
-        "toCoalition": 13.5,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 27.2
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 24.7,
-        "toCoalition": 33.6,
-        "toGreens": 41.7,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 59.3,
+            "toCoalition": 13.5,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 27.2
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 9.7,
+            "toCoalition": 19.3,
+            "toGreens": 15.1,
+            "toOneNation": 0,
+            "toOther": 55.9
+        }
     },
     "twoPartyPreferred": {
-      "alp": 29485,
-      "coalition": 20896,
-      "alpPercent": 58.5,
-      "coalitionPercent": 41.5
+        "alp": 23247,
+        "coalition": 13815,
+        "alpPercent": 54.24,
+        "coalitionPercent": 32.23
     }
-  },
+},
   "keysborough": {
     "electorateId": "keysborough",
     "name": "Keysborough",
     "region": "se_metro",
-    "hasOfficialDistribution": true,
-    "totalFormalVotes": 81128,
+    "hasOfficialDistribution": false,
+    "totalFormalVotes": 39980,
     "primaryVotes": {
-      "ALP": 21954,
-      "COALITION": 12921,
-      "GRN": 3227,
-      "ON": 0,
-      "OTH": 9825
+        "ALP": 21531,
+        "COALITION": 9154,
+        "GRN": 2116,
+        "ON": 0,
+        "OTH": 7179
     },
     "primaryPercentages": {
-      "ALP": 27.1,
-      "COALITION": 15.9,
-      "GRN": 4,
-      "ON": 0,
-      "OTH": 12.1
+        "ALP": 53.9,
+        "COALITION": 22.9,
+        "GRN": 5.3,
+        "ON": 0,
+        "OTH": 18
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 66.2,
-        "toCoalition": 15.6,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 18.3
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 36.6,
-        "toCoalition": 30,
-        "toGreens": 33.4,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 26.9,
+            "toCoalition": 40.4,
+            "toGreens": 31.3,
+            "toOneNation": 1.4,
+            "toOther": 0
+        }
     },
     "twoPartyPreferred": {
-      "alp": 29965,
-      "coalition": 17962,
-      "alpPercent": 62.5,
-      "coalitionPercent": 37.5
+        "alp": 26664,
+        "coalition": 13474,
+        "alpPercent": 66.43,
+        "coalitionPercent": 33.57
     }
-  },
+},
   "clarinda": {
     "electorateId": "clarinda",
     "name": "Clarinda",
     "region": "se_metro",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 81128,
+    "totalFormalVotes": 40564,
     "primaryVotes": {
-      "ALP": 21954,
-      "COALITION": 12921,
-      "GRN": 3227,
-      "ON": 0,
-      "OTH": 9825
+        "ALP": 18441,
+        "COALITION": 11593,
+        "GRN": 3227,
+        "ON": 0,
+        "OTH": 7303
     },
     "primaryPercentages": {
-      "ALP": 27.1,
-      "COALITION": 15.9,
-      "GRN": 4,
-      "ON": 0,
-      "OTH": 12.1
+        "ALP": 45.5,
+        "COALITION": 28.6,
+        "GRN": 8,
+        "ON": 0,
+        "OTH": 18
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 66.2,
-        "toCoalition": 15.6,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 18.3
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 36.6,
-        "toCoalition": 30,
-        "toGreens": 33.4,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 66.2,
+            "toCoalition": 15.6,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 18.3
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 17,
+            "toCoalition": 14,
+            "toGreens": 15.6,
+            "toOneNation": 0,
+            "toOther": 53.4
+        }
     },
     "twoPartyPreferred": {
-      "alp": 29965,
-      "coalition": 17962,
-      "alpPercent": 62.5,
-      "coalitionPercent": 37.5
+        "alp": 21954,
+        "coalition": 12921,
+        "alpPercent": 54.12,
+        "coalitionPercent": 31.85
     }
-  },
+},
   "benalla": {
     "electorateId": "benalla",
     "name": "Benalla",
     "region": "northern_vic",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 84484,
+    "totalFormalVotes": 41135,
     "primaryVotes": {
-      "ALP": 16926,
-      "COALITION": 34543,
-      "GRN": 2245,
-      "ON": 0,
-      "OTH": 4434
+        "ALP": 5375,
+        "COALITION": 17658,
+        "GRN": 1592,
+        "ON": 0,
+        "OTH": 16510
     },
     "primaryPercentages": {
-      "ALP": 20,
-      "COALITION": 40.9,
-      "GRN": 2.7,
-      "ON": 0,
-      "OTH": 5.2
+        "ALP": 13.1,
+        "COALITION": 42.9,
+        "GRN": 3.9,
+        "ON": 0,
+        "OTH": 40.1
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 100,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 66.2,
-        "toCoalition": 19.3,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 14.4
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 19.7,
-        "toCoalition": 71,
-        "toGreens": 9.3,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 25.5,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 74.5
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 29.9,
+            "toCoalition": 11.8,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 58.4
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 8,
+            "toCoalition": 31,
+            "toGreens": 15.5,
+            "toOneNation": 0,
+            "toOther": 45.5
+        }
     },
     "twoPartyPreferred": {
-      "alp": 19627,
-      "coalition": 38521,
-      "alpPercent": 33.8,
-      "coalitionPercent": 66.2
+        "alp": 20179,
+        "coalition": 20956,
+        "alpPercent": 49.1,
+        "coalitionPercent": 50.94
     }
-  },
+},
   "euroa": {
     "electorateId": "euroa",
     "name": "Euroa",
     "region": "northern_vic",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 84484,
+    "totalFormalVotes": 42242,
     "primaryVotes": {
-      "ALP": 16926,
-      "COALITION": 34543,
-      "GRN": 2245,
-      "ON": 0,
-      "OTH": 4434
+        "ALP": 12840,
+        "COALITION": 22723,
+        "GRN": 2245,
+        "ON": 0,
+        "OTH": 4434
     },
     "primaryPercentages": {
-      "ALP": 20,
-      "COALITION": 40.9,
-      "GRN": 2.7,
-      "ON": 0,
-      "OTH": 5.2
+        "ALP": 30.4,
+        "COALITION": 53.8,
+        "GRN": 5.3,
+        "ON": 0,
+        "OTH": 10.5
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 100,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 66.2,
-        "toCoalition": 19.3,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 14.4
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 19.7,
-        "toCoalition": 71,
-        "toGreens": 9.3,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 13,
+            "toCoalition": 87,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "GRN": {
+            "toALP": 66.2,
+            "toCoalition": 19.3,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 14.4
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 15.2,
+            "toCoalition": 54.9,
+            "toGreens": 7.2,
+            "toOneNation": 0,
+            "toOther": 22.6
+        }
     },
     "twoPartyPreferred": {
-      "alp": 19627,
-      "coalition": 38521,
-      "alpPercent": 33.8,
-      "coalitionPercent": 66.2
+        "alp": 16926,
+        "coalition": 25316,
+        "alpPercent": 40.07,
+        "coalitionPercent": 59.93
     }
-  },
+},
   "mildura": {
     "electorateId": "mildura",
     "name": "Mildura",
     "region": "northern_vic",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 114420,
+    "totalFormalVotes": 38140,
     "primaryVotes": {
-      "ALP": 2483,
-      "COALITION": 26811,
-      "GRN": 894,
-      "ON": 0,
-      "OTH": 61451
+        "ALP": 2483,
+        "COALITION": 17159,
+        "GRN": 894,
+        "ON": 0,
+        "OTH": 17604
     },
     "primaryPercentages": {
-      "ALP": 2.2,
-      "COALITION": 23.4,
-      "GRN": 0.8,
-      "ON": 0,
-      "OTH": 53.7
+        "ALP": 6.5,
+        "COALITION": 45,
+        "GRN": 2.3,
+        "ON": 0,
+        "OTH": 46.2
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 39.7,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 60.3
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 100
-      },
-      "GRN": {
-        "toALP": 24.9,
-        "toCoalition": 18.2,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 56.8
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 15,
-        "toCoalition": 79.6,
-        "toGreens": 5.4,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 39.7,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 60.3
+        },
+        "COALITION": {
+            "toALP": 0,
+            "toCoalition": 77.1,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 22.9
+        },
+        "GRN": {
+            "toALP": 24.9,
+            "toCoalition": 18.2,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 56.8
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 8.3,
+            "toCoalition": 44.1,
+            "toGreens": 3,
+            "toOneNation": 0,
+            "toOther": 44.6
+        }
     },
     "twoPartyPreferred": {
-      "alp": 12743,
-      "coalition": 78896,
-      "alpPercent": 13.9,
-      "coalitionPercent": 86.1
+        "alp": 18620,
+        "coalition": 19520,
+        "alpPercent": 48.8,
+        "coalitionPercent": 51.18
     }
-  },
+},
   "murray_plains": {
     "electorateId": "murray_plains",
     "name": "Murray Plains",
     "region": "northern_vic",
     "hasOfficialDistribution": false,
-    "totalFormalVotes": 80464,
+    "totalFormalVotes": 40191,
     "primaryVotes": {
-      "ALP": 10919,
-      "COALITION": 29354,
-      "GRN": 1560,
-      "ON": 0,
-      "OTH": 6257
+        "ALP": 7543,
+        "COALITION": 24831,
+        "GRN": 1560,
+        "ON": 0,
+        "OTH": 6257
     },
     "primaryPercentages": {
-      "ALP": 13.6,
-      "COALITION": 36.5,
-      "GRN": 1.9,
-      "ON": 0,
-      "OTH": 7.8
+        "ALP": 18.8,
+        "COALITION": 61.8,
+        "GRN": 3.9,
+        "ON": 0,
+        "OTH": 15.6
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 42.3,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 57.7
-      },
-      "COALITION": {
-        "toALP": 50,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 50
-      },
-      "GRN": {
-        "toALP": 56.4,
-        "toCoalition": 19.3,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 24.3
-      },
-      "ON": {
-        "toALP": 20.2,
-        "toCoalition": 63.5,
-        "toGreens": 16.3,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 21.7,
-        "toCoalition": 52.2,
-        "toGreens": 17.5,
-        "toOneNation": 8.7,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 26.9,
+            "toCoalition": 40.4,
+            "toGreens": 31.3,
+            "toOneNation": 1.4,
+            "toOther": 0
+        }
     },
     "twoPartyPreferred": {
-      "alp": 15444,
-      "coalition": 32646,
-      "alpPercent": 32.1,
-      "coalitionPercent": 67.9
+        "alp": 10919,
+        "coalition": 29354,
+        "alpPercent": 27.11,
+        "coalitionPercent": 72.89
     }
-  },
+},
   "ovens_valley": {
     "electorateId": "ovens_valley",
     "name": "Ovens Valley",
     "region": "northern_vic",
     "hasOfficialDistribution": false,
-    "totalFormalVotes": 80844,
+    "totalFormalVotes": 40390,
     "primaryVotes": {
-      "ALP": 12959,
-      "COALITION": 30490,
-      "GRN": 3625,
-      "ON": 0,
-      "OTH": 4344
+        "ALP": 8369,
+        "COALITION": 21057,
+        "GRN": 3625,
+        "ON": 0,
+        "OTH": 7339
     },
     "primaryPercentages": {
-      "ALP": 16,
-      "COALITION": 37.7,
-      "GRN": 4.5,
-      "ON": 0,
-      "OTH": 5.4
+        "ALP": 20.7,
+        "COALITION": 52.1,
+        "GRN": 9,
+        "ON": 0,
+        "OTH": 18.2
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 42.3,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 57.7
-      },
-      "COALITION": {
-        "toALP": 50,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 50
-      },
-      "GRN": {
-        "toALP": 56.4,
-        "toCoalition": 19.3,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 24.3
-      },
-      "ON": {
-        "toALP": 20.2,
-        "toCoalition": 63.5,
-        "toGreens": 16.3,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 21.7,
-        "toCoalition": 52.2,
-        "toGreens": 17.5,
-        "toOneNation": 8.7,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 26.9,
+            "toCoalition": 40.4,
+            "toGreens": 31.3,
+            "toOneNation": 1.4,
+            "toOther": 0
+        }
     },
     "twoPartyPreferred": {
-      "alp": 18172,
-      "coalition": 33246,
-      "alpPercent": 35.3,
-      "coalitionPercent": 64.7
+        "alp": 12959,
+        "coalition": 27495,
+        "alpPercent": 32.03,
+        "coalitionPercent": 67.97
     }
-  },
+},
   "shepparton": {
     "electorateId": "shepparton",
     "name": "Shepparton",
     "region": "northern_vic",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 123903,
+    "totalFormalVotes": 41301,
     "primaryVotes": {
-      "ALP": 3285,
-      "COALITION": 31946,
-      "GRN": 1056,
-      "ON": 0,
-      "OTH": 62228
+        "ALP": 3285,
+        "COALITION": 21733,
+        "GRN": 1056,
+        "ON": 0,
+        "OTH": 15227
     },
     "primaryPercentages": {
-      "ALP": 2.7,
-      "COALITION": 25.8,
-      "GRN": 0.9,
-      "ON": 0,
-      "OTH": 50.2
+        "ALP": 8,
+        "COALITION": 52.6,
+        "GRN": 2.6,
+        "ON": 0,
+        "OTH": 36.9
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 44.9,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 55.1
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 100
-      },
-      "GRN": {
-        "toALP": 35.5,
-        "toCoalition": 30.2,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 34.3
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 21.3,
-        "toCoalition": 67.8,
-        "toGreens": 10.8,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 16.4,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 83.6
+        },
+        "COALITION": {
+            "toALP": 0,
+            "toCoalition": 0,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 100
+        },
+        "GRN": {
+            "toALP": 35.5,
+            "toCoalition": 6.4,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 58.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 13.5,
+            "toCoalition": 14.8,
+            "toGreens": 6.8,
+            "toOneNation": 0,
+            "toOther": 64.9
+        }
     },
     "twoPartyPreferred": {
-      "alp": 18732,
-      "coalition": 79783,
-      "alpPercent": 19,
-      "coalitionPercent": 81
+        "alp": 17846,
+        "coalition": 23455,
+        "alpPercent": 43.2,
+        "coalitionPercent": 56.79
     }
-  },
+},
   "swan_hill": {
     "electorateId": "swan_hill",
     "name": "Swan Hill",
     "region": "northern_vic",
-    "hasOfficialDistribution": false,
-    "totalFormalVotes": 80464,
+    "hasOfficialDistribution": true,
+    "totalFormalVotes": 42399,
     "primaryVotes": {
-      "ALP": 10919,
-      "COALITION": 29354,
-      "GRN": 1560,
-      "ON": 0,
-      "OTH": 6257
+        "ALP": 12284,
+        "COALITION": 20119,
+        "GRN": 4753,
+        "ON": 0,
+        "OTH": 5243
     },
     "primaryPercentages": {
-      "ALP": 13.6,
-      "COALITION": 36.5,
-      "GRN": 1.9,
-      "ON": 0,
-      "OTH": 7.8
+        "ALP": 29,
+        "COALITION": 47.5,
+        "GRN": 11.2,
+        "ON": 0,
+        "OTH": 12.4
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 42.3,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 57.7
-      },
-      "COALITION": {
-        "toALP": 50,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 50
-      },
-      "GRN": {
-        "toALP": 56.4,
-        "toCoalition": 19.3,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 24.3
-      },
-      "ON": {
-        "toALP": 20.2,
-        "toCoalition": 63.5,
-        "toGreens": 16.3,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 21.7,
-        "toCoalition": 52.2,
-        "toGreens": 17.5,
-        "toOneNation": 8.7,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 12.1,
+            "toCoalition": 33.3,
+            "toGreens": 24.5,
+            "toOneNation": 0,
+            "toOther": 30.1
+        }
     },
     "twoPartyPreferred": {
-      "alp": 15444,
-      "coalition": 32646,
-      "alpPercent": 32.1,
-      "coalitionPercent": 67.9
+        "alp": 13192,
+        "coalition": 22615,
+        "alpPercent": 31.11,
+        "coalitionPercent": 53.34
     }
-  },
+},
   "bendigo_east": {
     "electorateId": "bendigo_east",
     "name": "Bendigo East",
     "region": "northern_vic",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 91136,
+    "totalFormalVotes": 45568,
     "primaryVotes": {
-      "ALP": 22802,
-      "COALITION": 13450,
-      "GRN": 4929,
-      "ON": 4387,
-      "OTH": 4539
+        "ALP": 22010,
+        "COALITION": 12478,
+        "GRN": 3944,
+        "ON": 2597,
+        "OTH": 4539
     },
     "primaryPercentages": {
-      "ALP": 25,
-      "COALITION": 14.8,
-      "GRN": 5.4,
-      "ON": 4.8,
-      "OTH": 5
+        "ALP": 48.3,
+        "COALITION": 27.4,
+        "GRN": 8.7,
+        "ON": 5.7,
+        "OTH": 10
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 17.4,
-        "toCoalition": 21.4,
-        "toGreens": 21.7,
-        "toOneNation": 39.4,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 15.4,
+            "toCoalition": 18.9,
+            "toGreens": 19.2,
+            "toOneNation": 34.8,
+            "toOther": 11.7
+        }
     },
     "twoPartyPreferred": {
-      "alp": 30302,
-      "coalition": 19805,
-      "alpPercent": 60.5,
-      "coalitionPercent": 39.5
+        "alp": 22802,
+        "coalition": 13450,
+        "alpPercent": 50.04,
+        "coalitionPercent": 29.52
     }
-  },
+},
   "bendigo_west": {
     "electorateId": "bendigo_west",
     "name": "Bendigo West",
     "region": "northern_vic",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 80496,
+    "totalFormalVotes": 40248,
     "primaryVotes": {
-      "ALP": 20396,
-      "COALITION": 13233,
-      "GRN": 6619,
-      "ON": 0,
-      "OTH": 6853
+        "ALP": 18704,
+        "COALITION": 10057,
+        "GRN": 4634,
+        "ON": 0,
+        "OTH": 6853
     },
     "primaryPercentages": {
-      "ALP": 25.3,
-      "COALITION": 16.4,
-      "GRN": 8.2,
-      "ON": 0,
-      "OTH": 8.5
+        "ALP": 46.5,
+        "COALITION": 25,
+        "GRN": 11.5,
+        "ON": 0,
+        "OTH": 17
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 24.7,
-        "toCoalition": 46.3,
-        "toGreens": 29,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 17.3,
+            "toCoalition": 32.5,
+            "toGreens": 20.3,
+            "toOneNation": 0,
+            "toOther": 29.8
+        }
     },
     "twoPartyPreferred": {
-      "alp": 28175,
-      "coalition": 18926,
-      "alpPercent": 59.8,
-      "coalitionPercent": 40.2
+        "alp": 20396,
+        "coalition": 13233,
+        "alpPercent": 50.68,
+        "coalitionPercent": 32.88
     }
-  },
+},
   "macedon": {
     "electorateId": "macedon",
     "name": "Macedon",
     "region": "northern_vic",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 83178,
+    "totalFormalVotes": 41589,
     "primaryVotes": {
-      "ALP": 24762,
-      "COALITION": 16827,
-      "GRN": 5214,
-      "ON": 1511,
-      "OTH": 5167
+        "ALP": 17234,
+        "COALITION": 12463,
+        "GRN": 5214,
+        "ON": 1511,
+        "OTH": 5167
     },
     "primaryPercentages": {
-      "ALP": 29.8,
-      "COALITION": 20.2,
-      "GRN": 6.3,
-      "ON": 1.8,
-      "OTH": 6.2
+        "ALP": 41.4,
+        "COALITION": 30,
+        "GRN": 12.5,
+        "ON": 3.6,
+        "OTH": 12.4
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 83.5,
-        "toCoalition": 16.5,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 20.2,
-        "toCoalition": 63.5,
-        "toGreens": 16.3,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 19.8,
-        "toCoalition": 24.2,
-        "toGreens": 25.8,
-        "toOneNation": 30.2,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 83.5,
+            "toCoalition": 16.5,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 20.2,
+            "toCoalition": 63.5,
+            "toGreens": 16.3,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 17.3,
+            "toCoalition": 21.2,
+            "toGreens": 22.6,
+            "toOneNation": 26.4,
+            "toOther": 12.5
+        }
     },
     "twoPartyPreferred": {
-      "alp": 31806,
-      "coalition": 21675,
-      "alpPercent": 59.5,
-      "coalitionPercent": 40.5
+        "alp": 24762,
+        "coalition": 16827,
+        "alpPercent": 59.54,
+        "coalitionPercent": 40.46
     }
-  },
+},
   "yan_yean": {
     "electorateId": "yan_yean",
     "name": "Yan Yean",
     "region": "northern_vic",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 78838,
+    "totalFormalVotes": 39419,
     "primaryVotes": {
-      "ALP": 19771,
-      "COALITION": 15059,
-      "GRN": 2537,
-      "ON": 0,
-      "OTH": 10498
+        "ALP": 16328,
+        "COALITION": 13361,
+        "GRN": 2537,
+        "ON": 0,
+        "OTH": 7193
     },
     "primaryPercentages": {
-      "ALP": 25.1,
-      "COALITION": 19.1,
-      "GRN": 3.2,
-      "ON": 0,
-      "OTH": 13.3
+        "ALP": 41.4,
+        "COALITION": 33.9,
+        "GRN": 6.4,
+        "ON": 0,
+        "OTH": 18.2
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 61.8,
-        "toCoalition": 12.4,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 25.8
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 35.9,
-        "toCoalition": 35.9,
-        "toGreens": 28.3,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 61.8,
+            "toCoalition": 12.4,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 25.8
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 17.5,
+            "toCoalition": 17.6,
+            "toGreens": 13.8,
+            "toOneNation": 0,
+            "toOther": 51.1
+        }
     },
     "twoPartyPreferred": {
-      "alp": 27133,
-      "coalition": 20732,
-      "alpPercent": 56.7,
-      "coalitionPercent": 43.3
+        "alp": 19771,
+        "coalition": 15059,
+        "alpPercent": 50.16,
+        "coalitionPercent": 38.2
     }
-  },
+},
   "lowan": {
     "electorateId": "lowan",
     "name": "Lowan",
     "region": "western_vic",
     "hasOfficialDistribution": false,
-    "totalFormalVotes": 86576,
+    "totalFormalVotes": 43297,
     "primaryVotes": {
-      "ALP": 12288,
-      "COALITION": 30991,
-      "GRN": 2575,
-      "ON": 0,
-      "OTH": 6686
+        "ALP": 8554,
+        "COALITION": 25482,
+        "GRN": 2575,
+        "ON": 0,
+        "OTH": 6686
     },
     "primaryPercentages": {
-      "ALP": 14.2,
-      "COALITION": 35.8,
-      "GRN": 3,
-      "ON": 0,
-      "OTH": 7.7
+        "ALP": 19.8,
+        "COALITION": 58.9,
+        "GRN": 5.9,
+        "ON": 0,
+        "OTH": 15.4
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 29.5,
-        "toGreens": 20.7,
-        "toOneNation": 0,
-        "toOther": 49.8
-      },
-      "COALITION": {
-        "toALP": 39.1,
-        "toCoalition": 0,
-        "toGreens": 25,
-        "toOneNation": 0,
-        "toOther": 35.9
-      },
-      "GRN": {
-        "toALP": 69.6,
-        "toCoalition": 17.4,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 13
-      },
-      "ON": {
-        "toALP": 19.3,
-        "toCoalition": 72.5,
-        "toGreens": 8.2,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 31.5,
-        "toCoalition": 42.9,
-        "toGreens": 25.6,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 26.9,
+            "toCoalition": 40.4,
+            "toGreens": 31.3,
+            "toOneNation": 1.4,
+            "toOther": 0
+        }
     },
     "twoPartyPreferred": {
-      "alp": 17863,
-      "coalition": 34677,
-      "alpPercent": 34,
-      "coalitionPercent": 66
+        "alp": 12288,
+        "coalition": 30991,
+        "alpPercent": 28.39,
+        "coalitionPercent": 71.61
     }
-  },
+},
   "polwarth": {
     "electorateId": "polwarth",
     "name": "Polwarth",
     "region": "western_vic",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 92004,
+    "totalFormalVotes": 46002,
     "primaryVotes": {
-      "ALP": 22179,
-      "COALITION": 23823,
-      "GRN": 7661,
-      "ON": 0,
-      "OTH": 5317
+        "ALP": 13484,
+        "COALITION": 19540,
+        "GRN": 7661,
+        "ON": 0,
+        "OTH": 5317
     },
     "primaryPercentages": {
-      "ALP": 24.1,
-      "COALITION": 25.9,
-      "GRN": 8.3,
-      "ON": 0,
-      "OTH": 5.8
+        "ALP": 29.3,
+        "COALITION": 42.5,
+        "GRN": 16.7,
+        "ON": 0,
+        "OTH": 11.6
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 82.6,
-        "toCoalition": 17.4,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 21.4,
-        "toCoalition": 50.7,
-        "toGreens": 27.9,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 82.6,
+            "toCoalition": 17.4,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 16.9,
+            "toCoalition": 40.1,
+            "toGreens": 22.1,
+            "toOneNation": 0,
+            "toOther": 20.8
+        }
     },
     "twoPartyPreferred": {
-      "alp": 30085,
-      "coalition": 28895,
-      "alpPercent": 51,
-      "coalitionPercent": 49
+        "alp": 22179,
+        "coalition": 23823,
+        "alpPercent": 48.21,
+        "coalitionPercent": 51.79
     }
-  },
+},
   "sw_coast": {
     "electorateId": "sw_coast",
     "name": "South-West Coast",
     "region": "western_vic",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 90992,
+    "totalFormalVotes": 45496,
     "primaryVotes": {
-      "ALP": 19086,
-      "COALITION": 26410,
-      "GRN": 2457,
-      "ON": 0,
-      "OTH": 13882
+        "ALP": 9640,
+        "COALITION": 19517,
+        "GRN": 2457,
+        "ON": 0,
+        "OTH": 13882
     },
     "primaryPercentages": {
-      "ALP": 21,
-      "COALITION": 29,
-      "GRN": 2.7,
-      "ON": 0,
-      "OTH": 15.3
+        "ALP": 21.2,
+        "COALITION": 42.9,
+        "GRN": 5.4,
+        "ON": 0,
+        "OTH": 30.5
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 43.4,
-        "toCoalition": 13,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 43.6
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 54.2,
-        "toCoalition": 43.1,
-        "toGreens": 2.8,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 43.4,
+            "toCoalition": 13,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 43.6
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 40.1,
+            "toCoalition": 31.9,
+            "toGreens": 2,
+            "toOneNation": 0,
+            "toOther": 26
+        }
     },
     "twoPartyPreferred": {
-      "alp": 28710,
-      "coalition": 33125,
-      "alpPercent": 46.4,
-      "coalitionPercent": 53.6
+        "alp": 19086,
+        "coalition": 26410,
+        "alpPercent": 41.95,
+        "coalitionPercent": 58.05
     }
-  },
+},
   "portland": {
     "electorateId": "portland",
     "name": "Portland Coast",
     "region": "western_vic",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 90992,
+    "totalFormalVotes": 37706,
     "primaryVotes": {
-      "ALP": 19086,
-      "COALITION": 26410,
-      "GRN": 2457,
-      "ON": 0,
-      "OTH": 13882
+        "ALP": 16253,
+        "COALITION": 11895,
+        "GRN": 2459,
+        "ON": 0,
+        "OTH": 7099
     },
     "primaryPercentages": {
-      "ALP": 21,
-      "COALITION": 29,
-      "GRN": 2.7,
-      "ON": 0,
-      "OTH": 15.3
+        "ALP": 43.1,
+        "COALITION": 31.5,
+        "GRN": 6.5,
+        "ON": 0,
+        "OTH": 18.8
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 43.4,
-        "toCoalition": 13,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 43.6
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 54.2,
-        "toCoalition": 43.1,
-        "toGreens": 2.8,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 72.2,
+            "toCoalition": 27.8,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 17,
+            "toCoalition": 33.7,
+            "toGreens": 23.3,
+            "toOneNation": 0,
+            "toOther": 25.9
+        }
     },
     "twoPartyPreferred": {
-      "alp": 28710,
-      "coalition": 33125,
-      "alpPercent": 46.4,
-      "coalitionPercent": 53.6
+        "alp": 21271,
+        "coalition": 16435,
+        "alpPercent": 56.41,
+        "coalitionPercent": 43.59
     }
-  },
+},
   "ballarat_east": {
     "electorateId": "ballarat_east",
     "name": "Ballarat East",
     "region": "western_vic",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 90494,
+    "totalFormalVotes": 45247,
     "primaryVotes": {
-      "ALP": 25869,
-      "COALITION": 19378,
-      "GRN": 4887,
-      "ON": 0,
-      "OTH": 7509
+        "ALP": 18531,
+        "COALITION": 14320,
+        "GRN": 4887,
+        "ON": 0,
+        "OTH": 7509
     },
     "primaryPercentages": {
-      "ALP": 28.6,
-      "COALITION": 21.4,
-      "GRN": 5.4,
-      "ON": 0,
-      "OTH": 8.3
+        "ALP": 41,
+        "COALITION": 31.6,
+        "GRN": 10.8,
+        "ON": 0,
+        "OTH": 16.6
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 74.9,
-        "toCoalition": 25.1,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 25.5,
-        "toCoalition": 43.1,
-        "toGreens": 31.4,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 74.9,
+            "toCoalition": 25.1,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 17.1,
+            "toCoalition": 28.9,
+            "toGreens": 21.1,
+            "toOneNation": 0,
+            "toOther": 32.9
+        }
     },
     "twoPartyPreferred": {
-      "alp": 32321,
-      "coalition": 25322,
-      "alpPercent": 56.1,
-      "coalitionPercent": 43.9
+        "alp": 25869,
+        "coalition": 19378,
+        "alpPercent": 57.17,
+        "coalitionPercent": 42.83
     }
-  },
+},
   "ballarat_west": {
     "electorateId": "ballarat_west",
     "name": "Ballarat West",
     "region": "western_vic",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 84350,
+    "totalFormalVotes": 42175,
     "primaryVotes": {
-      "ALP": 21423,
-      "COALITION": 14783,
-      "GRN": 5969,
-      "ON": 0,
-      "OTH": 5182
+        "ALP": 20059,
+        "COALITION": 12548,
+        "GRN": 4386,
+        "ON": 0,
+        "OTH": 5182
     },
     "primaryPercentages": {
-      "ALP": 25.4,
-      "COALITION": 17.5,
-      "GRN": 7.1,
-      "ON": 0,
-      "OTH": 6.1
+        "ALP": 47.6,
+        "COALITION": 29.8,
+        "GRN": 10.4,
+        "ON": 0,
+        "OTH": 12.3
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 26.3,
-        "toCoalition": 43.1,
-        "toGreens": 30.5,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 20.9,
+            "toCoalition": 34.3,
+            "toGreens": 24.3,
+            "toOneNation": 0,
+            "toOther": 20.4
+        }
     },
     "twoPartyPreferred": {
-      "alp": 28252,
-      "coalition": 19105,
-      "alpPercent": 59.7,
-      "coalitionPercent": 40.3
+        "alp": 21423,
+        "coalition": 14783,
+        "alpPercent": 50.8,
+        "coalitionPercent": 35.05
     }
-  },
+},
   "bellarine": {
     "electorateId": "bellarine",
     "name": "Bellarine",
     "region": "western_vic",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 94306,
+    "totalFormalVotes": 47153,
     "primaryVotes": {
-      "ALP": 27567,
-      "COALITION": 19586,
-      "GRN": 5537,
-      "ON": 0,
-      "OTH": 5896
+        "ALP": 20103,
+        "COALITION": 15617,
+        "GRN": 5537,
+        "ON": 0,
+        "OTH": 5896
     },
     "primaryPercentages": {
-      "ALP": 29.2,
-      "COALITION": 20.8,
-      "GRN": 5.9,
-      "ON": 0,
-      "OTH": 6.3
+        "ALP": 42.6,
+        "COALITION": 33.1,
+        "GRN": 11.7,
+        "ON": 0,
+        "OTH": 12.5
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 78,
-        "toCoalition": 22,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 26.8,
-        "toCoalition": 39.1,
-        "toGreens": 34.1,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 78,
+            "toCoalition": 22,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 19.1,
+            "toCoalition": 27.9,
+            "toGreens": 24.3,
+            "toOneNation": 0,
+            "toOther": 28.6
+        }
     },
     "twoPartyPreferred": {
-      "alp": 34284,
-      "coalition": 24302,
-      "alpPercent": 58.5,
-      "coalitionPercent": 41.5
+        "alp": 27567,
+        "coalition": 19586,
+        "alpPercent": 58.46,
+        "coalitionPercent": 41.54
     }
-  },
+},
   "geelong": {
     "electorateId": "geelong",
     "name": "Geelong",
     "region": "western_vic",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 89524,
+    "totalFormalVotes": 44762,
     "primaryVotes": {
-      "ALP": 28965,
-      "COALITION": 15797,
-      "GRN": 6849,
-      "ON": 0,
-      "OTH": 4965
+        "ALP": 20754,
+        "COALITION": 12194,
+        "GRN": 6849,
+        "ON": 0,
+        "OTH": 4965
     },
     "primaryPercentages": {
-      "ALP": 32.4,
-      "COALITION": 17.6,
-      "GRN": 7.7,
-      "ON": 0,
-      "OTH": 5.5
+        "ALP": 46.4,
+        "COALITION": 27.2,
+        "GRN": 15.3,
+        "ON": 0,
+        "OTH": 11.1
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 82.4,
-        "toCoalition": 17.6,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 19.8,
-        "toCoalition": 41.5,
-        "toGreens": 38.7,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 82.4,
+            "toCoalition": 17.6,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 16,
+            "toCoalition": 33.5,
+            "toGreens": 31.2,
+            "toOneNation": 0,
+            "toOther": 19.4
+        }
     },
     "twoPartyPreferred": {
-      "alp": 36212,
-      "coalition": 20364,
-      "alpPercent": 64,
-      "coalitionPercent": 36
+        "alp": 28965,
+        "coalition": 15797,
+        "alpPercent": 64.71,
+        "coalitionPercent": 35.29
     }
-  },
+},
   "lara": {
     "electorateId": "lara",
     "name": "Lara",
     "region": "western_vic",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 79042,
+    "totalFormalVotes": 39521,
     "primaryVotes": {
-      "ALP": 19882,
-      "COALITION": 10548,
-      "GRN": 5031,
-      "ON": 0,
-      "OTH": 6048
+        "ALP": 19635,
+        "COALITION": 8460,
+        "GRN": 4473,
+        "ON": 0,
+        "OTH": 6953
     },
     "primaryPercentages": {
-      "ALP": 25.2,
-      "COALITION": 13.3,
-      "GRN": 6.4,
-      "ON": 0,
-      "OTH": 7.7
+        "ALP": 49.7,
+        "COALITION": 21.4,
+        "GRN": 11.3,
+        "ON": 0,
+        "OTH": 17.6
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 20.5,
-        "toCoalition": 33.2,
-        "toGreens": 46.3,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 11.9,
+            "toCoalition": 8.7,
+            "toGreens": 26.9,
+            "toOneNation": 0,
+            "toOther": 52.5
+        }
     },
     "twoPartyPreferred": {
-      "alp": 26291,
-      "coalition": 15218,
-      "alpPercent": 63.3,
-      "coalitionPercent": 36.7
+        "alp": 19882,
+        "coalition": 8641,
+        "alpPercent": 50.31,
+        "coalitionPercent": 21.86
     }
-  },
+},
   "south_barwon": {
     "electorateId": "south_barwon",
     "name": "South Barwon",
     "region": "western_vic",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 90368,
+    "totalFormalVotes": 45184,
     "primaryVotes": {
-      "ALP": 27020,
-      "COALITION": 18164,
-      "GRN": 5719,
-      "ON": 0,
-      "OTH": 4980
+        "ALP": 19969,
+        "COALITION": 14516,
+        "GRN": 5719,
+        "ON": 0,
+        "OTH": 4980
     },
     "primaryPercentages": {
-      "ALP": 29.9,
-      "COALITION": 20.1,
-      "GRN": 6.3,
-      "ON": 0,
-      "OTH": 5.5
+        "ALP": 44.2,
+        "COALITION": 32.1,
+        "GRN": 12.7,
+        "ON": 0,
+        "OTH": 11
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 80,
-        "toCoalition": 20,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 23.6,
-        "toCoalition": 43.8,
-        "toGreens": 32.6,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 80,
+            "toCoalition": 20,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 17.7,
+            "toCoalition": 32.8,
+            "toGreens": 24.4,
+            "toOneNation": 0,
+            "toOther": 25
+        }
     },
     "twoPartyPreferred": {
-      "alp": 33339,
-      "coalition": 22544,
-      "alpPercent": 59.7,
-      "coalitionPercent": 40.3
+        "alp": 27020,
+        "coalition": 18164,
+        "alpPercent": 59.8,
+        "coalitionPercent": 40.2
     }
-  },
+},
   "ripon": {
     "electorateId": "ripon",
     "name": "Ripon",
     "region": "western_vic",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 84682,
+    "totalFormalVotes": 42341,
     "primaryVotes": {
-      "ALP": 22438,
-      "COALITION": 19903,
-      "GRN": 2524,
-      "ON": 0,
-      "OTH": 8191
+        "ALP": 16321,
+        "COALITION": 15305,
+        "GRN": 2524,
+        "ON": 0,
+        "OTH": 8191
     },
     "primaryPercentages": {
-      "ALP": 26.5,
-      "COALITION": 23.5,
-      "GRN": 3,
-      "ON": 0,
-      "OTH": 9.7
+        "ALP": 38.5,
+        "COALITION": 36.1,
+        "GRN": 6,
+        "ON": 0,
+        "OTH": 19.3
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 71.9,
-        "toCoalition": 11.1,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 17
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 43.1,
-        "toCoalition": 48.4,
-        "toGreens": 8.4,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 71.9,
+            "toCoalition": 11.1,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 17
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 32.5,
+            "toCoalition": 36.5,
+            "toGreens": 6.3,
+            "toOneNation": 0,
+            "toOther": 24.7
+        }
     },
     "twoPartyPreferred": {
-      "alp": 28483,
-      "coalition": 24573,
-      "alpPercent": 53.7,
-      "coalitionPercent": 46.3
+        "alp": 22438,
+        "coalition": 19903,
+        "alpPercent": 52.99,
+        "coalitionPercent": 47.01
     }
-  },
+},
   "evelyn": {
     "electorateId": "evelyn",
     "name": "Evelyn",
     "region": "eastern_vic",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 87330,
+    "totalFormalVotes": 43665,
     "primaryVotes": {
-      "ALP": 15370,
-      "COALITION": 22686,
-      "GRN": 5609,
-      "ON": 0,
-      "OTH": 4951
+        "ALP": 14277,
+        "COALITION": 20385,
+        "GRN": 4052,
+        "ON": 0,
+        "OTH": 4951
     },
     "primaryPercentages": {
-      "ALP": 17.6,
-      "COALITION": 26,
-      "GRN": 6.4,
-      "ON": 0,
-      "OTH": 5.7
+        "ALP": 32.7,
+        "COALITION": 46.7,
+        "GRN": 9.3,
+        "ON": 0,
+        "OTH": 11.3
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 22.1,
-        "toCoalition": 46.5,
-        "toGreens": 31.4,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 17.7,
+            "toCoalition": 37.4,
+            "toGreens": 25.3,
+            "toOneNation": 0,
+            "toOther": 19.6
+        }
     },
     "twoPartyPreferred": {
-      "alp": 21536,
-      "coalition": 27080,
-      "alpPercent": 44.3,
-      "coalitionPercent": 55.7
+        "alp": 15370,
+        "coalition": 22686,
+        "alpPercent": 35.2,
+        "coalitionPercent": 51.95
     }
-  },
+},
   "narracan": {
     "electorateId": "narracan",
     "name": "Narracan",
     "region": "eastern_vic",
-    "hasOfficialDistribution": true,
-    "totalFormalVotes": 53600,
+    "hasOfficialDistribution": false,
+    "totalFormalVotes": 37205,
     "primaryVotes": {
-      "ALP": 14686,
-      "COALITION": 22834,
-      "GRN": 5360,
-      "ON": 3216,
-      "OTH": 7504
+        "ALP": 0,
+        "COALITION": 16741,
+        "GRN": 4132,
+        "ON": 2246,
+        "OTH": 14086
     },
     "primaryPercentages": {
-      "ALP": 27.4,
-      "COALITION": 42.6,
-      "GRN": 10,
-      "ON": 6,
-      "OTH": 14
+        "ALP": 0,
+        "COALITION": 45,
+        "GRN": 11.1,
+        "ON": 6,
+        "OTH": 37.9
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 26.9,
+            "toCoalition": 40.4,
+            "toGreens": 31.3,
+            "toOneNation": 1.4,
+            "toOther": 0
+        }
     },
     "twoPartyPreferred": {
-      "alp": 24018,
-      "coalition": 29582,
-      "alpPercent": 44.8,
-      "coalitionPercent": 55.2
+        "alp": 17975,
+        "coalition": 19230,
+        "alpPercent": 48.3,
+        "coalitionPercent": 51.69
     }
-  },
+},
   "nepean": {
     "electorateId": "nepean",
     "name": "Nepean",
     "region": "eastern_vic",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 81532,
+    "totalFormalVotes": 40766,
     "primaryVotes": {
-      "ALP": 13919,
-      "COALITION": 20603,
-      "GRN": 4436,
-      "ON": 0,
-      "OTH": 5096
+        "ALP": 13308,
+        "COALITION": 19614,
+        "GRN": 3576,
+        "ON": 0,
+        "OTH": 4268
     },
     "primaryPercentages": {
-      "ALP": 17.1,
-      "COALITION": 25.3,
-      "GRN": 5.4,
-      "ON": 0,
-      "OTH": 6.3
+        "ALP": 32.6,
+        "COALITION": 48.1,
+        "GRN": 8.8,
+        "ON": 0,
+        "OTH": 10.5
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 24.8,
-        "toCoalition": 40.2,
-        "toGreens": 35,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 13.3,
+            "toCoalition": 21.5,
+            "toGreens": 18.7,
+            "toOneNation": 0,
+            "toOther": 46.6
+        }
     },
     "twoPartyPreferred": {
-      "alp": 19479,
-      "coalition": 24575,
-      "alpPercent": 44.2,
-      "coalitionPercent": 55.8
+        "alp": 13919,
+        "coalition": 20603,
+        "alpPercent": 34.14,
+        "coalitionPercent": 50.54
     }
-  },
+},
   "mornington": {
     "electorateId": "mornington",
     "name": "Mornington",
     "region": "eastern_vic",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 126186,
+    "totalFormalVotes": 42062,
     "primaryVotes": {
-      "ALP": 9246,
-      "COALITION": 21326,
-      "GRN": 2677,
-      "ON": 0,
-      "OTH": 65595
+        "ALP": 9246,
+        "COALITION": 17910,
+        "GRN": 2677,
+        "ON": 0,
+        "OTH": 12229
     },
     "primaryPercentages": {
-      "ALP": 7.3,
-      "COALITION": 16.9,
-      "GRN": 2.1,
-      "ON": 0,
-      "OTH": 52
+        "ALP": 22,
+        "COALITION": 42.6,
+        "GRN": 6.4,
+        "ON": 0,
+        "OTH": 29.1
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 16.2,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 83.8
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 38.3,
-        "toCoalition": 11.2,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 50.5
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 9.9,
-        "toCoalition": 66.8,
-        "toGreens": 23.3,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 16.2,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 83.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 38.3,
+            "toCoalition": 11.2,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 50.5
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 5.7,
+            "toCoalition": 38.2,
+            "toGreens": 13.3,
+            "toOneNation": 0,
+            "toOther": 42.7
+        }
     },
     "twoPartyPreferred": {
-      "alp": 19784,
-      "coalition": 79060,
-      "alpPercent": 20,
-      "coalitionPercent": 80
+        "alp": 20736,
+        "coalition": 21326,
+        "alpPercent": 49.3,
+        "coalitionPercent": 50.7
     }
-  },
+},
   "gippsland_east": {
     "electorateId": "gippsland_east",
     "name": "Gippsland East",
     "region": "eastern_vic",
     "hasOfficialDistribution": false,
-    "totalFormalVotes": 84498,
+    "totalFormalVotes": 42212,
     "primaryVotes": {
-      "ALP": 11027,
-      "COALITION": 31259,
-      "GRN": 2691,
-      "ON": 0,
-      "OTH": 5593
+        "ALP": 7191,
+        "COALITION": 26737,
+        "GRN": 2691,
+        "ON": 0,
+        "OTH": 5593
     },
     "primaryPercentages": {
-      "ALP": 13.1,
-      "COALITION": 37,
-      "GRN": 3.2,
-      "ON": 0,
-      "OTH": 6.6
+        "ALP": 17,
+        "COALITION": 63.3,
+        "GRN": 6.4,
+        "ON": 0,
+        "OTH": 13.2
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 16.2,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 83.8
-      },
-      "COALITION": {
-        "toALP": 100,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 64.7,
-        "toCoalition": 21.2,
-        "toGreens": 0,
-        "toOneNation": 0.8,
-        "toOther": 13.3
-      },
-      "ON": {
-        "toALP": 18.4,
-        "toCoalition": 81.6,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 20.4,
-        "toCoalition": 46,
-        "toGreens": 28.1,
-        "toOneNation": 5.6,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 26.9,
+            "toCoalition": 40.4,
+            "toGreens": 31.3,
+            "toOneNation": 1.4,
+            "toOther": 0
+        }
     },
     "twoPartyPreferred": {
-      "alp": 16129,
-      "coalition": 34441,
-      "alpPercent": 31.9,
-      "coalitionPercent": 68.1
+        "alp": 11027,
+        "coalition": 31259,
+        "alpPercent": 26.08,
+        "coalitionPercent": 73.92
     }
-  },
+},
   "gippsland_south": {
     "electorateId": "gippsland_south",
     "name": "Gippsland South",
     "region": "eastern_vic",
     "hasOfficialDistribution": false,
-    "totalFormalVotes": 84731,
+    "totalFormalVotes": 42363,
     "primaryVotes": {
-      "ALP": 14723,
-      "COALITION": 27645,
-      "GRN": 3538,
-      "ON": 0,
-      "OTH": 6339
+        "ALP": 9920,
+        "COALITION": 22566,
+        "GRN": 3538,
+        "ON": 0,
+        "OTH": 6339
     },
     "primaryPercentages": {
-      "ALP": 17.4,
-      "COALITION": 32.6,
-      "GRN": 4.2,
-      "ON": 0,
-      "OTH": 7.5
+        "ALP": 23.4,
+        "COALITION": 53.3,
+        "GRN": 8.4,
+        "ON": 0,
+        "OTH": 15
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 16.2,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 83.8
-      },
-      "COALITION": {
-        "toALP": 100,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 64.7,
-        "toCoalition": 21.2,
-        "toGreens": 0,
-        "toOneNation": 0.8,
-        "toOther": 13.3
-      },
-      "ON": {
-        "toALP": 18.4,
-        "toCoalition": 81.6,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 20.4,
-        "toCoalition": 46,
-        "toGreens": 28.1,
-        "toOneNation": 5.6,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 26.9,
+            "toCoalition": 40.4,
+            "toGreens": 31.3,
+            "toOneNation": 1.4,
+            "toOther": 0
+        }
     },
     "twoPartyPreferred": {
-      "alp": 20903,
-      "coalition": 31342,
-      "alpPercent": 40,
-      "coalitionPercent": 60
+        "alp": 14723,
+        "coalition": 27645,
+        "alpPercent": 34.75,
+        "coalitionPercent": 65.25
     }
-  },
+},
   "morwell": {
     "electorateId": "morwell",
     "name": "Morwell",
     "region": "eastern_vic",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 86522,
+    "totalFormalVotes": 43261,
     "primaryVotes": {
-      "ALP": 19720,
-      "COALITION": 30251,
-      "GRN": 1830,
-      "ON": 2648,
-      "OTH": 8570
+        "ALP": 13601,
+        "COALITION": 16612,
+        "GRN": 1830,
+        "ON": 2648,
+        "OTH": 8570
     },
     "primaryPercentages": {
-      "ALP": 22.8,
-      "COALITION": 35,
-      "GRN": 2.1,
-      "ON": 3.1,
-      "OTH": 9.9
+        "ALP": 31.4,
+        "COALITION": 38.4,
+        "GRN": 4.2,
+        "ON": 6.1,
+        "OTH": 19.8
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 100,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 63.7,
-        "toCoalition": 16.2,
-        "toGreens": 0,
-        "toOneNation": 4,
-        "toOther": 16.1
-      },
-      "ON": {
-        "toALP": 18.4,
-        "toCoalition": 81.6,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 25.7,
-        "toCoalition": 30.3,
-        "toGreens": 5.1,
-        "toOneNation": 38.9,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 11.3,
+            "toCoalition": 88.7,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "GRN": {
+            "toALP": 63.7,
+            "toCoalition": 16.2,
+            "toGreens": 0,
+            "toOneNation": 4,
+            "toOther": 16.1
+        },
+        "ON": {
+            "toALP": 18.4,
+            "toCoalition": 81.6,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 20.5,
+            "toCoalition": 24.2,
+            "toGreens": 4.1,
+            "toOneNation": 31.2,
+            "toOther": 20
+        }
     },
     "twoPartyPreferred": {
-      "alp": 25599,
-      "coalition": 37420,
-      "alpPercent": 40.6,
-      "coalitionPercent": 59.4
+        "alp": 19720,
+        "coalition": 23541,
+        "alpPercent": 45.58,
+        "coalitionPercent": 54.42
     }
-  },
+},
   "bass": {
     "electorateId": "bass",
     "name": "Bass",
     "region": "eastern_vic",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 82808,
+    "totalFormalVotes": 41404,
     "primaryVotes": {
-      "ALP": 20803,
-      "COALITION": 26107,
-      "GRN": 3369,
-      "ON": 0,
-      "OTH": 6569
+        "ALP": 13478,
+        "COALITION": 17988,
+        "GRN": 3369,
+        "ON": 0,
+        "OTH": 6569
     },
     "primaryPercentages": {
-      "ALP": 25.1,
-      "COALITION": 31.5,
-      "GRN": 4.1,
-      "ON": 0,
-      "OTH": 7.9
+        "ALP": 32.6,
+        "COALITION": 43.4,
+        "GRN": 8.1,
+        "ON": 0,
+        "OTH": 15.9
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 100,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 65.4,
-        "toCoalition": 34.6,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 20.2,
-        "toCoalition": 54.3,
-        "toGreens": 25.6,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 31.2,
+            "toCoalition": 68.8,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "GRN": {
+            "toALP": 65.4,
+            "toCoalition": 34.6,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 14.7,
+            "toCoalition": 39.5,
+            "toGreens": 18.6,
+            "toOneNation": 0,
+            "toOther": 27.3
+        }
     },
     "twoPartyPreferred": {
-      "alp": 24787,
-      "coalition": 32061,
-      "alpPercent": 43.6,
-      "coalitionPercent": 56.4
+        "alp": 20803,
+        "coalition": 20601,
+        "alpPercent": 50.24,
+        "coalitionPercent": 49.76
     }
-  },
+},
   "hastings": {
     "electorateId": "hastings",
     "name": "Hastings",
     "region": "eastern_vic",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 82464,
+    "totalFormalVotes": 41232,
     "primaryVotes": {
-      "ALP": 21174,
-      "COALITION": 20058,
-      "GRN": 4118,
-      "ON": 0,
-      "OTH": 5338
+        "ALP": 15361,
+        "COALITION": 16415,
+        "GRN": 4118,
+        "ON": 0,
+        "OTH": 5338
     },
     "primaryPercentages": {
-      "ALP": 25.7,
-      "COALITION": 24.3,
-      "GRN": 5,
-      "ON": 0,
-      "OTH": 6.5
+        "ALP": 37.3,
+        "COALITION": 39.8,
+        "GRN": 10,
+        "ON": 0,
+        "OTH": 12.9
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 77.8,
-        "toCoalition": 22.2,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 21.4,
-        "toCoalition": 43.3,
-        "toGreens": 35.3,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 77.8,
+            "toCoalition": 22.2,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 16,
+            "toCoalition": 32.4,
+            "toGreens": 26.4,
+            "toOneNation": 0,
+            "toOther": 25.2
+        }
     },
     "twoPartyPreferred": {
-      "alp": 26143,
-      "coalition": 24545,
-      "alpPercent": 51.6,
-      "coalitionPercent": 48.4
+        "alp": 21174,
+        "coalition": 20058,
+        "alpPercent": 51.35,
+        "coalitionPercent": 48.65
     }
-  },
+},
   "monbulk": {
     "electorateId": "monbulk",
     "name": "Monbulk",
     "region": "eastern_vic",
     "hasOfficialDistribution": true,
-    "totalFormalVotes": 83594,
+    "totalFormalVotes": 41797,
     "primaryVotes": {
-      "ALP": 24056,
-      "COALITION": 17741,
-      "GRN": 6255,
-      "ON": 0,
-      "OTH": 8144
+        "ALP": 15071,
+        "COALITION": 12327,
+        "GRN": 6255,
+        "ON": 0,
+        "OTH": 8144
     },
     "primaryPercentages": {
-      "ALP": 28.8,
-      "COALITION": 21.2,
-      "GRN": 7.5,
-      "ON": 0,
-      "OTH": 9.7
+        "ALP": 36.1,
+        "COALITION": 29.5,
+        "GRN": 15,
+        "ON": 0,
+        "OTH": 19.5
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "COALITION": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 78.2,
-        "toCoalition": 21.8,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "ON": {
-        "toALP": 0,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 18.5,
-        "toCoalition": 40.8,
-        "toGreens": 40.7,
-        "toOneNation": 0,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 78.2,
+            "toCoalition": 21.8,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 13.3,
+            "toCoalition": 29.3,
+            "toGreens": 29.3,
+            "toOneNation": 0,
+            "toOther": 28.1
+        }
     },
     "twoPartyPreferred": {
-      "alp": 31488,
-      "coalition": 24708,
-      "alpPercent": 56,
-      "coalitionPercent": 44
+        "alp": 24056,
+        "coalition": 17741,
+        "alpPercent": 57.55,
+        "coalitionPercent": 42.45
     }
-  },
+},
   "pakenham": {
     "electorateId": "pakenham",
     "name": "Pakenham",
     "region": "eastern_vic",
     "hasOfficialDistribution": false,
-    "totalFormalVotes": 77734,
+    "totalFormalVotes": 38867,
     "primaryVotes": {
-      "ALP": 19587,
-      "COALITION": 19280,
-      "GRN": 2571,
-      "ON": 1321,
-      "OTH": 9219
+        "ALP": 13151,
+        "COALITION": 12605,
+        "GRN": 2571,
+        "ON": 1321,
+        "OTH": 9219
     },
     "primaryPercentages": {
-      "ALP": 25.2,
-      "COALITION": 24.8,
-      "GRN": 3.3,
-      "ON": 1.7,
-      "OTH": 11.9
+        "ALP": 33.8,
+        "COALITION": 32.4,
+        "GRN": 6.6,
+        "ON": 3.4,
+        "OTH": 23.7
     },
     "transferFlows": {
-      "ALP": {
-        "toALP": 0,
-        "toCoalition": 16.2,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 83.8
-      },
-      "COALITION": {
-        "toALP": 100,
-        "toCoalition": 0,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "GRN": {
-        "toALP": 64.7,
-        "toCoalition": 21.2,
-        "toGreens": 0,
-        "toOneNation": 0.8,
-        "toOther": 13.3
-      },
-      "ON": {
-        "toALP": 18.4,
-        "toCoalition": 81.6,
-        "toGreens": 0,
-        "toOneNation": 0,
-        "toOther": 0
-      },
-      "OTH": {
-        "toALP": 20.4,
-        "toCoalition": 46,
-        "toGreens": 28.1,
-        "toOneNation": 5.6,
-        "toOther": 0
-      }
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 26.9,
+            "toCoalition": 40.4,
+            "toGreens": 31.3,
+            "toOneNation": 1.4,
+            "toOther": 0
+        }
     },
     "twoPartyPreferred": {
-      "alp": 26912,
-      "coalition": 25066,
-      "alpPercent": 51.8,
-      "coalitionPercent": 48.2
+        "alp": 19587,
+        "coalition": 19280,
+        "alpPercent": 50.39,
+        "coalitionPercent": 49.61
     }
-  }
+},
+  "eureka": {
+    "electorateId": "eureka",
+    "name": "Eureka",
+    "region": "western_vic",
+    "hasOfficialDistribution": true,
+    "totalFormalVotes": 45247,
+    "primaryVotes": {
+        "ALP": 18531,
+        "COALITION": 14320,
+        "GRN": 4887,
+        "ON": 0,
+        "OTH": 7509
+    },
+    "primaryPercentages": {
+        "ALP": 41,
+        "COALITION": 31.6,
+        "GRN": 10.8,
+        "ON": 0,
+        "OTH": 16.6
+    },
+    "transferFlows": {
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 74.9,
+            "toCoalition": 25.1,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 17.1,
+            "toCoalition": 28.9,
+            "toGreens": 21.1,
+            "toOneNation": 0,
+            "toOther": 32.9
+        }
+    },
+    "twoPartyPreferred": {
+        "alp": 25869,
+        "coalition": 19378,
+        "alpPercent": 57.17,
+        "coalitionPercent": 42.83
+    }
+},
+  "wendouree": {
+    "electorateId": "wendouree",
+    "name": "Wendouree",
+    "region": "western_vic",
+    "hasOfficialDistribution": true,
+    "totalFormalVotes": 42175,
+    "primaryVotes": {
+        "ALP": 20059,
+        "COALITION": 12548,
+        "GRN": 4386,
+        "ON": 0,
+        "OTH": 5182
+    },
+    "primaryPercentages": {
+        "ALP": 47.6,
+        "COALITION": 29.8,
+        "GRN": 10.4,
+        "ON": 0,
+        "OTH": 12.3
+    },
+    "transferFlows": {
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 20.9,
+            "toCoalition": 34.3,
+            "toGreens": 24.3,
+            "toOneNation": 0,
+            "toOther": 20.4
+        }
+    },
+    "twoPartyPreferred": {
+        "alp": 21423,
+        "coalition": 14783,
+        "alpPercent": 50.8,
+        "coalitionPercent": 35.05
+    }
+},
+  "south_west_coast": {
+    "electorateId": "south_west_coast",
+    "name": "South West Coast",
+    "region": "western_vic",
+    "hasOfficialDistribution": true,
+    "totalFormalVotes": 45496,
+    "primaryVotes": {
+        "ALP": 9640,
+        "COALITION": 19517,
+        "GRN": 2457,
+        "ON": 0,
+        "OTH": 13882
+    },
+    "primaryPercentages": {
+        "ALP": 21.2,
+        "COALITION": 42.9,
+        "GRN": 5.4,
+        "ON": 0,
+        "OTH": 30.5
+    },
+    "transferFlows": {
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 43.4,
+            "toCoalition": 13,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 43.6
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 40.1,
+            "toCoalition": 31.9,
+            "toGreens": 2,
+            "toOneNation": 0,
+            "toOther": 26
+        }
+    },
+    "twoPartyPreferred": {
+        "alp": 19086,
+        "coalition": 26410,
+        "alpPercent": 41.95,
+        "coalitionPercent": 58.05
+    }
+},
+  "narre_warren_north": {
+    "electorateId": "narre_warren_north",
+    "name": "Narre Warren North",
+    "region": "se_metro",
+    "hasOfficialDistribution": true,
+    "totalFormalVotes": 41370,
+    "primaryVotes": {
+        "ALP": 19350,
+        "COALITION": 11291,
+        "GRN": 2809,
+        "ON": 0,
+        "OTH": 7920
+    },
+    "primaryPercentages": {
+        "ALP": 46.8,
+        "COALITION": 27.3,
+        "GRN": 6.8,
+        "ON": 0,
+        "OTH": 19.1
+    },
+    "transferFlows": {
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 60.6,
+            "toCoalition": 16.5,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 22.8
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 15.9,
+            "toCoalition": 20.5,
+            "toGreens": 8.5,
+            "toOneNation": 0,
+            "toOther": 55
+        }
+    },
+    "twoPartyPreferred": {
+        "alp": 22764,
+        "coalition": 13537,
+        "alpPercent": 55.03,
+        "coalitionPercent": 32.72
+    }
+},
+  "narre_warren_south": {
+    "electorateId": "narre_warren_south",
+    "name": "Narre Warren South",
+    "region": "se_metro",
+    "hasOfficialDistribution": true,
+    "totalFormalVotes": 42859,
+    "primaryVotes": {
+        "ALP": 20562,
+        "COALITION": 12280,
+        "GRN": 2836,
+        "ON": 0,
+        "OTH": 7181
+    },
+    "primaryPercentages": {
+        "ALP": 48,
+        "COALITION": 28.7,
+        "GRN": 6.6,
+        "ON": 0,
+        "OTH": 16.8
+    },
+    "transferFlows": {
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 59.3,
+            "toCoalition": 13.5,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 27.2
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 9.7,
+            "toCoalition": 19.3,
+            "toGreens": 15.1,
+            "toOneNation": 0,
+            "toOther": 55.9
+        }
+    },
+    "twoPartyPreferred": {
+        "alp": 23247,
+        "coalition": 13815,
+        "alpPercent": 54.24,
+        "coalitionPercent": 32.23
+    }
+},
+  "benambra": {
+    "electorateId": "benambra",
+    "name": "Benambra",
+    "region": "northern_vic",
+    "hasOfficialDistribution": true,
+    "totalFormalVotes": 41135,
+    "primaryVotes": {
+        "ALP": 5375,
+        "COALITION": 17658,
+        "GRN": 1592,
+        "ON": 0,
+        "OTH": 16510
+    },
+    "primaryPercentages": {
+        "ALP": 13.1,
+        "COALITION": 42.9,
+        "GRN": 3.9,
+        "ON": 0,
+        "OTH": 40.1
+    },
+    "transferFlows": {
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 25.5,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 74.5
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 29.9,
+            "toCoalition": 11.8,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 58.4
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 8,
+            "toCoalition": 31,
+            "toGreens": 15.5,
+            "toOneNation": 0,
+            "toOther": 45.5
+        }
+    },
+    "twoPartyPreferred": {
+        "alp": 20179,
+        "coalition": 20956,
+        "alpPercent": 49.1,
+        "coalitionPercent": 50.94
+    }
+},
+  "eildon": {
+    "electorateId": "eildon",
+    "name": "Eildon",
+    "region": "northern_vic",
+    "hasOfficialDistribution": true,
+    "totalFormalVotes": 42399,
+    "primaryVotes": {
+        "ALP": 12284,
+        "COALITION": 20119,
+        "GRN": 4753,
+        "ON": 0,
+        "OTH": 5243
+    },
+    "primaryPercentages": {
+        "ALP": 29,
+        "COALITION": 47.5,
+        "GRN": 11.2,
+        "ON": 0,
+        "OTH": 12.4
+    },
+    "transferFlows": {
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 12.1,
+            "toCoalition": 33.3,
+            "toGreens": 24.5,
+            "toOneNation": 0,
+            "toOther": 30.1
+        }
+    },
+    "twoPartyPreferred": {
+        "alp": 13192,
+        "coalition": 22615,
+        "alpPercent": 31.11,
+        "coalitionPercent": 53.34
+    }
+},
+  "essendon": {
+    "electorateId": "essendon",
+    "name": "Essendon",
+    "region": "eastern_metro",
+    "hasOfficialDistribution": true,
+    "totalFormalVotes": 41867,
+    "primaryVotes": {
+        "ALP": 17196,
+        "COALITION": 12331,
+        "GRN": 6344,
+        "ON": 0,
+        "OTH": 5996
+    },
+    "primaryPercentages": {
+        "ALP": 41.1,
+        "COALITION": 29.5,
+        "GRN": 15.2,
+        "ON": 0,
+        "OTH": 14.3
+    },
+    "transferFlows": {
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 81.2,
+            "toCoalition": 18.8,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 14.7,
+            "toCoalition": 20.5,
+            "toGreens": 42.6,
+            "toOneNation": 0,
+            "toOther": 22.2
+        }
+    },
+    "twoPartyPreferred": {
+        "alp": 26146,
+        "coalition": 15721,
+        "alpPercent": 62.45,
+        "coalitionPercent": 37.55
+    }
+},
+  "kalkallo": {
+    "electorateId": "kalkallo",
+    "name": "Kalkallo",
+    "region": "se_metro",
+    "hasOfficialDistribution": false,
+    "totalFormalVotes": 39980,
+    "primaryVotes": {
+        "ALP": 21531,
+        "COALITION": 9154,
+        "GRN": 2116,
+        "ON": 0,
+        "OTH": 7179
+    },
+    "primaryPercentages": {
+        "ALP": 53.9,
+        "COALITION": 22.9,
+        "GRN": 5.3,
+        "ON": 0,
+        "OTH": 18
+    },
+    "transferFlows": {
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 67.2,
+            "toCoalition": 18.6,
+            "toGreens": 0,
+            "toOneNation": 0.1,
+            "toOther": 14.1
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 26.9,
+            "toCoalition": 40.4,
+            "toGreens": 31.3,
+            "toOneNation": 1.4,
+            "toOther": 0
+        }
+    },
+    "twoPartyPreferred": {
+        "alp": 26664,
+        "coalition": 13474,
+        "alpPercent": 66.43,
+        "coalitionPercent": 33.57
+    }
+},
+  "sunbury": {
+    "electorateId": "sunbury",
+    "name": "Sunbury",
+    "region": "western_vic",
+    "hasOfficialDistribution": true,
+    "totalFormalVotes": 37706,
+    "primaryVotes": {
+        "ALP": 16253,
+        "COALITION": 11895,
+        "GRN": 2459,
+        "ON": 0,
+        "OTH": 7099
+    },
+    "primaryPercentages": {
+        "ALP": 43.1,
+        "COALITION": 31.5,
+        "GRN": 6.5,
+        "ON": 0,
+        "OTH": 18.8
+    },
+    "transferFlows": {
+        "ALP": {
+            "toALP": 0,
+            "toCoalition": 29.5,
+            "toGreens": 20.7,
+            "toOneNation": 0,
+            "toOther": 49.8
+        },
+        "COALITION": {
+            "toALP": 39.1,
+            "toCoalition": 0,
+            "toGreens": 25,
+            "toOneNation": 0,
+            "toOther": 35.9
+        },
+        "GRN": {
+            "toALP": 72.2,
+            "toCoalition": 27.8,
+            "toGreens": 0,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "ON": {
+            "toALP": 19.3,
+            "toCoalition": 72.5,
+            "toGreens": 8.2,
+            "toOneNation": 0,
+            "toOther": 0
+        },
+        "OTH": {
+            "toALP": 17,
+            "toCoalition": 33.7,
+            "toGreens": 23.3,
+            "toOneNation": 0,
+            "toOther": 25.9
+        }
+    },
+    "twoPartyPreferred": {
+        "alp": 21271,
+        "coalition": 16435,
+        "alpPercent": 56.41,
+        "coalitionPercent": 43.59
+    }
+},
 };

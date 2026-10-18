@@ -3,16 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useMemo, ChangeEvent } from 'react';
+import { useState, useMemo, useEffect, ChangeEvent } from 'react';
 import { ELECTORATES_DATA, calculateSimulatedWinner, PartyCode, PARTIES, SCENARIO_PRESETS } from './data';
 import { ElectorateMap } from './components/ElectorateMap';
 import { ParliamentHemicycle } from './components/ParliamentHemicycle';
 import { ScenarioControls } from './components/ScenarioControls';
 import { ElectorateDetail } from './components/ElectorateDetail';
 import { ElectorateList } from './components/ElectorateList';
-import { Vote, RefreshCw, Layers, Vote as VoteIcon, Info, X, Copy, Check, Download, Upload, FileCode } from 'lucide-react';
+import { UserGuideModal } from './components/UserGuideModal';
+import { RefreshCw, Layers, Info, X, Copy, Check, Download, Upload, FileCode, BookOpen, GitFork } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { encodeOverrides, decodeOverrides, getAlphabeticalElectorates, PARTY_TO_CHAR } from './utils/overridesString';
+import { encodePreferenceModel, decodePreferenceModel, getPreferenceSummary } from './utils/preferenceString';
+import { logSettledScenario, logImmediateMilestone } from './services/googleSheetLogger';
 import {
   PartyGroup,
   PreferenceModelDeltas,
@@ -53,6 +56,12 @@ export default function App() {
   const [copiedSnippetFeedback, setCopiedSnippetFeedback] = useState<boolean>(false);
   const [feedbackMessage, setFeedbackMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [showAlphabeticalGuide, setShowAlphabeticalGuide] = useState<boolean>(false);
+  const [showGuideModal, setShowGuideModal] = useState<boolean>(false);
+
+  // Preference Flow String import/export states
+  const [importPrefStringInput, setImportPrefStringInput] = useState<string>('');
+  const [copiedPrefFeedback, setCopiedPrefFeedback] = useState<boolean>(false);
+  const [prefFeedbackMessage, setPrefFeedbackMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   // 2. DYNAMIC COMPUTATION OF STATE
   const simulatedElectorates = useMemo(() => {
@@ -371,11 +380,138 @@ export default function App() {
     return encodeOverrides(customOverrides);
   }, [customOverrides]);
 
+  // Generate the current preference flow model string representation
+  const currentPreferenceFlowString = useMemo(() => {
+    return encodePreferenceModel(globalPreferenceDeltas, regionalPreferenceDeltas, seatPreferenceDeltas);
+  }, [globalPreferenceDeltas, regionalPreferenceDeltas, seatPreferenceDeltas]);
+
+  const preferenceSummaryText = useMemo(() => {
+    return getPreferenceSummary(globalPreferenceDeltas);
+  }, [globalPreferenceDeltas]);
+
+  // Parliamentary seat counts across all 5 party groupings + Labor swing
+  const parliamentaryCounts = useMemo(() => {
+    let alp = 0;
+    let coalition = 0;
+    let grn = 0;
+    let on = 0;
+    let ind = 0;
+
+    simulatedElectorates.forEach((e) => {
+      if (e.currentParty === 'ALP') alp++;
+      else if (e.currentParty === 'LIB' || e.currentParty === 'NAT') coalition++;
+      else if (e.currentParty === 'GRN') grn++;
+      else if (e.currentParty === 'ON') on++;
+      else ind++;
+    });
+
+    const projectedGov = alp >= 45 ? 'Labor Majority' : coalition >= 45 ? 'Coalition Majority' : 'Hung Parliament';
+
+    // Labor swing: In preference flow mode, use ALP primary delta. In swing pad mode, use inverse of coalition swing.
+    const laborSwing = activeSimulatorTab === 'preference_flow'
+      ? (globalPreferenceDeltas.primaryDeltas.ALP || 0)
+      : -activeCoalitionSwing;
+
+    return {
+      laborSeats: alp,
+      coalitionSeats: coalition,
+      greensSeats: grn,
+      oneNationSeats: on,
+      independentSeats: ind,
+      projectedGovernment: projectedGov,
+      laborSwing: Number(laborSwing.toFixed(1)),
+    };
+  }, [simulatedElectorates, activeSimulatorTab, globalPreferenceDeltas, activeCoalitionSwing]);
+
+  // Helper for immediate milestone logging
+  const logMilestone = (triggerType: 'COPY_OVERRIDE_STRING' | 'COPY_PREF_STRING' | 'DOWNLOAD_TXT' | 'APPLY_PRESET') => {
+    logImmediateMilestone({
+      triggerType,
+      simulatorMode: activeSimulatorTab,
+      coalitionSwing: activeCoalitionSwing,
+      laborSwing: parliamentaryCounts.laborSwing,
+      oneNationSwing: activeOneNationSwing,
+      laborSeats: parliamentaryCounts.laborSeats,
+      coalitionSeats: parliamentaryCounts.coalitionSeats,
+      greensSeats: parliamentaryCounts.greensSeats,
+      oneNationSeats: parliamentaryCounts.oneNationSeats,
+      independentSeats: parliamentaryCounts.independentSeats,
+      projectedGovernment: parliamentaryCounts.projectedGovernment,
+      overridesCount: customOverridesCount,
+      overridesString: currentOverridesString,
+      preferenceFlowString: currentPreferenceFlowString,
+    });
+  };
+
+  // Debounced auto-logging to Google Sheets when user finishes adjusting scenario
+  useEffect(() => {
+    logSettledScenario({
+      triggerType: 'SCENARIO_SETTLED',
+      simulatorMode: activeSimulatorTab,
+      coalitionSwing: activeCoalitionSwing,
+      laborSwing: parliamentaryCounts.laborSwing,
+      oneNationSwing: activeOneNationSwing,
+      laborSeats: parliamentaryCounts.laborSeats,
+      coalitionSeats: parliamentaryCounts.coalitionSeats,
+      greensSeats: parliamentaryCounts.greensSeats,
+      oneNationSeats: parliamentaryCounts.oneNationSeats,
+      independentSeats: parliamentaryCounts.independentSeats,
+      projectedGovernment: parliamentaryCounts.projectedGovernment,
+      overridesCount: customOverridesCount,
+      overridesString: currentOverridesString,
+      preferenceFlowString: currentPreferenceFlowString,
+    });
+  }, [
+    simulatedElectorates,
+    activeSimulatorTab,
+    activeCoalitionSwing,
+    activeOneNationSwing,
+    currentOverridesString,
+    currentPreferenceFlowString,
+    parliamentaryCounts,
+    customOverridesCount,
+  ]);
+
   const handleCopyOverridesString = () => {
     navigator.clipboard.writeText(currentOverridesString).then(() => {
       setCopiedFeedback(true);
+      logMilestone('COPY_OVERRIDE_STRING');
       setTimeout(() => setCopiedFeedback(false), 2000);
     });
+  };
+
+  const handleCopyPrefString = () => {
+    navigator.clipboard.writeText(currentPreferenceFlowString).then(() => {
+      setCopiedPrefFeedback(true);
+      logMilestone('COPY_PREF_STRING');
+      setTimeout(() => setCopiedPrefFeedback(false), 2000);
+    });
+  };
+
+  const handleApplyImportedPrefString = (str: string) => {
+    const trimmed = str.trim();
+    if (!trimmed) {
+      setPrefFeedbackMessage({ type: 'error', text: 'Please enter or paste a preference flow string.' });
+      return;
+    }
+    try {
+      const decoded = decodePreferenceModel(trimmed);
+      setGlobalPreferenceDeltas(decoded.global);
+      if (decoded.regional) setRegionalPreferenceDeltas(decoded.regional);
+      if (decoded.seats) setSeatPreferenceDeltas(decoded.seats);
+      setActiveSimulatorTab('preference_flow');
+      setImportPrefStringInput('');
+      setPrefFeedbackMessage({
+        type: 'success',
+        text: 'Successfully restored Preference Flow Simulator model state!',
+      });
+      setTimeout(() => setPrefFeedbackMessage(null), 4000);
+    } catch (err: any) {
+      setPrefFeedbackMessage({
+        type: 'error',
+        text: err?.message || 'Failed to parse preference model string format.',
+      });
+    }
   };
 
   const handleDownloadOverridesFile = () => {
@@ -390,6 +526,7 @@ export default function App() {
     link.click();
     document.body.removeChild(link);
 
+    logMilestone('DOWNLOAD_TXT');
     setFeedbackMessage({ type: 'success', text: `Downloaded override configuration string file!` });
     setTimeout(() => setFeedbackMessage(null), 3500);
   };
@@ -464,13 +601,32 @@ export default function App() {
       <header className="max-w-7xl mx-auto w-full mb-6 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 border-b border-white/10 pb-5">
         <div className="flex items-start gap-4">
           <div className="w-12 h-12 rounded bg-white/5 border border-white/10 flex items-center justify-center text-white shrink-0">
-            <VoteIcon size={22} className="stroke-[1.5]" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width={22}
+              height={22}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="stroke-[1.5]"
+            >
+              <path d="M10.5 10.5 12 9v6m-2 0h4" />
+              <path d="M5 7c0-1.1.9-2 2-2h10a2 2 0 0 1 2 2v12H5V7Z" />
+              <path d="M22 19H2" />
+            </svg>
           </div>
           <div className="flex flex-col">
+            <span className="text-[10px] uppercase tracking-[0.3em] opacity-50 font-bold mb-1">
+              2026 State Election Simulator
+            </span>
             <h1 className="serif text-white text-3xl tracking-tight leading-none">
-              Jordon's Victorian Election Simulator
+              Victorian Legislative Assembly
             </h1>
             <p className="text-xs text-slate-400 font-sans mt-2 flex items-center gap-1.5 flex-wrap">
+              <span>Interactive Model</span>
               <span className="text-white/15">•</span>
               <span className="bg-white/5 text-slate-300 px-2 py-0.5 rounded border border-white/5 font-medium">88 Seats Total</span>
               <span className="text-white/15">•</span>
@@ -481,6 +637,14 @@ export default function App() {
 
         {/* Global Control Buttons */}
         <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
+          <button
+            onClick={() => setShowGuideModal(true)}
+            id="btn-open-user-guide"
+            className="flex items-center gap-1.5 text-xs font-semibold text-amber-300 hover:text-amber-200 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/25 hover:border-amber-500/40 px-3.5 py-2 rounded transition-all duration-150 cursor-pointer shadow-sm"
+          >
+            <BookOpen size={13} className="text-amber-400" />
+            <span>How to Use Guide</span>
+          </button>
           <button
             onClick={handleResetAll}
             className="flex items-center gap-1.5 text-xs font-semibold text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 px-3.5 py-2 rounded transition-all duration-150 cursor-pointer"
@@ -851,6 +1015,91 @@ export default function App() {
               </div>
             </div>
           )}
+
+          {/* SECTION B: PREFERENCE FLOW MODEL STRING */}
+          <div className="mt-4 pt-5 border-t border-white/10 flex flex-col gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div className="flex flex-col gap-0.5">
+                <h4 className="serif text-white italic text-lg flex items-center gap-2">
+                  <GitFork className="text-amber-400" size={18} />
+                  <span>Share & Restore Preference Flow Model</span>
+                </h4>
+                <p className="text-xs text-slate-400 font-sans leading-relaxed">
+                  Export or restore the entire state of the Preference Flow Simulator (primary vote deltas, transfer flow rates, and regional/seat modifiers).
+                </p>
+              </div>
+              <div className="text-[11px] font-mono text-amber-400/90 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded self-start sm:self-auto shrink-0">
+                {preferenceSummaryText}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* EXPORT PANEL */}
+              <div className="flex flex-col gap-3">
+                <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">
+                  Active Preference Model Output String
+                </span>
+                <input
+                  type="text"
+                  readOnly
+                  value={currentPreferenceFlowString}
+                  aria-label="Exported preference model string"
+                  className="w-full bg-[#0A0C10] border border-white/10 rounded px-3 py-2.5 text-xs font-mono text-amber-400 focus:outline-none select-all"
+                />
+                <button
+                  id="btn-copy-pref-string"
+                  onClick={handleCopyPrefString}
+                  className="w-full flex items-center justify-center gap-1.5 text-xs font-semibold bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-slate-300 hover:text-white px-4 py-2.5 rounded transition-all duration-150 cursor-pointer"
+                >
+                  {copiedPrefFeedback ? (
+                    <>
+                      <Check size={14} className="text-green-400" />
+                      <span className="text-green-400">Preference String Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy size={14} />
+                      <span>Copy Preference String</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {/* IMPORT PANEL */}
+              <div className="flex flex-col gap-3">
+                <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">
+                  Restore Preference Model
+                </span>
+                <input
+                  type="text"
+                  placeholder="Paste preference string (e.g. PREF1:P[ALP:+1.5,COAL:-2.0,...])"
+                  value={importPrefStringInput}
+                  onChange={(e) => setImportPrefStringInput(e.target.value)}
+                  className="w-full bg-[#0A0C10] border border-white/10 rounded px-3 py-2.5 text-xs font-mono text-white placeholder:text-slate-600 focus:outline-none focus:border-amber-500/50"
+                />
+                <button
+                  id="btn-apply-imported-pref-string"
+                  onClick={() => handleApplyImportedPrefString(importPrefStringInput)}
+                  className="w-full flex items-center justify-center gap-1.5 text-xs font-semibold bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/30 text-amber-300 px-4 py-2.5 rounded transition-all duration-150 cursor-pointer"
+                >
+                  <span>Apply Preference String</span>
+                </button>
+
+                {prefFeedbackMessage && (
+                  <div
+                    className={`p-2.5 rounded text-xs flex items-center gap-2 border ${
+                      prefFeedbackMessage.type === 'success'
+                        ? 'bg-green-500/10 border-green-500/20 text-green-400'
+                        : 'bg-red-500/10 border-red-500/20 text-red-400'
+                    }`}
+                  >
+                    <div className="w-1.5 h-1.5 rounded-full shrink-0 animate-pulse bg-current" />
+                    <span>{prefFeedbackMessage.text}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
 
       </main>
@@ -864,6 +1113,14 @@ export default function App() {
           <span className="hover:text-slate-400 transition-colors">Parliament of Victoria</span>
         </div>
       </footer>
+
+      {/* INTERACTIVE USER GUIDE MODAL */}
+      <UserGuideModal
+        isOpen={showGuideModal}
+        onClose={() => setShowGuideModal(false)}
+        onOpenPreferenceSimulator={() => handleTabChange('preference_flow')}
+        onOpenSwingPad={() => handleTabChange('swing_pad')}
+      />
 
     </div>
   );
