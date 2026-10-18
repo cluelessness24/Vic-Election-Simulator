@@ -723,13 +723,17 @@ export default function App() {
               />
             </div>
 
-            {/* Selected Electorate Details Profile (Col span 5 or 4) */}
+            {/* Selected Electorate Details / Region Profile (Col span 5 or 4) */}
             <div className="lg:col-span-5 xl:col-span-4 flex flex-col h-full">
               <ElectorateDetail
                 electorate={selectedElectorate}
                 customOverrides={customOverrides}
                 onOverrideSeat={handleOverrideSeat}
                 onClearSeatSelection={() => setSelectedId(null)}
+                selectedRegionId={selectedRegionId}
+                onClearRegionSelection={() => setSelectedRegionId(null)}
+                electorates={simulatedElectorates}
+                onSelectSeat={handleSeatClick}
               />
             </div>
 
@@ -782,6 +786,10 @@ export default function App() {
                 customOverrides={customOverrides}
                 onOverrideSeat={handleOverrideSeat}
                 onClearSeatSelection={() => setSelectedId(null)}
+                selectedRegionId={selectedRegionId}
+                onClearRegionSelection={() => setSelectedRegionId(null)}
+                electorates={simulatedElectorates}
+                onSelectSeat={handleSeatClick}
               />
             </div>
 

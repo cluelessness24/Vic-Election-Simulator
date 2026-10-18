@@ -202,7 +202,7 @@ export const ParliamentHemicycle: React.FC<ParliamentHemicycleProps> = ({
                 Selected: <span className="text-white font-semibold underline">{electorates.find(e => e.id === selectedId)?.name || selectedId}</span>
               </span>
             ) : (
-              "Concentric seating arch of 88 Legislative Assembly seats. 45+ needed for a majority."
+              ""
             )}
           </p>
           {selectedId && (

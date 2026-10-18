@@ -195,9 +195,6 @@ export const ScenarioControls: React.FC<ScenarioControlsProps> = ({
       {/* Header */}
       <div className="flex flex-col gap-1 mb-4">
         <h3 className="serif text-white italic text-xl">Scenario & Electoral Simulator</h3>
-        <p className="text-xs text-slate-400 font-sans leading-relaxed">
-          Switch between uniform swing coordinates and the full-distribution preference flow Sankey model.
-        </p>
       </div>
 
       {/* Simulator Mode Tabs */}

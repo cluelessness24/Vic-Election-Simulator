@@ -294,40 +294,6 @@ export const PreferenceSankey: React.FC<PreferenceSankeyProps> = ({
 
   return (
     <div className="flex flex-col gap-4 text-xs font-sans select-none">
-      {/* Scope and Info Banner */}
-      <div className="flex items-center justify-between p-3 rounded-lg bg-white/5 border border-white/10">
-        <div className="flex flex-col">
-          <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">
-            Simulating Elimination Preferences For
-          </span>
-          <span className="text-sm font-semibold text-white flex items-center gap-2 flex-wrap">
-            <span>{scopeTitle}</span>
-            <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/10 text-slate-300 font-normal">
-              {baseline.seatCount} {baseline.seatCount === 1 ? 'Seat' : 'Seats'}
-            </span>
-            {scopeId && onClearScope && (
-              <button
-                onClick={onClearScope}
-                className="bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 px-2 py-0.5 rounded text-[10px] font-bold border border-amber-500/30 flex items-center gap-1 cursor-pointer transition-colors"
-                title="Clear electorate / regional focus back to statewide"
-              >
-                <X size={10} />
-                <span>Clear Selection</span>
-              </button>
-            )}
-          </span>
-        </div>
-
-        <button
-          onClick={onResetDeltas}
-          className="flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 rounded transition-all cursor-pointer"
-          title="Reset all custom preference adjustments to official baseline"
-        >
-          <RotateCcw size={11} />
-          <span>Reset Flows</span>
-        </button>
-      </div>
-
       {/* Interactive Sankey Canvas */}
       <div className="relative rounded-lg bg-black/40 border border-white/10 p-2 overflow-x-auto">
         <svg
@@ -766,6 +732,40 @@ export const PreferenceSankey: React.FC<PreferenceSankeyProps> = ({
             })}
           </div>
         )}
+      </div>
+
+      {/* Scope and Info Banner */}
+      <div className="flex items-center justify-between p-3 rounded-lg bg-white/5 border border-white/10">
+        <div className="flex flex-col">
+          <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">
+            Simulating Elimination Preferences For
+          </span>
+          <span className="text-sm font-semibold text-white flex items-center gap-2 flex-wrap">
+            <span>{scopeTitle}</span>
+            <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/10 text-slate-300 font-normal">
+              {baseline.seatCount} {baseline.seatCount === 1 ? 'Seat' : 'Seats'}
+            </span>
+            {scopeId && onClearScope && (
+              <button
+                onClick={onClearScope}
+                className="bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 px-2 py-0.5 rounded text-[10px] font-bold border border-amber-500/30 flex items-center gap-1 cursor-pointer transition-colors"
+                title="Clear electorate / regional focus back to statewide"
+              >
+                <X size={10} />
+                <span>Clear Selection</span>
+              </button>
+            )}
+          </span>
+        </div>
+
+        <button
+          onClick={onResetDeltas}
+          className="flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 rounded transition-all cursor-pointer"
+          title="Reset all custom preference adjustments to official baseline"
+        >
+          <RotateCcw size={11} />
+          <span>Reset Flows</span>
+        </button>
       </div>
 
       {/* Outcome Summary Card */}

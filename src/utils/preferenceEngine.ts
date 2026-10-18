@@ -272,13 +272,16 @@ export function getScopeBaselineData(scopeId: string | null): {
     };
   }
 
-  // Aggregate across region or entire state
-  let seatsToInclude = Object.values(PREFERENCE_DATA);
+  // Aggregate across region or entire state using only the 88 canonical Legislative Assembly electorates
+  let targetElectorates = ELECTORATES_DATA;
   if (scopeId) {
-    seatsToInclude = seatsToInclude.filter(s => s.region === scopeId);
+    targetElectorates = targetElectorates.filter(e => e.region === scopeId);
   }
+  const seatsToInclude = targetElectorates
+    .map(e => PREFERENCE_DATA[e.id])
+    .filter(Boolean);
 
-  const seatCount = seatsToInclude.length || 88;
+  const seatCount = targetElectorates.length;
   let totalFormal = 0;
   const aggPrimaries: Record<PartyGroup, number> = {
     ALP: 0,
