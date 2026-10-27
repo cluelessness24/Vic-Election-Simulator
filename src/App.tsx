@@ -7,14 +7,15 @@ import { useState, useMemo, useEffect, ChangeEvent } from 'react';
 import { ELECTORATES_DATA, calculateSimulatedWinner, PartyCode, PARTIES, SCENARIO_PRESETS } from './data';
 import { ElectorateMap } from './components/ElectorateMap';
 import { ParliamentHemicycle } from './components/ParliamentHemicycle';
-import { ScenarioControls } from './components/ScenarioControls';
+import { ScenarioControls, SimulatorTab } from './components/ScenarioControls';
 import { ElectorateDetail } from './components/ElectorateDetail';
 import { ElectorateList } from './components/ElectorateList';
 import { UserGuideModal } from './components/UserGuideModal';
-import { RefreshCw, Layers, Info, X, Copy, Check, Download, Upload, FileCode, BookOpen, GitFork } from 'lucide-react';
+import { RefreshCw, Layers, Info, X, Copy, Check, Download, Upload, FileCode, BookOpen, GitFork, Users, SlidersHorizontal } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { encodeOverrides, decodeOverrides, getAlphabeticalElectorates, PARTY_TO_CHAR } from './utils/overridesString';
 import { encodePreferenceModel, decodePreferenceModel, getPreferenceSummary } from './utils/preferenceString';
+import { encodePartySwingsModel, decodePartySwingsModel, getPartySwingsSummary, SerializedPartySwingsState } from './utils/partySwingsString';
 import { logSettledScenario, logImmediateMilestone } from './services/googleSheetLogger';
 import {
   PartyGroup,
@@ -22,10 +23,17 @@ import {
   INITIAL_PREFERENCE_DELTAS,
   simulateElectorateWithPreferences,
 } from './utils/preferenceEngine';
+import {
+  PartySwings,
+  SliderPartyCode,
+  INITIAL_PARTY_SWINGS,
+} from './components/PartySwingBar';
+
+const DISTRIBUTION_BAR_PARTIES: PartyCode[] = ['GRN', 'ALP', 'IND', 'LIB', 'NAT', 'ON'];
 
 export default function App() {
   // 0. SIMULATION MODE (TAB CONTROL) - Defaults to preference flow simulator
-  const [activeSimulatorTab, setActiveSimulatorTab] = useState<'swing_pad' | 'preference_flow'>('preference_flow');
+  const [activeSimulatorTab, setActiveSimulatorTab] = useState<SimulatorTab>('preference_flow');
 
   // 1. STATE MANAGEMENT - SWING PAD
   const [coalitionSwing, setCoalitionSwing] = useState<number>(0);
@@ -45,6 +53,11 @@ export default function App() {
   const [regionalPreferenceDeltas, setRegionalPreferenceDeltas] = useState<Record<string, PreferenceModelDeltas>>({});
   const [seatPreferenceDeltas, setSeatPreferenceDeltas] = useState<Record<string, PreferenceModelDeltas>>({});
 
+  // 1c. STATE MANAGEMENT - PARTY SWINGS SIMULATOR (Replaces Demographics)
+  const [globalPartySwings, setGlobalPartySwings] = useState<PartySwings>(INITIAL_PARTY_SWINGS);
+  const [regionalPartySwings, setRegionalPartySwings] = useState<Record<string, PartySwings>>({});
+  const [seatPartySwings, setSeatPartySwings] = useState<Record<string, PartySwings>>({});
+
   // Selection & Hover syncing states
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
@@ -63,6 +76,11 @@ export default function App() {
   const [copiedPrefFeedback, setCopiedPrefFeedback] = useState<boolean>(false);
   const [prefFeedbackMessage, setPrefFeedbackMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
+  // Party Swings String import/export states
+  const [importPartySwingsInput, setImportPartySwingsInput] = useState<string>('');
+  const [copiedPartySwingsFeedback, setCopiedPartySwingsFeedback] = useState<boolean>(false);
+  const [partySwingsFeedbackMessage, setPartySwingsFeedbackMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
   // 2. DYNAMIC COMPUTATION OF STATE
   const simulatedElectorates = useMemo(() => {
     return ELECTORATES_DATA.map((e) => {
@@ -74,6 +92,44 @@ export default function App() {
           seatPreferenceDeltas,
           customOverrides
         );
+        return {
+          ...e,
+          currentParty: party,
+          margin,
+        };
+      } else if (activeSimulatorTab === 'party_swing') {
+        // Active swings for this seat
+        const seatSwing = seatPartySwings[e.id];
+        const regSwing = regionalPartySwings[e.region];
+        const activeSwings = seatSwing || regSwing || globalPartySwings;
+
+        // Coalition swing mapping: National in regional / NAT seats, Liberal in LIB / metro seats
+        const isNat = e.originalParty === 'NAT';
+        const isRegional = ['northern_vic', 'western_vic', 'eastern_vic'].includes(e.region);
+        let coalSwing = isNat ? activeSwings.NAT : activeSwings.LIB;
+        if (!isNat && isRegional && e.originalParty !== 'LIB') {
+          coalSwing = activeSwings.NAT * 0.6 + activeSwings.LIB * 0.4;
+        }
+
+        const partyDeltas: PreferenceModelDeltas = {
+          primaryDeltas: {
+            ALP: activeSwings.ALP,
+            COALITION: coalSwing,
+            GRN: activeSwings.GRN,
+            ON: activeSwings.ON,
+            OTH: activeSwings.IND,
+          },
+          transferOverrides: {},
+        };
+
+        const { party, margin } = simulateElectorateWithPreferences(
+          e,
+          partyDeltas,
+          {},
+          {},
+          customOverrides
+        );
+
         return {
           ...e,
           currentParty: party,
@@ -111,6 +167,9 @@ export default function App() {
     globalPreferenceDeltas,
     regionalPreferenceDeltas,
     seatPreferenceDeltas,
+    globalPartySwings,
+    regionalPartySwings,
+    seatPartySwings,
   ]);
 
   const selectedElectorate = useMemo(() => {
@@ -136,15 +195,80 @@ export default function App() {
     setGlobalPreferenceDeltas(INITIAL_PREFERENCE_DELTAS);
     setRegionalPreferenceDeltas({});
     setSeatPreferenceDeltas({});
+    setGlobalPartySwings(INITIAL_PARTY_SWINGS);
+    setRegionalPartySwings({});
+    setSeatPartySwings({});
   };
 
   // User Directive 3: "changing the tab should reset the model"
-  const handleTabChange = (newTab: 'swing_pad' | 'preference_flow') => {
+  const handleTabChange = (newTab: SimulatorTab) => {
     if (newTab !== activeSimulatorTab) {
       handleResetAll();
       setActiveSimulatorTab(newTab);
     }
   };
+
+  const handleUpdateCurrentPartySwings = (newSwings: PartySwings) => {
+    if (selectedId) {
+      setSeatPartySwings((prev) => ({
+        ...prev,
+        [selectedId]: newSwings,
+      }));
+    } else if (selectedRegionId) {
+      setRegionalPartySwings((prev) => ({
+        ...prev,
+        [selectedRegionId]: newSwings,
+      }));
+    } else {
+      setGlobalPartySwings(newSwings);
+    }
+  };
+
+  const handleResetCurrentPartySwings = () => {
+    if (selectedId) {
+      setSeatPartySwings((prev) => {
+        const copy = { ...prev };
+        delete copy[selectedId];
+        return copy;
+      });
+    } else if (selectedRegionId) {
+      setRegionalPartySwings((prev) => {
+        const copy = { ...prev };
+        delete copy[selectedRegionId];
+        return copy;
+      });
+    } else {
+      setGlobalPartySwings(INITIAL_PARTY_SWINGS);
+    }
+  };
+
+  const handleApplyPartySwingsPresetState = (state: SerializedPartySwingsState) => {
+    if (selectedId) {
+      setSeatPartySwings((prev) => ({
+        ...prev,
+        [selectedId]: state.global,
+      }));
+    } else if (selectedRegionId) {
+      setRegionalPartySwings((prev) => ({
+        ...prev,
+        [selectedRegionId]: state.global,
+      }));
+    } else {
+      setGlobalPartySwings(state.global);
+      if (state.regional) setRegionalPartySwings(state.regional);
+      if (state.seats) setSeatPartySwings(state.seats);
+    }
+  };
+
+  const currentActivePartySwings = useMemo<PartySwings>(() => {
+    if (selectedId && seatPartySwings[selectedId]) {
+      return seatPartySwings[selectedId];
+    }
+    if (selectedRegionId && regionalPartySwings[selectedRegionId]) {
+      return regionalPartySwings[selectedRegionId];
+    }
+    return globalPartySwings;
+  }, [selectedId, selectedRegionId, seatPartySwings, regionalPartySwings, globalPartySwings]);
 
   const handleApplyPreset = (presetId: string) => {
     const preset = SCENARIO_PRESETS.find((p) => p.id === presetId);
@@ -389,6 +513,15 @@ export default function App() {
     return getPreferenceSummary(globalPreferenceDeltas);
   }, [globalPreferenceDeltas]);
 
+  // Generate the current party swings model string representation
+  const currentPartySwingsString = useMemo(() => {
+    return encodePartySwingsModel(globalPartySwings, regionalPartySwings, seatPartySwings);
+  }, [globalPartySwings, regionalPartySwings, seatPartySwings]);
+
+  const partySwingsSummaryText = useMemo(() => {
+    return getPartySwingsSummary(globalPartySwings);
+  }, [globalPartySwings]);
+
   // Parliamentary seat counts across all 5 party groupings + Labor swing
   const parliamentaryCounts = useMemo(() => {
     let alp = 0;
@@ -407,9 +540,11 @@ export default function App() {
 
     const projectedGov = alp >= 45 ? 'Labor Majority' : coalition >= 45 ? 'Coalition Majority' : 'Hung Parliament';
 
-    // Labor swing: In preference flow mode, use ALP primary delta. In swing pad mode, use inverse of coalition swing.
+    // Labor swing: In preference flow mode, use ALP primary delta. In party swing mode, use active ALP swing. In swing pad mode, use inverse of coalition swing.
     const laborSwing = activeSimulatorTab === 'preference_flow'
       ? (globalPreferenceDeltas.primaryDeltas.ALP || 0)
+      : activeSimulatorTab === 'party_swing'
+      ? (currentActivePartySwings.ALP || 0)
       : -activeCoalitionSwing;
 
     return {
@@ -421,7 +556,25 @@ export default function App() {
       projectedGovernment: projectedGov,
       laborSwing: Number(laborSwing.toFixed(1)),
     };
-  }, [simulatedElectorates, activeSimulatorTab, globalPreferenceDeltas, activeCoalitionSwing]);
+  }, [simulatedElectorates, activeSimulatorTab, globalPreferenceDeltas, currentActivePartySwings, activeCoalitionSwing]);
+
+  // Exact seat counts per party for the seat distribution bar
+  const partySeatCounts = useMemo(() => {
+    const counts: Record<PartyCode, number> = {
+      GRN: 0,
+      ALP: 0,
+      IND: 0,
+      LIB: 0,
+      NAT: 0,
+      ON: 0,
+    };
+    simulatedElectorates.forEach((e) => {
+      if (counts[e.currentParty] !== undefined) {
+        counts[e.currentParty]++;
+      }
+    });
+    return counts;
+  }, [simulatedElectorates]);
 
   // Helper for immediate milestone logging
   const logMilestone = (triggerType: 'COPY_OVERRIDE_STRING' | 'COPY_PREF_STRING' | 'DOWNLOAD_TXT' | 'APPLY_PRESET') => {
@@ -514,6 +667,39 @@ export default function App() {
     }
   };
 
+  const handleCopyPartySwingsString = () => {
+    navigator.clipboard.writeText(currentPartySwingsString).then(() => {
+      setCopiedPartySwingsFeedback(true);
+      setTimeout(() => setCopiedPartySwingsFeedback(false), 2000);
+    });
+  };
+
+  const handleApplyImportedPartySwingsString = (str: string) => {
+    const trimmed = str.trim();
+    if (!trimmed) {
+      setPartySwingsFeedbackMessage({ type: 'error', text: 'Please enter or paste a party swings string.' });
+      return;
+    }
+    try {
+      const decoded = decodePartySwingsModel(trimmed);
+      setGlobalPartySwings(decoded.global);
+      if (decoded.regional) setRegionalPartySwings(decoded.regional);
+      if (decoded.seats) setSeatPartySwings(decoded.seats);
+      setActiveSimulatorTab('party_swing');
+      setImportPartySwingsInput('');
+      setPartySwingsFeedbackMessage({
+        type: 'success',
+        text: 'Successfully restored Party Swings selections state!',
+      });
+      setTimeout(() => setPartySwingsFeedbackMessage(null), 4000);
+    } catch (err: any) {
+      setPartySwingsFeedbackMessage({
+        type: 'error',
+        text: err?.message || 'Failed to parse party swings string format.',
+      });
+    }
+  };
+
   const handleDownloadOverridesFile = () => {
     const filename = 'vic-election-overrides.txt';
     const blob = new Blob([currentOverridesString], { type: 'text/plain;charset=utf-8;' });
@@ -595,7 +781,7 @@ export default function App() {
   const alphabeticalElectorates = useMemo(() => getAlphabeticalElectorates(), []);
 
   return (
-    <div className="min-h-screen bg-[#0A0C10] text-[#E0E0E0] font-sans selection:bg-white/10 selection:text-white flex flex-col p-4 md:p-6 lg:p-8">
+    <div className="min-h-screen bg-[#0A0C10] text-[#E0E0E0] font-sans selection:bg-white/10 selection:text-white flex flex-col p-4 md:p-6 lg:p-8 pb-28 sm:pb-32">
       
       {/* HEADER SECTION */}
       <header className="max-w-7xl mx-auto w-full mb-6 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 border-b border-white/10 pb-5">
@@ -692,119 +878,63 @@ export default function App() {
         </div>
 
         {/* ROW 2: CONTROLS, PROFILE & DIRECTORY */}
-        {activeSimulatorTab === 'preference_flow' ? (
-          /* Preference Flow View: expanded controls for Sankey diagram layout */
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-            {/* Preference Flow Simulator Panel (Col span 7 or 8) */}
-            <div className="lg:col-span-7 xl:col-span-8 flex flex-col h-full">
-              <ScenarioControls
-                activeSimulatorTab={activeSimulatorTab}
-                onChangeSimulatorTab={handleTabChange}
-                coalitionSwing={activeCoalitionSwing}
-                setCoalitionSwing={handleSetCoalitionSwing}
-                greensSwing={activeGreensSwing}
-                setGreensSwing={handleSetGreensSwing}
-                oneNationSwing={activeOneNationSwing}
-                setOneNationSwing={handleSetOneNationSwing}
-                activePresetId={activePresetId}
-                onApplyPreset={handleApplyPreset}
-                customOverridesCount={customOverridesCount}
-                onClearOverrides={handleClearOverrides}
-                electorates={simulatedElectorates}
-                selectedRegionId={selectedRegionId}
-                onSelectRegion={setSelectedRegionId}
-                preferenceDeltas={currentActivePreferenceDeltas}
-                onUpdatePrimaryDelta={handleUpdatePrimaryDelta}
-                onBatchUpdatePrimaryDeltas={handleBatchUpdatePrimaryDeltas}
-                onUpdateTransferFlow={handleUpdateTransferFlow}
-                onResetPreferenceDeltas={handleResetPreferenceDeltas}
-                selectedSeatId={selectedId}
-                onClearSeatSelection={() => setSelectedId(null)}
-              />
-            </div>
-
-            {/* Selected Electorate Details / Region Profile (Col span 5 or 4) */}
-            <div className="lg:col-span-5 xl:col-span-4 flex flex-col h-full">
-              <ElectorateDetail
-                electorate={selectedElectorate}
-                customOverrides={customOverrides}
-                onOverrideSeat={handleOverrideSeat}
-                onClearSeatSelection={() => setSelectedId(null)}
-                selectedRegionId={selectedRegionId}
-                onClearRegionSelection={() => setSelectedRegionId(null)}
-                electorates={simulatedElectorates}
-                onSelectSeat={handleSeatClick}
-              />
-            </div>
-
-            {/* Electorates Directory full width below */}
-            <div className="col-span-full flex flex-col">
-              <ElectorateList
-                electorates={simulatedElectorates}
-                selectedId={selectedId}
-                onSelect={handleSeatClick}
-                hoveredId={hoveredId}
-                onHover={setHoveredId}
-              />
-            </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+          {/* Scenario Simulator Panel (Col span 7 or 8) */}
+          <div className="lg:col-span-7 xl:col-span-8 flex flex-col h-full">
+            <ScenarioControls
+              activeSimulatorTab={activeSimulatorTab}
+              onChangeSimulatorTab={handleTabChange}
+              coalitionSwing={activeCoalitionSwing}
+              setCoalitionSwing={handleSetCoalitionSwing}
+              greensSwing={activeGreensSwing}
+              setGreensSwing={handleSetGreensSwing}
+              oneNationSwing={activeOneNationSwing}
+              setOneNationSwing={handleSetOneNationSwing}
+              activePresetId={activePresetId}
+              onApplyPreset={handleApplyPreset}
+              customOverridesCount={customOverridesCount}
+              onClearOverrides={handleClearOverrides}
+              electorates={simulatedElectorates}
+              selectedRegionId={selectedRegionId}
+              onSelectRegion={setSelectedRegionId}
+              preferenceDeltas={currentActivePreferenceDeltas}
+              onUpdatePrimaryDelta={handleUpdatePrimaryDelta}
+              onBatchUpdatePrimaryDeltas={handleBatchUpdatePrimaryDeltas}
+              onUpdateTransferFlow={handleUpdateTransferFlow}
+              onResetPreferenceDeltas={handleResetPreferenceDeltas}
+              selectedSeatId={selectedId}
+              partySwings={currentActivePartySwings}
+              onUpdatePartySwings={handleUpdateCurrentPartySwings}
+              onResetPartySwings={handleResetCurrentPartySwings}
+              onApplyPartySwingsPresetState={handleApplyPartySwingsPresetState}
+            />
           </div>
-        ) : (
-          /* Standard 3-Column View for Swing Pad */
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-            {/* Scenario & Swing Controls */}
-            <div className="md:col-span-1 flex flex-col h-full">
-              <ScenarioControls
-                activeSimulatorTab={activeSimulatorTab}
-                onChangeSimulatorTab={handleTabChange}
-                coalitionSwing={activeCoalitionSwing}
-                setCoalitionSwing={handleSetCoalitionSwing}
-                greensSwing={activeGreensSwing}
-                setGreensSwing={handleSetGreensSwing}
-                oneNationSwing={activeOneNationSwing}
-                setOneNationSwing={handleSetOneNationSwing}
-                activePresetId={activePresetId}
-                onApplyPreset={handleApplyPreset}
-                customOverridesCount={customOverridesCount}
-                onClearOverrides={handleClearOverrides}
-                electorates={simulatedElectorates}
-                selectedRegionId={selectedRegionId}
-                onSelectRegion={setSelectedRegionId}
-                preferenceDeltas={currentActivePreferenceDeltas}
-                onUpdatePrimaryDelta={handleUpdatePrimaryDelta}
-                onBatchUpdatePrimaryDeltas={handleBatchUpdatePrimaryDeltas}
-                onUpdateTransferFlow={handleUpdateTransferFlow}
-                onResetPreferenceDeltas={handleResetPreferenceDeltas}
-                selectedSeatId={selectedId}
-                onClearSeatSelection={() => setSelectedId(null)}
-              />
-            </div>
 
-            {/* Selected Electorate Details Profile */}
-            <div className="md:col-span-1 flex flex-col h-full">
-              <ElectorateDetail
-                electorate={selectedElectorate}
-                customOverrides={customOverrides}
-                onOverrideSeat={handleOverrideSeat}
-                onClearSeatSelection={() => setSelectedId(null)}
-                selectedRegionId={selectedRegionId}
-                onClearRegionSelection={() => setSelectedRegionId(null)}
-                electorates={simulatedElectorates}
-                onSelectSeat={handleSeatClick}
-              />
-            </div>
-
-            {/* Search & Directory List */}
-            <div className="md:col-span-1 flex flex-col h-full">
-              <ElectorateList
-                electorates={simulatedElectorates}
-                selectedId={selectedId}
-                onSelect={handleSeatClick}
-                hoveredId={hoveredId}
-                onHover={setHoveredId}
-              />
-            </div>
+          {/* Selected Electorate Details / Region Profile (Col span 5 or 4) */}
+          <div className="lg:col-span-5 xl:col-span-4 flex flex-col h-full">
+            <ElectorateDetail
+              electorate={selectedElectorate}
+              customOverrides={customOverrides}
+              onOverrideSeat={handleOverrideSeat}
+              onClearSeatSelection={() => setSelectedId(null)}
+              selectedRegionId={selectedRegionId}
+              onClearRegionSelection={() => setSelectedRegionId(null)}
+              electorates={simulatedElectorates}
+              onSelectSeat={handleSeatClick}
+            />
           </div>
-        )}
+
+          {/* Electorates Directory full width below */}
+          <div className="col-span-full flex flex-col">
+            <ElectorateList
+              electorates={simulatedElectorates}
+              selectedId={selectedId}
+              onSelect={handleSeatClick}
+              hoveredId={hoveredId}
+              onHover={setHoveredId}
+            />
+          </div>
+        </div>
 
         {/* CUSTOM SEAT OVERRIDES STRING MANAGER (IMPORT/EXPORT) */}
         <div id="overrides-string-manager" className="bg-[#161B22] border border-white/10 rounded-lg p-6 shadow-xl flex flex-col gap-5 mt-6">
@@ -1108,6 +1238,92 @@ export default function App() {
               </div>
             </div>
           </div>
+
+          {/* SECTION C: PARTY SWINGS SELECTIONS STRING */}
+          <div className="mt-4 pt-5 border-t border-white/10 flex flex-col gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div className="flex flex-col gap-0.5">
+                <h4 className="serif text-white italic text-lg flex items-center gap-2">
+                  <SlidersHorizontal className="text-teal-400" size={18} />
+                  <span>Share & Restore Party Swings</span>
+                </h4>
+                <p className="text-xs text-slate-400 font-sans leading-relaxed">
+                  Export or restore your party swings selections (state-wide swings, regional swings, and seat-level adjustments across all parties).
+                </p>
+              </div>
+              <div className="text-[11px] font-mono text-teal-400/90 bg-teal-500/10 border border-teal-500/20 px-2.5 py-1 rounded self-start sm:self-auto shrink-0">
+                {partySwingsSummaryText}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* EXPORT PANEL */}
+              <div className="flex flex-col gap-3">
+                <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">
+                  Active Party Swings Output String
+                </span>
+                <input
+                  type="text"
+                  readOnly
+                  value={currentPartySwingsString}
+                  aria-label="Exported party swings string"
+                  className="w-full bg-[#0A0C10] border border-white/10 rounded px-3 py-2.5 text-xs font-mono text-teal-400 focus:outline-none select-all"
+                />
+                <button
+                  id="btn-copy-party-swings-string"
+                  onClick={handleCopyPartySwingsString}
+                  className="w-full flex items-center justify-center gap-1.5 text-xs font-semibold bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-slate-300 hover:text-white px-4 py-2.5 rounded transition-all duration-150 cursor-pointer"
+                >
+                  {copiedPartySwingsFeedback ? (
+                    <>
+                      <Check size={14} className="text-green-400" />
+                      <span className="text-green-400">Party Swings String Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy size={14} />
+                      <span>Copy Party Swings String</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {/* IMPORT PANEL */}
+              <div className="flex flex-col gap-3">
+                <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">
+                  Restore Party Swings
+                </span>
+                <input
+                  id="input-restore-party-swings"
+                  type="text"
+                  placeholder="Paste party swings string (e.g. SWING1:P[...] or ALP:+4, LIB:-2)"
+                  value={importPartySwingsInput}
+                  onChange={(e) => setImportPartySwingsInput(e.target.value)}
+                  className="w-full bg-[#0A0C10] border border-white/10 rounded px-3 py-2.5 text-xs font-mono text-white placeholder:text-slate-600 focus:outline-none focus:border-teal-500/50"
+                />
+                <button
+                  id="btn-apply-imported-party-swings-string"
+                  onClick={() => handleApplyImportedPartySwingsString(importPartySwingsInput)}
+                  className="w-full flex items-center justify-center gap-1.5 text-xs font-semibold bg-teal-500/20 hover:bg-teal-500/30 border border-teal-500/30 text-teal-300 px-4 py-2.5 rounded transition-all duration-150 cursor-pointer"
+                >
+                  <span>Apply Party Swings String</span>
+                </button>
+
+                {partySwingsFeedbackMessage && (
+                  <div
+                    className={`p-2.5 rounded text-xs flex items-center gap-2 border ${
+                      partySwingsFeedbackMessage.type === 'success'
+                        ? 'bg-green-500/10 border-green-500/20 text-green-400'
+                        : 'bg-red-500/10 border-red-500/20 text-red-400'
+                    }`}
+                  >
+                    <div className="w-1.5 h-1.5 rounded-full shrink-0 animate-pulse bg-current" />
+                    <span>{partySwingsFeedbackMessage.text}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
 
       </main>
@@ -1127,8 +1343,37 @@ export default function App() {
         isOpen={showGuideModal}
         onClose={() => setShowGuideModal(false)}
         onOpenPreferenceSimulator={() => handleTabChange('preference_flow')}
+        onOpenPartySwings={() => handleTabChange('party_swing')}
         onOpenSwingPad={() => handleTabChange('swing_pad')}
       />
+
+      {/* FLOATING SEAT DISTRIBUTION BAR (FIXED TO BOTTOM) */}
+      <div
+        id="floating-seat-distribution-bar"
+        className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-40 w-[94%] sm:w-[86%] md:w-[75%] max-w-2xl bg-[#0D1117]/90 backdrop-blur-md border border-white/20 rounded-2xl p-2.5 sm:p-3 shadow-2xl shadow-black/80 ring-1 ring-white/10 pointer-events-auto"
+      >
+        <div className="h-8 sm:h-9 w-full bg-white/5 rounded-xl overflow-hidden flex shadow-inner border border-white/10">
+          {DISTRIBUTION_BAR_PARTIES.map((partyCode) => {
+            const count = partySeatCounts[partyCode];
+            if (count === 0) return null;
+            const party = PARTIES[partyCode];
+            const widthPct = (count / 88) * 100;
+            return (
+              <div
+                key={partyCode}
+                style={{
+                  width: `${widthPct}%`,
+                  backgroundColor: party.color,
+                }}
+                title={`${party.name}: ${count} seats`}
+                className="h-full flex items-center justify-center text-white font-bold text-xs sm:text-sm font-sans select-none transition-all duration-300 drop-shadow min-w-0 overflow-hidden"
+              >
+                <span className="truncate px-0.5">{count}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
 
     </div>
   );

@@ -5,14 +5,18 @@
 
 import React, { useMemo } from 'react';
 import { SCENARIO_PRESETS, PartyCode, Electorate, REGIONS } from '../data';
-import { Sliders, GitFork, RotateCcw } from 'lucide-react';
+import { Sliders, GitFork, RotateCcw, BarChart3, SlidersHorizontal } from 'lucide-react';
 import { PreferenceSankey } from './PreferenceSankey';
+import { PartySwingBar, PartySwings } from './PartySwingBar';
 import { PartyGroup, PreferenceModelDeltas } from '../utils/preferenceEngine';
+import { SerializedPartySwingsState } from '../utils/partySwingsString';
+
+export type SimulatorTab = 'preference_flow' | 'party_swing' | 'swing_pad';
 
 interface ScenarioControlsProps {
   // Simulator mode tab
-  activeSimulatorTab: 'swing_pad' | 'preference_flow';
-  onChangeSimulatorTab: (tab: 'swing_pad' | 'preference_flow') => void;
+  activeSimulatorTab: SimulatorTab;
+  onChangeSimulatorTab: (tab: SimulatorTab) => void;
 
   // Swing pad props
   coalitionSwing: number;
@@ -37,6 +41,12 @@ interface ScenarioControlsProps {
   onResetPreferenceDeltas: () => void;
   selectedSeatId: string | null;
   onClearSeatSelection?: () => void;
+
+  // Party Swing Slider props (replaces demographics)
+  partySwings: PartySwings;
+  onUpdatePartySwings: (swings: PartySwings) => void;
+  onResetPartySwings: () => void;
+  onApplyPartySwingsPresetState?: (state: SerializedPartySwingsState) => void;
 }
 
 export const ScenarioControls: React.FC<ScenarioControlsProps> = ({
@@ -62,6 +72,10 @@ export const ScenarioControls: React.FC<ScenarioControlsProps> = ({
   onResetPreferenceDeltas,
   selectedSeatId,
   onClearSeatSelection,
+  partySwings,
+  onUpdatePartySwings,
+  onResetPartySwings,
+  onApplyPartySwingsPresetState,
 }) => {
   const svgRef = React.useRef<SVGSVGElement | null>(null);
   const [isDragging, setIsDragging] = React.useState(false);
@@ -190,6 +204,19 @@ export const ScenarioControls: React.FC<ScenarioControlsProps> = ({
 
   const activeScopeId = selectedSeatId || selectedRegionId || null;
 
+  const handleLoadPartySwingsIntoPreferenceFlow = () => {
+    const coalitionSwing = Number(((partySwings.LIB || 0) + (partySwings.NAT || 0)).toFixed(1));
+    const deltas: Partial<Record<PartyGroup, number>> = {
+      ALP: partySwings.ALP || 0,
+      COALITION: coalitionSwing,
+      GRN: partySwings.GRN || 0,
+      ON: partySwings.ON || 0,
+      OTH: partySwings.IND || 0,
+    };
+    onBatchUpdatePrimaryDeltas(deltas);
+    onChangeSimulatorTab('preference_flow');
+  };
+
   return (
     <div className="flex flex-col h-full bg-card rounded-lg border-subtle p-6 shadow-sm">
       {/* Header */}
@@ -197,31 +224,48 @@ export const ScenarioControls: React.FC<ScenarioControlsProps> = ({
         <h3 className="serif text-white italic text-xl">Scenario & Electoral Simulator</h3>
       </div>
 
-      {/* Simulator Mode Tabs */}
-      <div className="flex p-1 bg-white/5 rounded-lg border border-white/10 mb-5">
+      {/* Simulator Mode Tabs: Preference Flow | Party Swings | 3-Way Swing */}
+      <div className="grid grid-cols-3 gap-1 p-1 bg-white/5 rounded-lg border border-white/10 mb-5">
         <button
           id="tab-preference-flow"
           onClick={() => onChangeSimulatorTab('preference_flow')}
-          className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded text-xs font-semibold transition-all cursor-pointer ${
+          className={`flex items-center justify-center gap-1.5 py-2 px-2 rounded text-xs font-semibold transition-all cursor-pointer ${
             activeSimulatorTab === 'preference_flow'
               ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm'
               : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'
           }`}
+          title="Preference Flow Simulator"
         >
-          <GitFork size={13} />
-          <span>Preference Flow Simulator</span>
+          <GitFork size={13} className="shrink-0" />
+          <span className="truncate">Pref Flow</span>
         </button>
+
+        <button
+          id="tab-party-swings"
+          onClick={() => onChangeSimulatorTab('party_swing')}
+          className={`flex items-center justify-center gap-1.5 py-2 px-2 rounded text-xs font-semibold transition-all cursor-pointer ${
+            activeSimulatorTab === 'party_swing'
+              ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm'
+              : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'
+          }`}
+          title="Interactive Party Swing Progress Bar Slider"
+        >
+          <SlidersHorizontal size={13} className="shrink-0" />
+          <span className="truncate">Party Swings</span>
+        </button>
+
         <button
           id="tab-swing-pad"
           onClick={() => onChangeSimulatorTab('swing_pad')}
-          className={`flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded text-xs font-semibold transition-all cursor-pointer ${
+          className={`flex items-center justify-center gap-1.5 py-2 px-2 rounded text-xs font-semibold transition-all cursor-pointer ${
             activeSimulatorTab === 'swing_pad'
               ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm'
               : 'text-slate-400 hover:text-white hover:bg-white/5 border border-transparent'
           }`}
+          title="Three-Way Swing Pad"
         >
-          <Sliders size={13} />
-          <span>Three-Way Swing Pad</span>
+          <Sliders size={13} className="shrink-0" />
+          <span className="truncate">3-Way Swing</span>
         </button>
       </div>
 
@@ -261,25 +305,84 @@ export const ScenarioControls: React.FC<ScenarioControlsProps> = ({
         </div>
       ) : null}
 
-      {/* TAB 1 CONTENT: THREE-WAY SWING PAD */}
+      {/* TAB 1 CONTENT: PREFERENCE FLOW SIMULATOR */}
+      {activeSimulatorTab === 'preference_flow' && (
+        <div className="flex flex-col gap-4 animate-fadeIn">
+          <PreferenceSankey
+            scopeId={activeScopeId}
+            scopeTitle={scopeTitle}
+            preferenceDeltas={preferenceDeltas}
+            onUpdatePrimaryDelta={onUpdatePrimaryDelta}
+            onBatchUpdatePrimaryDeltas={onBatchUpdatePrimaryDeltas}
+            onUpdateTransferFlow={onUpdateTransferFlow}
+            onResetDeltas={onResetPreferenceDeltas}
+            onClearScope={
+              selectedSeatId && onClearSeatSelection
+                ? onClearSeatSelection
+                : selectedRegionId
+                ? () => onSelectRegion(null)
+                : undefined
+            }
+          />
+        </div>
+      )}
+
+      {/* TAB 2 CONTENT: PARTY SWING SLIDER (Replaces Demographics) */}
+      {activeSimulatorTab === 'party_swing' && (
+        <PartySwingBar
+          currentSwings={partySwings}
+          onUpdateSwings={onUpdatePartySwings}
+          onResetSwings={onResetPartySwings}
+          selectedSeatId={selectedSeatId}
+          selectedRegionId={selectedRegionId}
+          electorates={electorates}
+          onClearScope={
+            selectedSeatId && onClearSeatSelection
+              ? onClearSeatSelection
+              : selectedRegionId
+              ? () => onSelectRegion(null)
+              : undefined
+          }
+          onApplyPresetState={onApplyPartySwingsPresetState}
+          onLoadIntoPreferenceFlow={handleLoadPartySwingsIntoPreferenceFlow}
+        />
+      )}
+
+      {/* TAB 3 CONTENT: THREE-WAY SWING PAD */}
       {activeSimulatorTab === 'swing_pad' && (
-        <div className="flex flex-col gap-5 animate-fadeIn">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 animate-fadeIn">
           {/* THREE-WAY PARTISAN SWING PAD */}
-          <div className="flex flex-col gap-3 p-4 rounded-lg bg-white/5 border border-white/5">
-            <div className="flex flex-col gap-0.5">
-              <span className="text-[10px] uppercase tracking-wider opacity-50 font-bold text-slate-400">
-                Three-Way Partisan Swing Pad
-              </span>
-              <span className="text-[10px] text-slate-400 leading-normal">
-                Drag the cursor inside the triangle to balance swings between Labor, Coalition, and One Nation.
-              </span>
+          <div className="flex flex-col justify-between gap-4 p-4 rounded-lg bg-white/5 border border-white/5">
+            <div className="flex items-center justify-between">
+              <div className="flex flex-col">
+                <span className="text-[10px] uppercase tracking-wider opacity-50 font-bold text-slate-400">
+                  Three-Way Partisan Swing Pad
+                </span>
+                <span className="text-[10px] text-slate-400 leading-normal">
+                  Drag the cursor inside the triangle to balance swings.
+                </span>
+              </div>
+              {(coalitionSwing !== 0 || oneNationSwing !== 0) && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCoalitionSwing(0);
+                    setOneNationSwing(0);
+                  }}
+                  className="flex items-center gap-1 text-[10px] text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 px-2 py-1 rounded transition-colors cursor-pointer"
+                  title="Reset swing pad to 2PP baseline"
+                >
+                  <RotateCcw size={10} />
+                  <span>Center (0%)</span>
+                </button>
+              )}
             </div>
 
             <div className="flex justify-center my-1 select-none">
               <svg
                 ref={svgRef}
                 viewBox="0 0 240 160"
-                className="w-full max-w-[240px] h-auto bg-black/30 border border-white/10 rounded-md cursor-crosshair touch-none"
+                className="w-full max-w-[260px] h-auto bg-black/30 border border-white/10 rounded-md cursor-crosshair touch-none"
                 onMouseDown={handleMouseDown}
                 onTouchStart={handleTouchStart}
               >
@@ -361,7 +464,7 @@ export const ScenarioControls: React.FC<ScenarioControlsProps> = ({
             <span className="text-[10px] uppercase tracking-wider opacity-50 block font-bold text-slate-400">
               Quick Scenarios
             </span>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {SCENARIO_PRESETS.map(preset => {
                 const isActive = activePresetId === preset.id;
                 const overridesCount = preset.codeString ? preset.codeString.replace(/\./g, '').length : 0;
@@ -395,28 +498,6 @@ export const ScenarioControls: React.FC<ScenarioControlsProps> = ({
               })}
             </div>
           </div>
-        </div>
-      )}
-
-      {/* TAB 2 CONTENT: PREFERENCE FLOW SIMULATOR */}
-      {activeSimulatorTab === 'preference_flow' && (
-        <div className="flex flex-col gap-4 animate-fadeIn">
-          <PreferenceSankey
-            scopeId={activeScopeId}
-            scopeTitle={scopeTitle}
-            preferenceDeltas={preferenceDeltas}
-            onUpdatePrimaryDelta={onUpdatePrimaryDelta}
-            onBatchUpdatePrimaryDeltas={onBatchUpdatePrimaryDeltas}
-            onUpdateTransferFlow={onUpdateTransferFlow}
-            onResetDeltas={onResetPreferenceDeltas}
-            onClearScope={
-              selectedSeatId && onClearSeatSelection
-                ? onClearSeatSelection
-                : selectedRegionId
-                ? () => onSelectRegion(null)
-                : undefined
-            }
-          />
         </div>
       )}
     </div>

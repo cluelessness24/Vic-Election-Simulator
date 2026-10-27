@@ -20,9 +20,11 @@ import {
   X,
   Layers,
   ChevronRight,
-  MapPin
+  MapPin,
+  Sparkles
 } from 'lucide-react';
 import { getABSDemographics, DemographicData } from '../utils/demographics';
+import { DemographicFactorsState, getSeatDemographicDrivers } from '../utils/demographicEngine';
 
 interface ElectorateDetailProps {
   electorate: (Electorate & { currentParty: PartyCode; margin: number }) | null;
@@ -33,6 +35,7 @@ interface ElectorateDetailProps {
   onClearRegionSelection?: () => void;
   electorates?: (Electorate & { currentParty: PartyCode; margin: number })[];
   onSelectSeat?: (seatId: string) => void;
+  demographicFactors?: DemographicFactorsState;
 }
 
 interface StatBarProps {
@@ -149,6 +152,7 @@ export const ElectorateDetail: React.FC<ElectorateDetailProps> = ({
   onClearRegionSelection,
   electorates = [],
   onSelectSeat,
+  demographicFactors,
 }) => {
   // Default tab is ABS Census data per user specification
   const [activeTab, setActiveTab] = React.useState<'election' | 'demographics'>('demographics');
@@ -157,6 +161,11 @@ export const ElectorateDetail: React.FC<ElectorateDetailProps> = ({
   React.useEffect(() => {
     setActiveTab('demographics');
   }, [electorate?.id, selectedRegionId]);
+
+  const demographicDrivers = React.useMemo(() => {
+    if (!demographicFactors || !electorate) return [];
+    return getSeatDemographicDrivers(electorate.id, demographicFactors);
+  }, [electorate?.id, demographicFactors]);
 
   // SCENARIO 1: A specific seat is selected
   if (electorate) {
@@ -362,6 +371,24 @@ export const ElectorateDetail: React.FC<ElectorateDetailProps> = ({
         ) : (
           /* ABS Census Demographics Tab */
           <div className="flex-1 overflow-y-auto pr-1 space-y-4 font-sans text-xs text-slate-300 scrollbar-thin">
+            {/* Active Demographic Factor Drivers (if configured) */}
+            {demographicDrivers.length > 0 && (
+              <div className="p-3 bg-amber-500/10 border border-amber-500/25 rounded-lg text-xs space-y-2">
+                <div className="font-semibold text-amber-300 flex items-center gap-1.5 text-[11px]">
+                  <Sparkles size={12} className="text-amber-400 shrink-0" />
+                  <span>Active Demographic Swing Drivers for {electorate.name}:</span>
+                </div>
+                <div className="space-y-1">
+                  {demographicDrivers.map(d => (
+                    <div key={d.label} className="flex justify-between items-center text-[10px] text-slate-300">
+                      <span><strong className="text-white">{d.label}:</strong> {d.deviationDesc}</span>
+                      <span className="font-semibold text-amber-300 shrink-0">{d.impactDesc}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Age & Gender */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="p-3 bg-white/5 rounded border border-white/5">

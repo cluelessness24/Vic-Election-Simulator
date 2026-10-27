@@ -379,7 +379,7 @@ export const ParliamentHemicycle: React.FC<ParliamentHemicycleProps> = ({
           <span className="font-bold text-white bg-white/10 px-2 py-0.5 rounded">Majority: 45 Seats</span>
           <span>Coalition: {partyCounts.LIB + partyCounts.NAT}</span>
         </div>
-        <div className="h-2.5 w-full bg-white/5 rounded-full overflow-hidden flex shadow-inner border border-white/5">
+        <div className="h-5 w-full bg-white/5 rounded-full overflow-hidden flex shadow-inner border border-white/5">
           {/* Greens block */}
           {partyCounts.GRN > 0 && (
             <div
@@ -388,8 +388,10 @@ export const ParliamentHemicycle: React.FC<ParliamentHemicycleProps> = ({
                 backgroundColor: PARTIES.GRN.color,
               }}
               title={`Greens: ${partyCounts.GRN} seats`}
-              className="transition-all duration-300"
-            />
+              className="h-full flex items-center justify-center text-[10px] font-bold text-white transition-all duration-300 drop-shadow-sm min-w-0 overflow-hidden"
+            >
+              <span className="truncate px-0.5">{partyCounts.GRN}</span>
+            </div>
           )}
           {/* Labor block */}
           {partyCounts.ALP > 0 && (
@@ -399,8 +401,10 @@ export const ParliamentHemicycle: React.FC<ParliamentHemicycleProps> = ({
                 backgroundColor: PARTIES.ALP.color,
               }}
               title={`Labor: ${partyCounts.ALP} seats`}
-              className="transition-all duration-300"
-            />
+              className="h-full flex items-center justify-center text-[10px] font-bold text-white transition-all duration-300 drop-shadow-sm min-w-0 overflow-hidden"
+            >
+              <span className="truncate px-0.5">{partyCounts.ALP}</span>
+            </div>
           )}
           {/* Independents block */}
           {partyCounts.IND > 0 && (
@@ -410,8 +414,10 @@ export const ParliamentHemicycle: React.FC<ParliamentHemicycleProps> = ({
                 backgroundColor: PARTIES.IND.color,
               }}
               title={`Independent: ${partyCounts.IND} seats`}
-              className="transition-all duration-300"
-            />
+              className="h-full flex items-center justify-center text-[10px] font-bold text-white transition-all duration-300 drop-shadow-sm min-w-0 overflow-hidden"
+            >
+              <span className="truncate px-0.5">{partyCounts.IND}</span>
+            </div>
           )}
           {/* Liberals block */}
           {partyCounts.LIB > 0 && (
@@ -421,8 +427,10 @@ export const ParliamentHemicycle: React.FC<ParliamentHemicycleProps> = ({
                 backgroundColor: PARTIES.LIB.color,
               }}
               title={`Liberal: ${partyCounts.LIB} seats`}
-              className="transition-all duration-300"
-            />
+              className="h-full flex items-center justify-center text-[10px] font-bold text-white transition-all duration-300 drop-shadow-sm min-w-0 overflow-hidden"
+            >
+              <span className="truncate px-0.5">{partyCounts.LIB}</span>
+            </div>
           )}
           {/* Nationals block */}
           {partyCounts.NAT > 0 && (
@@ -432,8 +440,10 @@ export const ParliamentHemicycle: React.FC<ParliamentHemicycleProps> = ({
                 backgroundColor: PARTIES.NAT.color,
               }}
               title={`National: ${partyCounts.NAT} seats`}
-              className="transition-all duration-300"
-            />
+              className="h-full flex items-center justify-center text-[10px] font-bold text-white transition-all duration-300 drop-shadow-sm min-w-0 overflow-hidden"
+            >
+              <span className="truncate px-0.5">{partyCounts.NAT}</span>
+            </div>
           )}
           {/* One Nation block */}
           {partyCounts.ON > 0 && (
@@ -443,8 +453,10 @@ export const ParliamentHemicycle: React.FC<ParliamentHemicycleProps> = ({
                 backgroundColor: PARTIES.ON.color,
               }}
               title={`One Nation: ${partyCounts.ON} seats`}
-              className="transition-all duration-300"
-            />
+              className="h-full flex items-center justify-center text-[10px] font-bold text-white transition-all duration-300 drop-shadow-sm min-w-0 overflow-hidden"
+            >
+              <span className="truncate px-0.5">{partyCounts.ON}</span>
+            </div>
           )}
         </div>
       </div>

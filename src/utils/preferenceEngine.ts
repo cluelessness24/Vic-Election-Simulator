@@ -399,12 +399,41 @@ export function simulateElectorateWithPreferences(
 
   // Calculate adjusted transfer flows
   const adjustedFlows: Record<PartyGroup, PartyTransferFlow> = JSON.parse(JSON.stringify(baseline.transferFlows));
+  const isOnActiveInSeat = (adjustedPrimaries.ON || 0) > 0;
+
   parties.forEach(p => {
     const sum = (adjustedFlows[p]?.toALP || 0) + (adjustedFlows[p]?.toCoalition || 0) + (adjustedFlows[p]?.toGreens || 0) + (adjustedFlows[p]?.toOneNation || 0) + (adjustedFlows[p]?.toOther || 0);
     if (sum <= 0 && STATE_DEFAULT_TRANSFERS[p]) {
       adjustedFlows[p] = { ...STATE_DEFAULT_TRANSFERS[p] };
+    } else if (isOnActiveInSeat && p !== 'ON' && (adjustedFlows[p]?.toOneNation || 0) <= 0.2) {
+      // If One Nation is active in this seat and historical flow has no ON flow,
+      // inject the AEC Victorian Senate benchmark transfer rate to One Nation
+      const aecTransferRate = STATE_DEFAULT_TRANSFERS[p]?.toOneNation || 0;
+      if (aecTransferRate > 0) {
+        const currentSum = (adjustedFlows[p]?.toALP || 0) + (adjustedFlows[p]?.toCoalition || 0) + (adjustedFlows[p]?.toGreens || 0) + (adjustedFlows[p]?.toOther || 0);
+        if (currentSum > 0) {
+          const factor = (100 - aecTransferRate) / currentSum;
+          adjustedFlows[p] = {
+            toALP: Number(((adjustedFlows[p]?.toALP || 0) * factor).toFixed(1)),
+            toCoalition: Number(((adjustedFlows[p]?.toCoalition || 0) * factor).toFixed(1)),
+            toGreens: Number(((adjustedFlows[p]?.toGreens || 0) * factor).toFixed(1)),
+            toOneNation: aecTransferRate,
+            toOther: Number(((adjustedFlows[p]?.toOther || 0) * factor).toFixed(1)),
+          };
+        } else {
+          adjustedFlows[p] = { ...STATE_DEFAULT_TRANSFERS[p] };
+        }
+      }
     }
   });
+
+  // Ensure One Nation's own outgoing transfers use AEC benchmark if seat had no ON history
+  if (isOnActiveInSeat) {
+    const onSum = (adjustedFlows.ON?.toALP || 0) + (adjustedFlows.ON?.toCoalition || 0) + (adjustedFlows.ON?.toGreens || 0) + (adjustedFlows.ON?.toOther || 0);
+    if (onSum <= 0 && STATE_DEFAULT_TRANSFERS.ON) {
+      adjustedFlows.ON = { ...STATE_DEFAULT_TRANSFERS.ON };
+    }
+  }
 
   parties.forEach(src => {
     const overrides = {

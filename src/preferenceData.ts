@@ -31,38 +31,38 @@ export interface ElectoratePreferenceData {
 export const STATE_DEFAULT_TRANSFERS: Record<PartyGroup, PartyTransferFlow> = {
   "ALP": {
     "toALP": 0,
-    "toCoalition": 29.3,
-    "toGreens": 20.9,
-    "toOneNation": 0,
-    "toOther": 49.9
+    "toCoalition": 28.0,
+    "toGreens": 20.0,
+    "toOneNation": 24.0,
+    "toOther": 28.0
   },
   "COALITION": {
-    "toALP": 36.1,
-    "toCoalition": 5.7,
-    "toGreens": 24.3,
-    "toOneNation": 0,
-    "toOther": 33.8
+    "toALP": 24.0,
+    "toCoalition": 0,
+    "toGreens": 18.0,
+    "toOneNation": 42.0,
+    "toOther": 16.0
   },
   "GRN": {
-    "toALP": 70.4,
-    "toCoalition": 18.2,
+    "toALP": 68.0,
+    "toCoalition": 16.0,
     "toGreens": 0,
-    "toOneNation": 0.1,
-    "toOther": 11.3
+    "toOneNation": 6.0,
+    "toOther": 10.0
   },
   "ON": {
-    "toALP": 19.1,
-    "toCoalition": 74.1,
-    "toGreens": 6.8,
+    "toALP": 24.0,
+    "toCoalition": 68.0,
+    "toGreens": 4.0,
     "toOneNation": 0,
-    "toOther": 0
+    "toOther": 4.0
   },
   "OTH": {
-    "toALP": 19.3,
-    "toCoalition": 27.4,
-    "toGreens": 20.9,
-    "toOneNation": 1,
-    "toOther": 31.5
+    "toALP": 24.0,
+    "toCoalition": 30.0,
+    "toGreens": 8.0,
+    "toOneNation": 38.0,
+    "toOther": 0
   }
 };
 

@@ -26,15 +26,17 @@ interface UserGuideModalProps {
   onClose: () => void;
   onOpenPreferenceSimulator?: () => void;
   onOpenSwingPad?: () => void;
+  onOpenPartySwings?: () => void;
 }
 
-type GuideTab = 'quickstart' | 'preference_flow' | 'swing_pad' | 'map_and_paint' | 'demographics' | 'export_share';
+type GuideTab = 'quickstart' | 'preference_flow' | 'party_swing' | 'swing_pad' | 'map_and_paint' | 'export_share';
 
 export const UserGuideModal: React.FC<UserGuideModalProps> = ({
   isOpen,
   onClose,
   onOpenPreferenceSimulator,
   onOpenSwingPad,
+  onOpenPartySwings,
 }) => {
   const [activeTab, setActiveTab] = useState<GuideTab>('quickstart');
 
@@ -53,10 +55,10 @@ export const UserGuideModal: React.FC<UserGuideModalProps> = ({
 
   const tabs: { id: GuideTab; label: string; icon: React.ReactNode }[] = [
     { id: 'quickstart', label: 'Quick Start', icon: <Sparkles size={15} /> },
+    { id: 'party_swing', label: 'Party Swing Slider', icon: <Sliders size={15} /> },
     { id: 'preference_flow', label: 'Preference Flow', icon: <GitFork size={15} /> },
-    { id: 'swing_pad', label: 'Swing Pad & Presets', icon: <Sliders size={15} /> },
+    { id: 'swing_pad', label: '3-Way Swing Pad', icon: <Sliders size={15} /> },
     { id: 'map_and_paint', label: 'Map & Seat Overrides', icon: <MapPin size={15} /> },
-    { id: 'demographics', label: 'Demographics & Margins', icon: <BarChart3 size={15} /> },
     { id: 'export_share', label: 'Share & Import Strings', icon: <FileCode size={15} /> },
   ];
 
@@ -140,7 +142,7 @@ export const UserGuideModal: React.FC<UserGuideModalProps> = ({
                     Pick a Simulation Mode
                   </h4>
                   <p className="text-xs text-slate-400">
-                    Use the <strong>Preference Flow Simulator</strong> to test realistic primary vote deltas & preference transfers, or the <strong>Three-Way Swing Pad</strong> to drag a balance between Labor, Coalition, and One Nation.
+                    Use the <strong>Preference Flow Simulator</strong> for primary vote & preference transfers, the <strong>Three-Way Swing Pad</strong> for directional shifts, or the <strong>Demographic Swings Simulator</strong> to model real-world ABS Census divides (mortgages, education, income, age cohorts).
                   </p>
                 </div>
 
@@ -361,53 +363,58 @@ export const UserGuideModal: React.FC<UserGuideModalProps> = ({
             </div>
           )}
 
-          {/* TAB 5: DEMOGRAPHICS & MARGINS */}
-          {activeTab === 'demographics' && (
+          {/* TAB: PARTY SWING SLIDER */}
+          {activeTab === 'party_swing' && (
             <div className="space-y-4 animate-fadeIn">
               <div>
                 <h3 className="text-base font-semibold text-white mb-1 flex items-center gap-2">
-                  <BarChart3 size={16} className="text-amber-400" />
-                  Electorate Profile & ABS Census Demographics
+                  <Sliders size={16} className="text-amber-400" />
+                  Interactive Multi-Party Swing Slider
                 </h3>
                 <p className="text-xs text-slate-400">
-                  Select any seat on the map, hemicycle, or directory list to open its comprehensive profile.
+                  Directly adjust party primary votes with proportional rebalancing across all six Victorian parties.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 rounded-lg bg-white/5 border border-white/5 space-y-2">
-                  <h4 className="font-semibold text-white text-xs uppercase tracking-wider">
-                    Election Tab
+                  <h4 className="font-semibold text-white text-xs uppercase tracking-wider text-amber-400">
+                    How Vertical Dragging Works
                   </h4>
                   <ul className="text-xs text-slate-400 space-y-1.5 list-disc pl-4">
-                    <li><strong>Simulated 2CP Margin:</strong> Evaluates safety tier:
-                      <div className="grid grid-cols-2 gap-1 mt-1 text-[11px]">
-                        <span className="text-red-400 font-semibold">• Ultra-Marginal (&lt;2%)</span>
-                        <span className="text-amber-400 font-semibold">• Marginal (2–6%)</span>
-                        <span className="text-blue-400 font-semibold">• Fairly Safe (6–12%)</span>
-                        <span className="text-emerald-400 font-semibold">• Very Safe (&gt;12%)</span>
-                      </div>
-                    </li>
-                    <li><strong>Incumbent Member:</strong> Current sitting MP and 2022 baseline party.</li>
-                    <li><strong>Enrolled Voters:</strong> Total registered electorate size and voter turnout.</li>
+                    <li><strong>Drag Up (▲):</strong> Increases that party's primary vote swing (up to +30.0%).</li>
+                    <li><strong>Drag Down (▼):</strong> Decreases that party's primary vote swing (down to -30.0%).</li>
+                    <li><strong>Step Buttons:</strong> Click the subtle ▲ / ▼ buttons on any party block to step precisely by ±0.5%.</li>
+                    <li><strong>Auto-Rebalance Toggle:</strong> Leave ON for automatic proportional balancing, or toggle OFF to dial in independent values (total vote is strictly capped at 100%).</li>
+                    <li><strong>Guaranteed Minimum Width:</strong> Every party maintains a minimum width so it never collapses and always remains editable.</li>
                   </ul>
                 </div>
 
                 <div className="p-4 rounded-lg bg-white/5 border border-white/5 space-y-2">
-                  <h4 className="font-semibold text-white text-xs uppercase tracking-wider">
-                    Demographics Tab (ABS Census)
+                  <h4 className="font-semibold text-white text-xs uppercase tracking-wider text-blue-400">
+                    Flexible Scoping
                   </h4>
-                  <p className="text-xs text-slate-400">
-                    Real socio-economic metrics benchmarked against Victoria state averages (yellow line):
-                  </p>
-                  <ul className="text-xs text-slate-400 space-y-1 list-disc pl-4">
-                    <li>Median Age & Household Income</li>
-                    <li>Tertiary Education (University Degree %)</li>
-                    <li>Home Ownership vs Mortgage/Rent Stress</li>
-                    <li>Multicultural & Non-English Language Diversity</li>
+                  <ul className="text-xs text-slate-400 space-y-1.5 list-disc pl-4">
+                    <li><strong>State-wide:</strong> With no seat or region selected, swings apply across all 88 electorates in Victoria.</li>
+                    <li><strong>Regional:</strong> Click a region header on the map to swing only seats in that specific region.</li>
+                    <li><strong>Single Seat:</strong> Click an electorate to isolate and adjust the swing specifically for that district.</li>
+                    <li><strong>Reset:</strong> Click <strong>Reset Swings (0%)</strong> at any time to return the current scope to baseline.</li>
                   </ul>
                 </div>
               </div>
+
+              {onOpenPartySwings && (
+                <button
+                  onClick={() => {
+                    onOpenPartySwings();
+                    onClose();
+                  }}
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 px-3.5 py-2 rounded transition-all cursor-pointer"
+                >
+                  <span>Open Party Swing Slider</span>
+                  <ArrowRight size={13} />
+                </button>
+              )}
             </div>
           )}
 
