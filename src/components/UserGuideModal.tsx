@@ -21,24 +21,33 @@ import {
 } from 'lucide-react';
 import { PARTIES } from '../data';
 
-interface UserGuideModalProps {
+export type GuideTab = 'quickstart' | 'preference_flow' | 'party_swing' | 'swing_pad' | 'map_and_paint' | 'seats' | 'export_share';
+
+export interface UserGuideModalProps {
   isOpen: boolean;
   onClose: () => void;
+  initialTab?: GuideTab;
   onOpenPreferenceSimulator?: () => void;
   onOpenSwingPad?: () => void;
   onOpenPartySwings?: () => void;
 }
 
-type GuideTab = 'quickstart' | 'preference_flow' | 'party_swing' | 'swing_pad' | 'map_and_paint' | 'export_share';
-
 export const UserGuideModal: React.FC<UserGuideModalProps> = ({
   isOpen,
   onClose,
+  initialTab = 'quickstart',
   onOpenPreferenceSimulator,
   onOpenSwingPad,
   onOpenPartySwings,
 }) => {
-  const [activeTab, setActiveTab] = useState<GuideTab>('quickstart');
+  const [activeTab, setActiveTab] = useState<GuideTab>(initialTab);
+
+  // Sync activeTab when initialTab changes or modal opens
+  useEffect(() => {
+    if (isOpen && initialTab) {
+      setActiveTab(initialTab);
+    }
+  }, [isOpen, initialTab]);
 
   // Close on Escape key
   useEffect(() => {
@@ -58,7 +67,8 @@ export const UserGuideModal: React.FC<UserGuideModalProps> = ({
     { id: 'party_swing', label: 'Party Swing Slider', icon: <Sliders size={15} /> },
     { id: 'preference_flow', label: 'Preference Flow', icon: <GitFork size={15} /> },
     { id: 'swing_pad', label: '3-Way Swing Pad', icon: <Sliders size={15} /> },
-    { id: 'map_and_paint', label: 'Map & Seat Overrides', icon: <MapPin size={15} /> },
+    { id: 'map_and_paint', label: 'Map & Hemicycle', icon: <MapPin size={15} /> },
+    { id: 'seats', label: 'Seat Margins & Directory', icon: <BarChart3 size={15} /> },
     { id: 'export_share', label: 'Share & Import Strings', icon: <FileCode size={15} /> },
   ];
 
@@ -415,6 +425,50 @@ export const UserGuideModal: React.FC<UserGuideModalProps> = ({
                   <ArrowRight size={13} />
                 </button>
               )}
+            </div>
+          )}
+
+          {/* TAB: SEAT MARGINS & DIRECTORY */}
+          {activeTab === 'seats' && (
+            <div className="space-y-4 animate-fadeIn">
+              <div>
+                <h3 className="text-base font-semibold text-white mb-1 flex items-center gap-2">
+                  <BarChart3 size={16} className="text-amber-400" />
+                  Seat Margin Breakdown & Electorate Directory
+                </h3>
+                <p className="text-xs text-slate-400">
+                  Inspect all 88 Legislative Assembly seats, track which seats are flipping under your current scenario, and explore historical boundaries.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="p-4 rounded-lg bg-white/5 border border-white/5 space-y-2">
+                  <h4 className="font-semibold text-white text-xs uppercase tracking-wider text-amber-400">
+                    Filters & Search
+                  </h4>
+                  <ul className="text-xs text-slate-400 space-y-1.5 list-disc pl-4">
+                    <li><strong>Live Search:</strong> Search by electorate name (e.g. "Hawthorn", "Bass", "Northcote") or sitting member.</li>
+                    <li><strong>Status Filter:</strong> Quick filter for <em>Flipped Seats</em> to immediately identify who is gaining and losing power.</li>
+                    <li><strong>Marginality Filter:</strong> Filter for Ultra-Marginal (&lt; 3%), Marginal (&lt; 5%), or Safe (&gt; 10%) seats.</li>
+                    <li><strong>Region Filter:</strong> Filter specifically by Melbourne Metro or Country/Regional Victoria.</li>
+                  </ul>
+                </div>
+
+                <div className="p-4 rounded-lg bg-white/5 border border-white/5 space-y-2">
+                  <h4 className="font-semibold text-white text-xs uppercase tracking-wider text-blue-400">
+                    Interactive Sorting & Zoom
+                  </h4>
+                  <ul className="text-xs text-slate-400 space-y-1.5 list-disc pl-4">
+                    <li><strong>Sort by Margin:</strong> See the razor-thin knife-edge seats at the top of the table.</li>
+                    <li><strong>Sort by Swing:</strong> Identify seats experiencing the largest delta from the 2022 baseline election.</li>
+                    <li><strong>Select Electorate:</strong> Click any row to highlight the seat on both the Cartogram Map and the Hemicycle, opening its full demographic and voting profile in the details panel.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="p-3.5 rounded-lg bg-black/20 border border-white/5 text-xs text-slate-300">
+                <strong>Pro-tip:</strong> Use the camera snapshot button on the top right of the table to download a complete, unclipped 1280px reference table of all seats and their current margins.
+              </div>
             </div>
           )}
 

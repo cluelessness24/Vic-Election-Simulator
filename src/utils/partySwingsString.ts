@@ -4,6 +4,7 @@
  */
 
 import { SliderPartyCode, SLIDER_PARTIES, PartySwings, INITIAL_PARTY_SWINGS } from '../components/PartySwingBar';
+import type { PartyGroup } from './preferenceEngine';
 
 export interface SerializedPartySwingsState {
   global: PartySwings;
@@ -219,3 +220,38 @@ export function getPartySwingsSummary(swings: PartySwings): string {
     })
     .join(' · ');
 }
+
+/**
+ * Converts a set of 6-party swings (ALP, LIB, NAT, GRN, ON, IND) into
+ * 5-party primary deltas for the Preference Flow model (ALP, COALITION, GRN, ON, OTH).
+ */
+export function convertPartySwingsToPrimaryDeltas(
+  swings: PartySwings,
+  isNatSeat?: boolean
+): Record<PartyGroup, number> {
+  const libSwing = swings.LIB || 0;
+  const natSwing = swings.NAT || 0;
+  let coalSwing = 0;
+
+  if (isNatSeat) {
+    coalSwing = natSwing;
+  } else if (Math.abs(natSwing) < 0.05 && Math.abs(libSwing) >= 0.05) {
+    // User only adjusted Liberal
+    coalSwing = libSwing;
+  } else if (Math.abs(libSwing) < 0.05 && Math.abs(natSwing) >= 0.05) {
+    // User only adjusted National
+    coalSwing = natSwing;
+  } else {
+    // Weighted Coalition swing based on 2022 VIC baseline (LIB: 29.8%, NAT: 4.7%)
+    coalSwing = Number(((libSwing * 29.8 + natSwing * 4.7) / 34.5).toFixed(1));
+  }
+
+  return {
+    ALP: Number((swings.ALP || 0).toFixed(1)),
+    COALITION: Number(coalSwing.toFixed(1)),
+    GRN: Number((swings.GRN || 0).toFixed(1)),
+    ON: Number((swings.ON || 0).toFixed(1)),
+    OTH: Number((swings.IND || 0).toFixed(1)),
+  };
+}
+

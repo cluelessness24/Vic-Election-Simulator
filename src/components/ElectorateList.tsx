@@ -6,6 +6,8 @@
 import React, { useState, useMemo } from 'react';
 import { Electorate, REGIONS, PARTIES, PartyCode } from '../data';
 import { Search, Filter, ArrowUpDown, ChevronRight } from 'lucide-react';
+import { SectionHeaderActions } from './SectionHeaderActions';
+import { GuideTab } from './UserGuideModal';
 
 interface ElectorateListProps {
   electorates: (Electorate & { currentParty: PartyCode; margin: number })[];
@@ -13,6 +15,7 @@ interface ElectorateListProps {
   onSelect: (id: string) => void;
   hoveredId: string | null;
   onHover: (id: string | null) => void;
+  onOpenGuide?: (tab: GuideTab) => void;
 }
 
 type SortOption = 'name-asc' | 'margin-asc' | 'margin-desc';
@@ -23,6 +26,7 @@ export const ElectorateList: React.FC<ElectorateListProps> = ({
   onSelect,
   hoveredId,
   onHover,
+  onOpenGuide,
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRegionFilter, setSelectedRegionFilter] = useState<string>('all');
@@ -54,12 +58,22 @@ export const ElectorateList: React.FC<ElectorateListProps> = ({
   }, [electorates, searchTerm, selectedRegionFilter, selectedPartyFilter, sortBy]);
 
   return (
-    <div className="flex flex-col h-[1000px] bg-card rounded-lg border-subtle p-6 shadow-sm">
-      <div className="flex flex-col gap-1 mb-4">
-        <h3 className="serif text-white italic text-xl">Electorates Directory</h3>
-        <p className="text-xs text-slate-400 font-sans">
-          Search and filter through all 88 electorates.
-        </p>
+    <div id="section-electorate-list" className="flex flex-col h-[1000px] bg-card rounded-lg border-subtle p-6 shadow-sm">
+      <div className="flex items-start justify-between gap-3 mb-4">
+        <div className="flex flex-col gap-1">
+          <h3 className="serif text-white italic text-xl">Electorates Directory</h3>
+          <p className="text-xs text-slate-400 font-sans">
+            Search and filter through all 88 electorates.
+          </p>
+        </div>
+        {onOpenGuide && (
+          <SectionHeaderActions
+            elementId="section-electorate-list"
+            sectionTitle="Seat Margin Breakdown & Directory"
+            guideTab="seats"
+            onOpenGuide={onOpenGuide}
+          />
+        )}
       </div>
 
       {/* SEARCH BAR */}

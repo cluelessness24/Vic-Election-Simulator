@@ -5,11 +5,13 @@
 
 import React, { useMemo } from 'react';
 import { SCENARIO_PRESETS, PartyCode, Electorate, REGIONS } from '../data';
-import { Sliders, GitFork, RotateCcw, BarChart3, SlidersHorizontal } from 'lucide-react';
+import { Sliders, GitFork, RotateCcw, BarChart3, SlidersHorizontal, Check } from 'lucide-react';
 import { PreferenceSankey } from './PreferenceSankey';
 import { PartySwingBar, PartySwings } from './PartySwingBar';
 import { PartyGroup, PreferenceModelDeltas } from '../utils/preferenceEngine';
 import { SerializedPartySwingsState } from '../utils/partySwingsString';
+import { SectionHeaderActions } from './SectionHeaderActions';
+import { GuideTab } from './UserGuideModal';
 
 export type SimulatorTab = 'preference_flow' | 'party_swing' | 'swing_pad';
 
@@ -17,6 +19,7 @@ interface ScenarioControlsProps {
   // Simulator mode tab
   activeSimulatorTab: SimulatorTab;
   onChangeSimulatorTab: (tab: SimulatorTab) => void;
+  onOpenGuide?: (tab: GuideTab) => void;
 
   // Swing pad props
   coalitionSwing: number;
@@ -47,6 +50,7 @@ interface ScenarioControlsProps {
   onUpdatePartySwings: (swings: PartySwings) => void;
   onResetPartySwings: () => void;
   onApplyPartySwingsPresetState?: (state: SerializedPartySwingsState) => void;
+  onLoadPartySwingsIntoPreferenceFlow?: () => void;
 }
 
 export const ScenarioControls: React.FC<ScenarioControlsProps> = ({
@@ -76,6 +80,8 @@ export const ScenarioControls: React.FC<ScenarioControlsProps> = ({
   onUpdatePartySwings,
   onResetPartySwings,
   onApplyPartySwingsPresetState,
+  onLoadPartySwingsIntoPreferenceFlow,
+  onOpenGuide,
 }) => {
   const svgRef = React.useRef<SVGSVGElement | null>(null);
   const [isDragging, setIsDragging] = React.useState(false);
@@ -203,26 +209,87 @@ export const ScenarioControls: React.FC<ScenarioControlsProps> = ({
   }, [selectedSeatId, selectedRegionId, electorates]);
 
   const activeScopeId = selectedSeatId || selectedRegionId || null;
+  const [transferBanner, setTransferBanner] = React.useState<string | null>(null);
 
   const handleLoadPartySwingsIntoPreferenceFlow = () => {
-    const coalitionSwing = Number(((partySwings.LIB || 0) + (partySwings.NAT || 0)).toFixed(1));
-    const deltas: Partial<Record<PartyGroup, number>> = {
-      ALP: partySwings.ALP || 0,
-      COALITION: coalitionSwing,
-      GRN: partySwings.GRN || 0,
-      ON: partySwings.ON || 0,
-      OTH: partySwings.IND || 0,
-    };
-    onBatchUpdatePrimaryDeltas(deltas);
-    onChangeSimulatorTab('preference_flow');
+    if (onLoadPartySwingsIntoPreferenceFlow) {
+      onLoadPartySwingsIntoPreferenceFlow();
+    } else {
+      const libSwing = partySwings.LIB || 0;
+      const natSwing = partySwings.NAT || 0;
+      const coalSwing =
+        natSwing === 0
+          ? libSwing
+          : libSwing === 0
+          ? natSwing
+          : Number(((libSwing * 29.8 + natSwing * 4.7) / 34.5).toFixed(1));
+
+      const deltas: Partial<Record<PartyGroup, number>> = {
+        ALP: partySwings.ALP || 0,
+        COALITION: coalSwing,
+        GRN: partySwings.GRN || 0,
+        ON: partySwings.ON || 0,
+        OTH: partySwings.IND || 0,
+      };
+      if (onBatchUpdatePrimaryDeltas) {
+        onBatchUpdatePrimaryDeltas(deltas);
+      }
+      onChangeSimulatorTab('preference_flow');
+    }
+
+    setTransferBanner('Party swings successfully loaded into Preference Flow!');
+    setTimeout(() => setTransferBanner(null), 3500);
   };
 
+  const activeSectionInfo = useMemo(() => {
+    if (activeSimulatorTab === 'preference_flow') {
+      return {
+        title: 'Preference Flow Simulator',
+        guideTab: 'preference_flow' as GuideTab,
+      };
+    }
+    if (activeSimulatorTab === 'party_swing') {
+      return {
+        title: 'Party Primary Swings',
+        guideTab: 'party_swing' as GuideTab,
+      };
+    }
+    return {
+      title: 'Three-Way Regional Swing Pad',
+      guideTab: 'swing_pad' as GuideTab,
+    };
+  }, [activeSimulatorTab]);
+
   return (
-    <div className="flex flex-col h-full bg-card rounded-lg border-subtle p-6 shadow-sm">
+    <div id="section-scenario-controls" className="flex flex-col h-full bg-card rounded-lg border-subtle p-6 shadow-sm">
       {/* Header */}
-      <div className="flex flex-col gap-1 mb-4">
-        <h3 className="serif text-white italic text-xl">Scenario & Electoral Simulator</h3>
+      <div className="flex items-center justify-between gap-3 mb-4">
+        <div>
+          <h3 className="serif text-white italic text-xl">
+            {activeSimulatorTab === 'preference_flow'
+              ? 'Preference Flow Simulator'
+              : activeSimulatorTab === 'party_swing'
+              ? 'Party Primary Swings'
+              : 'Scenario & Electoral Simulator'}
+          </h3>
+        </div>
+        {onOpenGuide && (
+          <SectionHeaderActions
+            elementId="section-scenario-controls"
+            sectionTitle={activeSectionInfo.title}
+            guideTab={activeSectionInfo.guideTab}
+            onOpenGuide={onOpenGuide}
+          />
+        )}
       </div>
+
+      {/* Transfer Success Banner */}
+      {transferBanner && (
+        <div className="flex items-center gap-2 p-2.5 mb-4 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold animate-fadeIn shadow-sm">
+          <Check size={14} className="text-emerald-400 shrink-0" />
+          <span>{transferBanner}</span>
+        </div>
+      )}
 
       {/* Simulator Mode Tabs: Preference Flow | Party Swings | 3-Way Swing */}
       <div className="grid grid-cols-3 gap-1 p-1 bg-white/5 rounded-lg border border-white/10 mb-5">

@@ -7,6 +7,8 @@ import React, { useMemo, useState } from 'react';
 import { Electorate, PARTIES, PartyCode } from '../data';
 import { motion, AnimatePresence } from 'motion/react';
 import { RefreshCw, CheckCircle2, ChevronDown, ChevronUp } from 'lucide-react';
+import { SectionHeaderActions } from './SectionHeaderActions';
+import { GuideTab } from './UserGuideModal';
 
 interface ParliamentHemicycleProps {
   electorates: (Electorate & { currentParty: PartyCode; margin: number })[];
@@ -16,6 +18,7 @@ interface ParliamentHemicycleProps {
   onHover: (id: string | null) => void;
   customOverridesCount: number;
   onClearOverrides: () => void;
+  onOpenGuide?: (tab: GuideTab) => void;
 }
 
 interface DotCoordinate {
@@ -33,6 +36,7 @@ export const ParliamentHemicycle: React.FC<ParliamentHemicycleProps> = ({
   onHover,
   customOverridesCount,
   onClearOverrides,
+  onOpenGuide,
 }) => {
   // Collapsible state for Seat Tally & Shift box (collapsed by default)
   const [isSeatTallyExpanded, setIsSeatTallyExpanded] = useState(false);
@@ -191,20 +195,24 @@ export const ParliamentHemicycle: React.FC<ParliamentHemicycleProps> = ({
   }, [hoveredId, electorates]);
 
   return (
-    <div className="flex flex-col h-full bg-card rounded-lg border-subtle p-6 shadow-sm">
-      <div className="flex flex-col mb-4">
-        <h3 className="serif text-white italic text-xl">Parliament Chamber Map</h3>
-        <div className="flex items-center justify-between gap-2 flex-wrap mt-1">
-          <p className="text-xs text-slate-400 font-sans">
-            {selectedId ? (
-              <span className="text-slate-300 flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 bg-blue-400 rounded-full" />
-                Selected: <span className="text-white font-semibold underline">{electorates.find(e => e.id === selectedId)?.name || selectedId}</span>
-              </span>
-            ) : (
-              ""
-            )}
-          </p>
+    <div id="section-hemicycle" className="flex flex-col h-full bg-card rounded-lg border-subtle p-6 shadow-sm">
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <div>
+          <h3 className="serif text-white italic text-xl">Parliament Chamber Map</h3>
+          <div className="flex items-center gap-2 flex-wrap mt-1">
+            <p className="text-xs text-slate-400 font-sans">
+              {selectedId ? (
+                <span className="text-slate-300 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 bg-blue-400 rounded-full" />
+                  Selected: <span className="text-white font-semibold underline">{electorates.find(e => e.id === selectedId)?.name || selectedId}</span>
+                </span>
+              ) : (
+                ""
+              )}
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2 shrink-0">
           {selectedId && (
             <button
               onClick={() => onSelect('')}
@@ -213,6 +221,14 @@ export const ParliamentHemicycle: React.FC<ParliamentHemicycleProps> = ({
             >
               Clear Selection
             </button>
+          )}
+          {onOpenGuide && (
+            <SectionHeaderActions
+              elementId="section-hemicycle"
+              sectionTitle="Legislative Assembly Hemicycle"
+              guideTab="map_and_paint"
+              onOpenGuide={onOpenGuide}
+            />
           )}
         </div>
       </div>

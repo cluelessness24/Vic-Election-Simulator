@@ -377,21 +377,21 @@ export const PartySwingBar: React.FC<PartySwingBarProps> = ({
   return (
     <div className="flex flex-col gap-4 animate-fadeIn">
       {/* Scope Header & Controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pb-2 border-b border-white/10">
-        <div className="flex flex-col gap-0.5">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-            <h4 className="text-sm font-semibold text-white tracking-wide">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 pb-3 border-b border-white/10">
+        <div className="flex items-start gap-2.5 flex-1 min-w-0">
+          <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shrink-0 mt-1.5" />
+          <div className="flex flex-col gap-1 flex-1 min-w-0">
+            <h4 className="text-sm font-semibold text-white tracking-wide leading-snug">
               Party Swing Slider: <span className="text-amber-300 font-mono">{scopeTitle}</span>
             </h4>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Click and drag vertically (<span className="text-amber-400 font-bold">▲</span> up to add votes,{' '}
+              <span className="text-amber-400 font-bold">▼</span> down to subtract).{' '}
+              {autoRebalance
+                ? 'Other parties automatically rebalance.'
+                : 'Independent mode: other parties hold their values (total capped at 100%).'}
+            </p>
           </div>
-          <p className="text-xs text-slate-400">
-            Click and drag vertically (<span className="text-amber-400 font-bold">▲</span> up to add votes,{' '}
-            <span className="text-amber-400 font-bold">▼</span> down to subtract).{' '}
-            {autoRebalance
-              ? 'Other parties automatically rebalance.'
-              : 'Independent mode: other parties hold their values (total capped at 100%).'}
-          </p>
         </div>
 
         {/* Action Controls: Auto-Rebalance Toggle + Reset + Back */}

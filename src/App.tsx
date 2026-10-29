@@ -10,12 +10,13 @@ import { ParliamentHemicycle } from './components/ParliamentHemicycle';
 import { ScenarioControls, SimulatorTab } from './components/ScenarioControls';
 import { ElectorateDetail } from './components/ElectorateDetail';
 import { ElectorateList } from './components/ElectorateList';
-import { UserGuideModal } from './components/UserGuideModal';
+import { UserGuideModal, GuideTab } from './components/UserGuideModal';
+import { SectionHeaderActions } from './components/SectionHeaderActions';
 import { RefreshCw, Layers, Info, X, Copy, Check, Download, Upload, FileCode, BookOpen, GitFork, Users, SlidersHorizontal } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { encodeOverrides, decodeOverrides, getAlphabeticalElectorates, PARTY_TO_CHAR } from './utils/overridesString';
 import { encodePreferenceModel, decodePreferenceModel, getPreferenceSummary } from './utils/preferenceString';
-import { encodePartySwingsModel, decodePartySwingsModel, getPartySwingsSummary, SerializedPartySwingsState } from './utils/partySwingsString';
+import { encodePartySwingsModel, decodePartySwingsModel, getPartySwingsSummary, SerializedPartySwingsState, convertPartySwingsToPrimaryDeltas } from './utils/partySwingsString';
 import { logSettledScenario, logImmediateMilestone } from './services/googleSheetLogger';
 import {
   PartyGroup,
@@ -70,6 +71,12 @@ export default function App() {
   const [feedbackMessage, setFeedbackMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [showAlphabeticalGuide, setShowAlphabeticalGuide] = useState<boolean>(false);
   const [showGuideModal, setShowGuideModal] = useState<boolean>(false);
+  const [guideModalTab, setGuideModalTab] = useState<GuideTab>('quickstart');
+
+  const handleOpenGuide = (tab: GuideTab = 'quickstart') => {
+    setGuideModalTab(tab);
+    setShowGuideModal(true);
+  };
 
   // Preference Flow String import/export states
   const [importPrefStringInput, setImportPrefStringInput] = useState<string>('');
@@ -200,13 +207,103 @@ export default function App() {
     setSeatPartySwings({});
   };
 
-  // User Directive 3: "changing the tab should reset the model"
+  // Tab change handler - preserves user configurations across tabs without destructive reset
   const handleTabChange = (newTab: SimulatorTab) => {
-    if (newTab !== activeSimulatorTab) {
-      handleResetAll();
-      setActiveSimulatorTab(newTab);
-    }
+    setActiveSimulatorTab(newTab);
   };
+
+  // Dedicated handler to load current party swings directly into the preference flow model
+  const handleLoadPartySwingsIntoPreferenceFlow = () => {
+    // 1. Convert statewide/global party swings to global preference primary deltas
+    const globalPrimary = convertPartySwingsToPrimaryDeltas(globalPartySwings);
+    setGlobalPreferenceDeltas((prev) => ({
+      ...prev,
+      primaryDeltas: {
+        ...prev.primaryDeltas,
+        ...globalPrimary,
+      },
+    }));
+
+    // 2. Convert regional party swings if defined
+    if (Object.keys(regionalPartySwings).length > 0) {
+      setRegionalPreferenceDeltas((prev) => {
+        const next = { ...prev };
+        (Object.entries(regionalPartySwings) as [string, PartySwings][]).forEach(([regId, swings]) => {
+          const regPrimary = convertPartySwingsToPrimaryDeltas(swings);
+          next[regId] = {
+            ...(next[regId] || INITIAL_PREFERENCE_DELTAS),
+            primaryDeltas: {
+              ...(next[regId]?.primaryDeltas || INITIAL_PREFERENCE_DELTAS.primaryDeltas),
+              ...regPrimary,
+            },
+          };
+        });
+        return next;
+      });
+    }
+
+    // 3. Convert seat party swings if defined
+    if (Object.keys(seatPartySwings).length > 0) {
+      setSeatPreferenceDeltas((prev) => {
+        const next = { ...prev };
+        (Object.entries(seatPartySwings) as [string, PartySwings][]).forEach(([seatId, swings]) => {
+          const seat = ELECTORATES_DATA.find((e) => e.id === seatId);
+          const isNat = seat?.originalParty === 'NAT';
+          const seatPrimary = convertPartySwingsToPrimaryDeltas(swings, isNat);
+          next[seatId] = {
+            ...(next[seatId] || INITIAL_PREFERENCE_DELTAS),
+            primaryDeltas: {
+              ...(next[seatId]?.primaryDeltas || INITIAL_PREFERENCE_DELTAS.primaryDeltas),
+              ...seatPrimary,
+            },
+          };
+        });
+        return next;
+      });
+    }
+
+    // 4. Ensure currently selected seat or region gets explicit primary deltas applied
+    if (selectedId) {
+      const activeSeatSwings = seatPartySwings[selectedId] || globalPartySwings;
+      const seat = ELECTORATES_DATA.find((e) => e.id === selectedId);
+      const isNat = seat?.originalParty === 'NAT';
+      const seatPrimary = convertPartySwingsToPrimaryDeltas(activeSeatSwings, isNat);
+      setSeatPreferenceDeltas((prev) => ({
+        ...prev,
+        [selectedId]: {
+          ...(prev[selectedId] || INITIAL_PREFERENCE_DELTAS),
+          primaryDeltas: {
+            ...(prev[selectedId]?.primaryDeltas || INITIAL_PREFERENCE_DELTAS.primaryDeltas),
+            ...seatPrimary,
+          },
+        },
+      }));
+    } else if (selectedRegionId) {
+      const activeRegSwings = regionalPartySwings[selectedRegionId] || globalPartySwings;
+      const regPrimary = convertPartySwingsToPrimaryDeltas(activeRegSwings);
+      setRegionalPreferenceDeltas((prev) => ({
+        ...prev,
+        [selectedRegionId]: {
+          ...(prev[selectedRegionId] || INITIAL_PREFERENCE_DELTAS),
+          primaryDeltas: {
+            ...(prev[selectedRegionId]?.primaryDeltas || INITIAL_PREFERENCE_DELTAS.primaryDeltas),
+            ...regPrimary,
+          },
+        },
+      }));
+    }
+
+    // 5. Switch to Preference Flow tab
+    setActiveSimulatorTab('preference_flow');
+
+    // 6. Give user clear feedback notification
+    setPrefFeedbackMessage({
+      type: 'success',
+      text: 'Successfully transferred Party Swings to the Preference Flow Simulator!',
+    });
+    setTimeout(() => setPrefFeedbackMessage(null), 4000);
+  };
+
 
   const handleUpdateCurrentPartySwings = (newSwings: PartySwings) => {
     if (selectedId) {
@@ -806,7 +903,7 @@ export default function App() {
           </div>
           <div className="flex flex-col">
             <span className="text-[10px] uppercase tracking-[0.3em] opacity-50 font-bold mb-1">
-              2026 State Election Simulator
+              State Election Simulator
             </span>
             <h1 className="serif text-white text-3xl tracking-tight leading-none">
               Victorian Legislative Assembly
@@ -814,9 +911,7 @@ export default function App() {
             <p className="text-xs text-slate-400 font-sans mt-2 flex items-center gap-1.5 flex-wrap">
               <span>Interactive Model</span>
               <span className="text-white/15">•</span>
-              <span className="bg-white/5 text-slate-300 px-2 py-0.5 rounded border border-white/5 font-medium">88 Seats Total</span>
-              <span className="text-white/15">•</span>
-              <span className="bg-white/5 text-slate-300 px-2 py-0.5 rounded border border-white/5 font-medium">45 Majority Threshold</span>
+              <span className="bg-amber-500/10 text-amber-300/90 px-2.5 py-0.5 rounded border border-amber-500/25 font-medium">created by cluelessness.net</span>
             </p>
           </div>
         </div>
@@ -824,7 +919,7 @@ export default function App() {
         {/* Global Control Buttons */}
         <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
           <button
-            onClick={() => setShowGuideModal(true)}
+            onClick={() => handleOpenGuide('quickstart')}
             id="btn-open-user-guide"
             className="flex items-center gap-1.5 text-xs font-semibold text-amber-300 hover:text-amber-200 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/25 hover:border-amber-500/40 px-3.5 py-2 rounded transition-all duration-150 cursor-pointer shadow-sm"
           >
@@ -859,6 +954,7 @@ export default function App() {
               onPaintBrushPartyChange={setPaintBrushParty}
               selectedRegionId={selectedRegionId}
               onSelectRegion={setSelectedRegionId}
+              onOpenGuide={handleOpenGuide}
             />
           </div>
 
@@ -872,6 +968,7 @@ export default function App() {
               onHover={setHoveredId}
               customOverridesCount={customOverridesCount}
               onClearOverrides={handleClearOverrides}
+              onOpenGuide={handleOpenGuide}
             />
           </div>
           
@@ -907,6 +1004,8 @@ export default function App() {
               onUpdatePartySwings={handleUpdateCurrentPartySwings}
               onResetPartySwings={handleResetCurrentPartySwings}
               onApplyPartySwingsPresetState={handleApplyPartySwingsPresetState}
+              onLoadPartySwingsIntoPreferenceFlow={handleLoadPartySwingsIntoPreferenceFlow}
+              onOpenGuide={handleOpenGuide}
             />
           </div>
 
@@ -932,20 +1031,29 @@ export default function App() {
               onSelect={handleSeatClick}
               hoveredId={hoveredId}
               onHover={setHoveredId}
+              onOpenGuide={handleOpenGuide}
             />
           </div>
         </div>
 
         {/* CUSTOM SEAT OVERRIDES STRING MANAGER (IMPORT/EXPORT) */}
-        <div id="overrides-string-manager" className="bg-[#161B22] border border-white/10 rounded-lg p-6 shadow-xl flex flex-col gap-5 mt-6">
-          <div className="flex flex-col gap-1 border-b border-white/5 pb-4">
-            <h3 className="serif text-white italic text-xl flex items-center gap-2">
-              <FileCode className="text-amber-400" size={20} />
-              <span>Share & Restore Seat Overrides</span>
-            </h3>
-            <p className="text-xs text-slate-400 font-sans leading-relaxed">
-              Export your custom seat overrides as an 88-character string, or import a previously exported string to restore your scenario. Each position in the string corresponds to one of Victoria's 88 electorates sorted alphabetically.
-            </p>
+        <div id="section-share-restore" className="bg-[#161B22] border border-white/10 rounded-lg p-6 shadow-xl flex flex-col gap-5 mt-6">
+          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 border-b border-white/5 pb-4">
+            <div className="flex flex-col gap-1">
+              <h3 className="serif text-white italic text-xl flex items-center gap-2">
+                <FileCode className="text-amber-400" size={20} />
+                <span>Share & Restore Scenario Strings</span>
+              </h3>
+              <p className="text-xs text-slate-400 font-sans leading-relaxed">
+                Export your custom seat overrides as an 88-character string, or import a previously exported string to restore your scenario. Each position in the string corresponds to one of Victoria's 88 electorates sorted alphabetically.
+              </p>
+            </div>
+            <SectionHeaderActions
+              elementId="section-share-restore"
+              sectionTitle="Share & Restore Scenario Strings"
+              guideTab="export_share"
+              onOpenGuide={handleOpenGuide}
+            />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -1342,6 +1450,7 @@ export default function App() {
       <UserGuideModal
         isOpen={showGuideModal}
         onClose={() => setShowGuideModal(false)}
+        initialTab={guideModalTab}
         onOpenPreferenceSimulator={() => handleTabChange('preference_flow')}
         onOpenPartySwings={() => handleTabChange('party_swing')}
         onOpenSwingPad={() => handleTabChange('swing_pad')}
