@@ -443,7 +443,7 @@ export default function App() {
     if (selectedId) {
       // Seat level
       setSeatPreferenceDeltas((prev) => {
-        const current = prev[selectedId] || INITIAL_PREFERENCE_DELTAS;
+        const current = prev[selectedId] || currentActivePreferenceDeltas;
         return {
           ...prev,
           [selectedId]: {
@@ -458,7 +458,7 @@ export default function App() {
     } else if (selectedRegionId) {
       // Region level
       setRegionalPreferenceDeltas((prev) => {
-        const current = prev[selectedRegionId] || INITIAL_PREFERENCE_DELTAS;
+        const current = prev[selectedRegionId] || currentActivePreferenceDeltas;
         return {
           ...prev,
           [selectedRegionId]: {
@@ -485,7 +485,7 @@ export default function App() {
   const handleBatchUpdatePrimaryDeltas = (deltas: Partial<Record<PartyGroup, number>>) => {
     if (selectedId) {
       setSeatPreferenceDeltas((prev) => {
-        const current = prev[selectedId] || INITIAL_PREFERENCE_DELTAS;
+        const current = prev[selectedId] || currentActivePreferenceDeltas;
         return {
           ...prev,
           [selectedId]: {
@@ -499,7 +499,7 @@ export default function App() {
       });
     } else if (selectedRegionId) {
       setRegionalPreferenceDeltas((prev) => {
-        const current = prev[selectedRegionId] || INITIAL_PREFERENCE_DELTAS;
+        const current = prev[selectedRegionId] || currentActivePreferenceDeltas;
         return {
           ...prev,
           [selectedRegionId]: {
@@ -549,12 +549,12 @@ export default function App() {
     if (selectedId) {
       setSeatPreferenceDeltas((prev) => ({
         ...prev,
-        [selectedId]: updater(prev[selectedId] || INITIAL_PREFERENCE_DELTAS),
+        [selectedId]: updater(prev[selectedId] || currentActivePreferenceDeltas),
       }));
     } else if (selectedRegionId) {
       setRegionalPreferenceDeltas((prev) => ({
         ...prev,
-        [selectedRegionId]: updater(prev[selectedRegionId] || INITIAL_PREFERENCE_DELTAS),
+        [selectedRegionId]: updater(prev[selectedRegionId] || currentActivePreferenceDeltas),
       }));
     } else {
       setGlobalPreferenceDeltas(updater);
@@ -579,15 +579,105 @@ export default function App() {
     }
   };
 
-  // Active preference deltas for current scope
+  const handleResetTransferFlow = (fromParty: PartyGroup, toParty: PartyGroup) => {
+    const keyMap: Record<PartyGroup, string> = {
+      ALP: 'toALP',
+      COALITION: 'toCoalition',
+      GRN: 'toGreens',
+      ON: 'toOneNation',
+      OTH: 'toOther',
+    };
+    const targetKey = keyMap[toParty];
+
+    const remover = (current: PreferenceModelDeltas): PreferenceModelDeltas => {
+      if (!current.transferOverrides || !current.transferOverrides[fromParty]) {
+        return current;
+      }
+      const fromPartyOverrides = { ...current.transferOverrides[fromParty] };
+      delete (fromPartyOverrides as any)[targetKey];
+
+      const newOverrides = { ...current.transferOverrides };
+      if (Object.keys(fromPartyOverrides).length > 0) {
+        newOverrides[fromParty] = fromPartyOverrides;
+      } else {
+        delete newOverrides[fromParty];
+      }
+
+      return {
+        ...current,
+        transferOverrides: newOverrides,
+      };
+    };
+
+    if (selectedId) {
+      setSeatPreferenceDeltas((prev) => {
+        if (!prev[selectedId]) return prev;
+        return {
+          ...prev,
+          [selectedId]: remover(prev[selectedId]),
+        };
+      });
+    }
+    if (selectedRegionId) {
+      setRegionalPreferenceDeltas((prev) => {
+        if (!prev[selectedRegionId]) return prev;
+        return {
+          ...prev,
+          [selectedRegionId]: remover(prev[selectedRegionId]),
+        };
+      });
+    }
+    setGlobalPreferenceDeltas(remover);
+  };
+
+  // Active preference deltas for current scope with hierarchical inheritance
   const currentActivePreferenceDeltas = useMemo(() => {
-    if (selectedId && seatPreferenceDeltas[selectedId]) {
-      return seatPreferenceDeltas[selectedId];
+    const seatObj = selectedId ? ELECTORATES_DATA.find((e) => e.id === selectedId) : null;
+    const regDeltas = seatObj && regionalPreferenceDeltas[seatObj.region]
+      ? regionalPreferenceDeltas[seatObj.region]
+      : selectedRegionId && regionalPreferenceDeltas[selectedRegionId]
+      ? regionalPreferenceDeltas[selectedRegionId]
+      : null;
+    const seatDeltas = selectedId ? seatPreferenceDeltas[selectedId] : null;
+
+    // Start with global deltas
+    let combinedPrimary = { ...globalPreferenceDeltas.primaryDeltas };
+    let combinedOverrides: PreferenceModelDeltas['transferOverrides'] = JSON.parse(
+      JSON.stringify(globalPreferenceDeltas.transferOverrides || {})
+    );
+
+    if (regDeltas) {
+      combinedPrimary = { ...combinedPrimary, ...regDeltas.primaryDeltas };
+      if (regDeltas.transferOverrides) {
+        Object.entries(regDeltas.transferOverrides).forEach(([p, flows]) => {
+          if (flows && typeof flows === 'object') {
+            combinedOverrides[p as PartyGroup] = {
+              ...(combinedOverrides[p as PartyGroup] || {}),
+              ...flows,
+            };
+          }
+        });
+      }
     }
-    if (selectedRegionId && regionalPreferenceDeltas[selectedRegionId]) {
-      return regionalPreferenceDeltas[selectedRegionId];
+
+    if (seatDeltas) {
+      combinedPrimary = { ...combinedPrimary, ...seatDeltas.primaryDeltas };
+      if (seatDeltas.transferOverrides) {
+        Object.entries(seatDeltas.transferOverrides).forEach(([p, flows]) => {
+          if (flows && typeof flows === 'object') {
+            combinedOverrides[p as PartyGroup] = {
+              ...(combinedOverrides[p as PartyGroup] || {}),
+              ...flows,
+            };
+          }
+        });
+      }
     }
-    return globalPreferenceDeltas;
+
+    return {
+      primaryDeltas: combinedPrimary,
+      transferOverrides: combinedOverrides,
+    };
   }, [selectedId, selectedRegionId, seatPreferenceDeltas, regionalPreferenceDeltas, globalPreferenceDeltas]);
 
   const activeCoalitionSwing = selectedRegionId !== null ? (regionalCoalitionSwings[selectedRegionId] ?? coalitionSwing) : coalitionSwing;
@@ -902,16 +992,11 @@ export default function App() {
             </svg>
           </div>
           <div className="flex flex-col">
-            <span className="text-[10px] uppercase tracking-[0.3em] opacity-50 font-bold mb-1">
-              State Election Simulator
-            </span>
             <h1 className="serif text-white text-3xl tracking-tight leading-none">
-              Victorian Legislative Assembly
+              Victorian Election Simulator
             </h1>
-            <p className="text-xs text-slate-400 font-sans mt-2 flex items-center gap-1.5 flex-wrap">
-              <span>Interactive Model</span>
-              <span className="text-white/15">•</span>
-              <span className="bg-amber-500/10 text-amber-300/90 px-2.5 py-0.5 rounded border border-amber-500/25 font-medium">created by cluelessness.net</span>
+            <p className="text-xs text-slate-400 font-sans mt-2">
+              Created by cluelessness.net
             </p>
           </div>
         </div>
@@ -999,6 +1084,7 @@ export default function App() {
               onBatchUpdatePrimaryDeltas={handleBatchUpdatePrimaryDeltas}
               onUpdateTransferFlow={handleUpdateTransferFlow}
               onResetPreferenceDeltas={handleResetPreferenceDeltas}
+              onResetTransferFlow={handleResetTransferFlow}
               selectedSeatId={selectedId}
               partySwings={currentActivePartySwings}
               onUpdatePartySwings={handleUpdateCurrentPartySwings}
@@ -1437,13 +1523,8 @@ export default function App() {
       </main>
 
       {/* FOOTER */}
-      <footer className="max-w-7xl mx-auto w-full mt-10 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-sans">
-        <p>© 2026 Victorian Election Simulator. Data modeled on 2022 VEC redistributions, results & preferences.</p>
-        <div className="flex items-center gap-4">
-          <span className="hover:text-slate-400 transition-colors">Victorian Electoral Commission (VEC)</span>
-          <span>•</span>
-          <span className="hover:text-slate-400 transition-colors">Parliament of Victoria</span>
-        </div>
+      <footer className="max-w-7xl mx-auto w-full mt-10 pt-6 border-t border-white/5 flex items-center justify-center text-xs text-slate-500 font-sans">
+        <p>© {new Date().getFullYear()} cluelessness.net</p>
       </footer>
 
       {/* INTERACTIVE USER GUIDE MODAL */}

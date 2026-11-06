@@ -1,0 +1,5 @@
+{
+  "summary":  "Comprehensive technical and user reference documentation of the Victorian State Election Simulator's Preference Flow Engine, including the instant-runoff voting algorithm, dynamic preference redistribution formulas, scoping hierarchy (statewide, regional, district-level), interactive control mechanisms (Sankey, Party Swing sliders, 3-Way pad, presets, string codecs), and multidimensional output visualizations (Parliament hemicycle, choropleth map, Sankey diagrams, pendulum table, and district demographic profiles).",
+  "updatedAt":  "2026-10-31T13:14:01.791887916Z",
+  "userFacing":  true
+}

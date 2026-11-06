@@ -53,6 +53,16 @@ export function createPartyWavePreset(preset: PartyWavePreset): PartyWavePreset 
 
 export const PARTY_WAVE_PRESETS: PartyWavePreset[] = [
   createPartyWavePreset({
+    id: 'roy_morgan_october_2026',
+    name: 'Roy Morgan (October 2026)',
+    pollster: 'Roy Morgan',
+    date: 'October 2026',
+    category: 'poll',
+    description: 'Primary: LNP 29.5% (-5.0%), ALP 22.5% (-14.5%), ON 22% (+17.3%), Greens 12.5% (+1.0%), Other 13.5% (+1.2%)',
+    exportString: 'SWING1:P[GRN:+1.0,ALP:-14.5,IND:+1.2,LIB:-4.3,NAT:-0.7,ON:+17.3]',
+    badgeColor: '#0047AB',
+  }),
+  createPartyWavePreset({
     id: 'newspoll_October_2026',
     name: 'Newspoll (October 2026)',
     pollster: 'Newspoll',

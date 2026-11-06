@@ -9,8 +9,10 @@ import {
   PreferenceModelDeltas,
   EliminationStage,
   TransferRibbon,
+  computeAdjustedTransferFlows,
 } from '../utils/preferenceEngine';
 import { RotateCcw, Info, ArrowRight, Sliders, CheckCircle2, X } from 'lucide-react';
+import { PreferenceDistributionMatrix } from './PreferenceDistributionMatrix';
 
 interface SankeyNode {
   x: number;
@@ -28,6 +30,7 @@ interface PreferenceSankeyProps {
   onBatchUpdatePrimaryDeltas?: (deltas: Partial<Record<PartyGroup, number>>) => void;
   onUpdateTransferFlow: (fromParty: PartyGroup, toParty: PartyGroup, newPct: number) => void;
   onResetDeltas: () => void;
+  onResetTransferFlow?: (fromParty: PartyGroup, toParty: PartyGroup) => void;
   onClearScope?: () => void;
 }
 
@@ -39,6 +42,7 @@ export const PreferenceSankey: React.FC<PreferenceSankeyProps> = ({
   onBatchUpdatePrimaryDeltas,
   onUpdateTransferFlow,
   onResetDeltas,
+  onResetTransferFlow,
   onClearScope,
 }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -158,24 +162,32 @@ export const PreferenceSankey: React.FC<PreferenceSankeyProps> = ({
 
   // Calculate current adjusted transfer flows
   const currentTransferFlows = useMemo(() => {
-    const res = JSON.parse(JSON.stringify(baseline.transferFlows));
-    parties.forEach(src => {
-      const overrides = preferenceDeltas.transferOverrides[src];
-      if (overrides) {
-        if (overrides.toALP !== undefined) res[src].toALP = overrides.toALP;
-        if (overrides.toCoalition !== undefined) res[src].toCoalition = overrides.toCoalition;
-        if (overrides.toGreens !== undefined) res[src].toGreens = overrides.toGreens;
-        if (overrides.toOneNation !== undefined) res[src].toOneNation = overrides.toOneNation;
-        if (overrides.toOther !== undefined) res[src].toOther = overrides.toOther;
-      }
-    });
-    return res;
-  }, [baseline, preferenceDeltas]);
+    const isOnActive = (currentPrimaries.ON || 0) > 0;
+    return computeAdjustedTransferFlows(
+      baseline.transferFlows,
+      isOnActive,
+      preferenceDeltas.transferOverrides
+    );
+  }, [baseline, currentPrimaries, preferenceDeltas]);
 
   // Run full instant-runoff simulation
   const simulation = useMemo(() => {
     return runInstantRunoff(currentPrimaries, currentTransferFlows);
   }, [currentPrimaries, currentTransferFlows]);
+
+  // Active flows participating in the Sankey elimination rounds
+  const activeFlows = useMemo(() => {
+    const set = new Set<string>();
+    simulation.stages.forEach((stage, idx) => {
+      if (idx === 0) return;
+      stage.transfers.forEach(t => {
+        if (!t.isRetained && t.votes > 0) {
+          set.add(`${t.fromParty}->${t.toParty}`);
+        }
+      });
+    });
+    return set;
+  }, [simulation]);
 
   // Sankey Layout Geometry
   const width = 640;
@@ -274,6 +286,9 @@ export const PreferenceSankey: React.FC<PreferenceSankeyProps> = ({
 
     const onMouseMove = (e: MouseEvent) => handleMove(e.clientY);
     const onTouchMove = (e: TouchEvent) => {
+      if (e.cancelable) {
+        e.preventDefault(); // Stop page from scrolling vertically while adjusting Sankey
+      }
       if (e.touches[0]) handleMove(e.touches[0].clientY);
     };
 
@@ -281,14 +296,16 @@ export const PreferenceSankey: React.FC<PreferenceSankeyProps> = ({
 
     window.addEventListener('mousemove', onMouseMove);
     window.addEventListener('mouseup', handleEnd);
-    window.addEventListener('touchmove', onTouchMove, { passive: true });
+    window.addEventListener('touchmove', onTouchMove, { passive: false });
     window.addEventListener('touchend', handleEnd);
+    window.addEventListener('touchcancel', handleEnd);
 
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('mouseup', handleEnd);
       window.removeEventListener('touchmove', onTouchMove);
       window.removeEventListener('touchend', handleEnd);
+      window.removeEventListener('touchcancel', handleEnd);
     };
   }, [activeDrag, onUpdatePrimaryDelta, onUpdateTransferFlow]);
 
@@ -474,7 +491,8 @@ export const PreferenceSankey: React.FC<PreferenceSankeyProps> = ({
                       {!t.isRetained && (
                         <g
                           transform={`translate(${midX}, ${midY})`}
-                          className="cursor-ns-resize"
+                          className="cursor-ns-resize touch-none select-none"
+                          style={{ touchAction: 'none' }}
                           onMouseDown={e => {
                             e.stopPropagation();
                             setActiveDrag({
@@ -487,6 +505,7 @@ export const PreferenceSankey: React.FC<PreferenceSankeyProps> = ({
                           }}
                           onTouchStart={e => {
                             e.stopPropagation();
+                            if (e.cancelable) e.preventDefault();
                             if (e.touches[0]) {
                               setActiveDrag({
                                 type: 'transfer',
@@ -552,7 +571,8 @@ export const PreferenceSankey: React.FC<PreferenceSankeyProps> = ({
                         fill={getPartyColor(p)}
                         stroke="#000000"
                         strokeWidth="1"
-                        className={isPrimaryStage ? 'cursor-ns-resize hover:brightness-110' : ''}
+                        className={isPrimaryStage ? 'cursor-ns-resize hover:brightness-110 touch-none select-none' : ''}
+                        style={isPrimaryStage ? { touchAction: 'none' } : undefined}
                         onMouseDown={e => {
                           if (!isPrimaryStage) return;
                           setActiveDrag({
@@ -564,6 +584,7 @@ export const PreferenceSankey: React.FC<PreferenceSankeyProps> = ({
                         }}
                         onTouchStart={e => {
                           if (!isPrimaryStage) return;
+                          if (e.cancelable) e.preventDefault();
                           if (e.touches[0]) {
                             setActiveDrag({
                               type: 'primary',
@@ -622,7 +643,8 @@ export const PreferenceSankey: React.FC<PreferenceSankeyProps> = ({
                       {isPrimaryStage && (
                         <g
                           transform={`translate(${node.x + nodeWidth / 2}, ${node.y + node.h / 2})`}
-                          className="cursor-ns-resize"
+                          className="cursor-ns-resize touch-none select-none"
+                          style={{ touchAction: 'none' }}
                           onMouseDown={e => {
                             e.stopPropagation();
                             setActiveDrag({
@@ -634,6 +656,7 @@ export const PreferenceSankey: React.FC<PreferenceSankeyProps> = ({
                           }}
                           onTouchStart={e => {
                             e.stopPropagation();
+                            if (e.cancelable) e.preventDefault();
                             if (e.touches[0]) {
                               setActiveDrag({
                                 type: 'primary',
@@ -813,6 +836,18 @@ export const PreferenceSankey: React.FC<PreferenceSankeyProps> = ({
           <strong>Interactive Controls:</strong> Drag the primary percentage badges on the 1st round to shift primary votes, or drag the percentage badges on the transfer ribbons to model changes in preference distributions. Any parties at 0% or dropped off can be reintroduced with 1% primary (distributed evenly from other parties) using the restoration buttons.
         </span>
       </div>
+
+      {/* Collapsible Color-Coded Preference Distribution Matrix */}
+      <PreferenceDistributionMatrix
+        scopeId={scopeId}
+        scopeTitle={scopeTitle}
+        currentTransferFlows={currentTransferFlows}
+        baselineTransferFlows={baseline.transferFlows}
+        transferOverrides={preferenceDeltas.transferOverrides}
+        activeFlows={activeFlows}
+        isOneNationActive={Boolean((currentPrimaries.ON || 0) > 0)}
+        onResetTransferFlow={onResetTransferFlow}
+      />
     </div>
   );
 };

@@ -552,26 +552,27 @@ export const ElectorateDetail: React.FC<ElectorateDetailProps> = ({
     return (
       <div className="flex flex-col h-full bg-card rounded-lg border-subtle p-6 shadow-sm">
         {/* Region Header */}
-        <div className="flex items-start justify-between gap-4 mb-4">
+        <div className="flex flex-col gap-2.5 mb-4">
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-[10px] uppercase font-bold tracking-wider text-amber-400 font-sans flex items-center gap-1">
+              <MapPin size={11} />
+              <span>Region Profile ({regionSeats.length} Seats)</span>
+            </span>
+            {onClearRegionSelection && (
+              <button
+                onClick={onClearRegionSelection}
+                id="clear-region-filter-btn"
+                title="Clear region selection"
+                className="bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 px-2 py-0.5 rounded text-[10px] font-bold border border-amber-500/30 flex items-center gap-1 cursor-pointer transition-colors"
+              >
+                <X size={10} />
+                <span>Clear Region</span>
+              </button>
+            )}
+          </div>
+
           <div>
-            <div className="flex items-center gap-2 mb-0.5">
-              <span className="text-[10px] uppercase font-bold tracking-wider text-amber-400 font-sans flex items-center gap-1">
-                <MapPin size={11} />
-                <span>Region Profile ({regionSeats.length} Seats)</span>
-              </span>
-              {onClearRegionSelection && (
-                <button
-                  onClick={onClearRegionSelection}
-                  id="clear-region-filter-btn"
-                  title="Clear region selection"
-                  className="bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 px-2 py-0.5 rounded text-[10px] font-bold border border-amber-500/30 flex items-center gap-1 cursor-pointer transition-colors"
-                >
-                  <X size={10} />
-                  <span>Clear Region</span>
-                </button>
-              )}
-            </div>
-            <h3 className="font-sans font-bold text-white text-xl tracking-tight">
+            <h3 className="font-sans font-bold text-white text-xl tracking-tight leading-tight">
               {regionInfo.name} Region
             </h3>
             <span className="text-[11px] text-slate-400 font-medium font-sans">
@@ -580,7 +581,7 @@ export const ElectorateDetail: React.FC<ElectorateDetailProps> = ({
           </div>
 
           {/* Seats Tally Pills */}
-          <div className="flex items-center gap-1.5 flex-wrap justify-end shrink-0">
+          <div className="flex items-center gap-1.5 flex-wrap pt-0.5">
             {(['ALP', 'LIB', 'NAT', 'GRN', 'ON', 'IND'] as PartyCode[]).map(pCode => {
               const count = partySeatCounts[pCode];
               if (!count) return null;

@@ -348,58 +348,14 @@ export function getScopeBaselineData(scopeId: string | null): {
   };
 }
 
-// Apply user deltas to an electorate and simulate its winner and margin
-export function simulateElectorateWithPreferences(
-  electorate: Electorate,
-  globalDeltas: PreferenceModelDeltas,
-  regionalDeltas: Record<string, PreferenceModelDeltas> = {},
-  seatDeltas: Record<string, PreferenceModelDeltas> = {},
-  customOverrides: Record<string, PartyCode> = {}
-): { party: PartyCode; margin: number } {
-  // Manual override takes precedence
-  if (customOverrides[electorate.id]) {
-    return {
-      party: customOverrides[electorate.id],
-      margin: electorate.originalMargin,
-    };
-  }
-
-  const baseline = PREFERENCE_DATA[electorate.id];
-  const isRegional = ['northern_vic', 'western_vic', 'eastern_vic'].includes(electorate.region);
-
-  // Fallback if seat not found in preference data
-  if (!baseline) {
-    return {
-      party: electorate.originalParty,
-      margin: electorate.originalMargin,
-    };
-  }
-
-  // Combine deltas: seat-level overrides region-level, which overrides global
-  const activeRegDeltas = regionalDeltas[electorate.region] || INITIAL_PREFERENCE_DELTAS;
-  const activeSeatDeltas = seatDeltas[electorate.id] || INITIAL_PREFERENCE_DELTAS;
-
+// Compute adjusted transfer flows taking into account One Nation presence in seats without ON history
+export function computeAdjustedTransferFlows(
+  baselineFlows: Record<PartyGroup, PartyTransferFlow>,
+  isOnActiveInSeat: boolean,
+  transferOverrides: Partial<Record<PartyGroup, Partial<PartyTransferFlow>>> = {}
+): Record<PartyGroup, PartyTransferFlow> {
   const parties: PartyGroup[] = ['ALP', 'COALITION', 'GRN', 'ON', 'OTH'];
-  const totalFormal = baseline.totalFormalVotes;
-
-  // Calculate adjusted primary votes
-  const adjustedPrimaries: Record<PartyGroup, number> = { ...baseline.primaryVotes };
-
-  parties.forEach(p => {
-    // Delta in percentage points
-    const deltaPct =
-      (activeSeatDeltas.primaryDeltas[p] || 0) +
-      (activeRegDeltas.primaryDeltas[p] || 0) +
-      (globalDeltas.primaryDeltas[p] || 0);
-
-    if (deltaPct !== 0) {
-      adjustedPrimaries[p] = Math.max(0, adjustedPrimaries[p] + Math.round((deltaPct / 100) * totalFormal));
-    }
-  });
-
-  // Calculate adjusted transfer flows
-  const adjustedFlows: Record<PartyGroup, PartyTransferFlow> = JSON.parse(JSON.stringify(baseline.transferFlows));
-  const isOnActiveInSeat = (adjustedPrimaries.ON || 0) > 0;
+  const adjustedFlows: Record<PartyGroup, PartyTransferFlow> = JSON.parse(JSON.stringify(baselineFlows));
 
   parties.forEach(p => {
     const sum = (adjustedFlows[p]?.toALP || 0) + (adjustedFlows[p]?.toCoalition || 0) + (adjustedFlows[p]?.toGreens || 0) + (adjustedFlows[p]?.toOneNation || 0) + (adjustedFlows[p]?.toOther || 0);
@@ -435,19 +391,85 @@ export function simulateElectorateWithPreferences(
     }
   }
 
+  // Apply user transfer overrides
   parties.forEach(src => {
-    const overrides = {
-      ...globalDeltas.transferOverrides[src],
-      ...activeRegDeltas.transferOverrides[src],
-      ...activeSeatDeltas.transferOverrides[src],
-    };
-
-    if (overrides.toALP !== undefined) adjustedFlows[src].toALP = overrides.toALP;
-    if (overrides.toCoalition !== undefined) adjustedFlows[src].toCoalition = overrides.toCoalition;
-    if (overrides.toGreens !== undefined) adjustedFlows[src].toGreens = overrides.toGreens;
-    if (overrides.toOneNation !== undefined) adjustedFlows[src].toOneNation = overrides.toOneNation;
-    if (overrides.toOther !== undefined) adjustedFlows[src].toOther = overrides.toOther;
+    const overrides = transferOverrides[src];
+    if (overrides) {
+      if (overrides.toALP !== undefined) adjustedFlows[src].toALP = overrides.toALP;
+      if (overrides.toCoalition !== undefined) adjustedFlows[src].toCoalition = overrides.toCoalition;
+      if (overrides.toGreens !== undefined) adjustedFlows[src].toGreens = overrides.toGreens;
+      if (overrides.toOneNation !== undefined) adjustedFlows[src].toOneNation = overrides.toOneNation;
+      if (overrides.toOther !== undefined) adjustedFlows[src].toOther = overrides.toOther;
+    }
   });
+
+  return adjustedFlows;
+}
+
+// Apply user deltas to an electorate and simulate its winner and margin
+export function simulateElectorateWithPreferences(
+  electorate: Electorate,
+  globalDeltas: PreferenceModelDeltas,
+  regionalDeltas: Record<string, PreferenceModelDeltas> = {},
+  seatDeltas: Record<string, PreferenceModelDeltas> = {},
+  customOverrides: Record<string, PartyCode> = {}
+): { party: PartyCode; margin: number } {
+  // Manual override takes precedence
+  if (customOverrides[electorate.id]) {
+    return {
+      party: customOverrides[electorate.id],
+      margin: electorate.originalMargin,
+    };
+  }
+
+  const baseline = PREFERENCE_DATA[electorate.id];
+  const isRegional = ['northern_vic', 'western_vic', 'eastern_vic'].includes(electorate.region);
+
+  // Fallback if seat not found in preference data
+  if (!baseline) {
+    return {
+      party: electorate.originalParty,
+      margin: electorate.originalMargin,
+    };
+  }
+
+  // Hierarchy: seat-level overrides region-level, which overrides global
+  const hasSeatDeltas = !!seatDeltas[electorate.id];
+  const hasRegDeltas = !!regionalDeltas[electorate.region];
+  const activeRegDeltas = regionalDeltas[electorate.region] || INITIAL_PREFERENCE_DELTAS;
+  const activeSeatDeltas = seatDeltas[electorate.id] || INITIAL_PREFERENCE_DELTAS;
+
+  const parties: PartyGroup[] = ['ALP', 'COALITION', 'GRN', 'ON', 'OTH'];
+  const totalFormal = baseline.totalFormalVotes;
+
+  // Calculate adjusted primary votes
+  const adjustedPrimaries: Record<PartyGroup, number> = { ...baseline.primaryVotes };
+
+  parties.forEach(p => {
+    // Delta in percentage points: Seat overrides Region overrides Global
+    const deltaPct = hasSeatDeltas
+      ? (activeSeatDeltas.primaryDeltas[p] ?? globalDeltas.primaryDeltas[p] ?? 0)
+      : hasRegDeltas
+      ? (activeRegDeltas.primaryDeltas[p] ?? globalDeltas.primaryDeltas[p] ?? 0)
+      : (globalDeltas.primaryDeltas[p] || 0);
+
+    if (deltaPct !== 0) {
+      adjustedPrimaries[p] = Math.max(0, adjustedPrimaries[p] + Math.round((deltaPct / 100) * totalFormal));
+    }
+  });
+
+  const isOnActiveInSeat = (adjustedPrimaries.ON || 0) > 0;
+  const combinedOverrides: Partial<Record<PartyGroup, Partial<PartyTransferFlow>>> = {
+    ...globalDeltas.transferOverrides,
+    ...activeRegDeltas.transferOverrides,
+    ...activeSeatDeltas.transferOverrides,
+  };
+
+  const adjustedFlows = computeAdjustedTransferFlows(
+    baseline.transferFlows,
+    isOnActiveInSeat,
+    combinedOverrides
+  );
 
   // Run instant-runoff
   const simResult = runInstantRunoff(adjustedPrimaries, adjustedFlows);

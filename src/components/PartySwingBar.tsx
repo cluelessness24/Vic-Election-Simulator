@@ -60,6 +60,9 @@ export const PartySwingBar: React.FC<PartySwingBarProps> = ({
 }) => {
   const [draggingParty, setDraggingParty] = useState<SliderPartyCode | null>(null);
   const dragStartYRef = useRef<number>(0);
+  const touchStartXRef = useRef<number>(0);
+  const touchStartYRef = useRef<number>(0);
+  const isVerticalDragRef = useRef<boolean>(false);
   const startSwingsRef = useRef<PartySwings>(INITIAL_PARTY_SWINGS);
   const [hoveredParty, setHoveredParty] = useState<SliderPartyCode | null>(null);
 
@@ -306,9 +309,12 @@ export const PartySwingBar: React.FC<PartySwingBarProps> = ({
 
   const handleTouchStart = (e: React.TouchEvent, party: SliderPartyCode) => {
     if (e.touches[0]) {
-      setDraggingParty(party);
+      touchStartXRef.current = e.touches[0].clientX;
+      touchStartYRef.current = e.touches[0].clientY;
       dragStartYRef.current = e.touches[0].clientY;
       startSwingsRef.current = { ...currentSwings };
+      isVerticalDragRef.current = false;
+      setDraggingParty(party);
     }
   };
 
@@ -328,11 +334,35 @@ export const PartySwingBar: React.FC<PartySwingBarProps> = ({
 
     const handleMouseUp = () => {
       setDraggingParty(null);
+      isVerticalDragRef.current = false;
     };
 
     const handleTouchMove = (e: TouchEvent) => {
-      if (e.touches[0]) {
-        const deltaY = dragStartYRef.current - e.touches[0].clientY;
+      if (!e.touches[0] || !draggingParty) return;
+
+      const currentX = e.touches[0].clientX;
+      const currentY = e.touches[0].clientY;
+      const dx = Math.abs(currentX - touchStartXRef.current);
+      const dy = Math.abs(currentY - touchStartYRef.current);
+
+      // Disambiguate between horizontal scroll of the track and vertical swing dragging
+      if (!isVerticalDragRef.current) {
+        if (dx > dy && dx > 6) {
+          // Horizontal swipe: user is scrolling sideways through parties
+          setDraggingParty(null);
+          return;
+        }
+        if (dy > 6 && dy >= dx) {
+          // Vertical swipe: user is dragging swing up/down
+          isVerticalDragRef.current = true;
+        }
+      }
+
+      if (isVerticalDragRef.current) {
+        if (e.cancelable) {
+          e.preventDefault(); // Stop window from scrolling while actively dragging swing
+        }
+        const deltaY = dragStartYRef.current - currentY;
         const swingChange = deltaY * 0.15;
         const initialPartySwing = startSwingsRef.current[draggingParty] || 0;
         const desired = initialPartySwing + swingChange;
@@ -343,18 +373,21 @@ export const PartySwingBar: React.FC<PartySwingBarProps> = ({
 
     const handleTouchEnd = () => {
       setDraggingParty(null);
+      isVerticalDragRef.current = false;
     };
 
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseup', handleMouseUp);
-    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
     window.addEventListener('touchend', handleTouchEnd);
+    window.addEventListener('touchcancel', handleTouchEnd);
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
       window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('touchend', handleTouchEnd);
+      window.removeEventListener('touchcancel', handleTouchEnd);
     };
   }, [draggingParty, getNextSwings, onUpdateSwings]);
 
@@ -377,25 +410,17 @@ export const PartySwingBar: React.FC<PartySwingBarProps> = ({
   return (
     <div className="flex flex-col gap-4 animate-fadeIn">
       {/* Scope Header & Controls */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 pb-3 border-b border-white/10">
-        <div className="flex items-start gap-2.5 flex-1 min-w-0">
-          <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shrink-0 mt-1.5" />
-          <div className="flex flex-col gap-1 flex-1 min-w-0">
-            <h4 className="text-sm font-semibold text-white tracking-wide leading-snug">
-              Party Swing Slider: <span className="text-amber-300 font-mono">{scopeTitle}</span>
-            </h4>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Click and drag vertically (<span className="text-amber-400 font-bold">▲</span> up to add votes,{' '}
-              <span className="text-amber-400 font-bold">▼</span> down to subtract).{' '}
-              {autoRebalance
-                ? 'Other parties automatically rebalance.'
-                : 'Independent mode: other parties hold their values (total capped at 100%).'}
-            </p>
-          </div>
-        </div>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/10">
+        <p className="text-xs text-slate-400 leading-relaxed">
+          Click and drag vertically (<span className="text-amber-400 font-bold">▲</span> up to add votes,{' '}
+          <span className="text-amber-400 font-bold">▼</span> down to subtract).{' '}
+          {autoRebalance
+            ? 'Other parties automatically rebalance.'
+            : 'Independent mode: other parties hold their values (total capped at 100%).'}
+        </p>
 
-        {/* Action Controls: Auto-Rebalance Toggle + Reset + Back */}
-        <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto shrink-0">
+        {/* Action Controls: Auto-Rebalance Toggle + Reset + Load + Back */}
+        <div className="flex flex-wrap items-center gap-2 shrink-0">
           {/* Auto Rebalance Toggle */}
           <div
             id="toggle-auto-rebalance"
@@ -509,128 +534,130 @@ export const PartySwingBar: React.FC<PartySwingBarProps> = ({
           </div>
         </div>
 
-        {/* The Segmented Slider Track */}
-        <div
-          id="party-swing-progress-slider"
-          className="h-20 sm:h-22 w-full bg-white/5 rounded-xl overflow-hidden flex shadow-inner border border-white/10 select-none touch-none relative"
-        >
-          {SLIDER_PARTIES.map((partyCode) => {
-            const party = PARTIES[partyCode];
-            const effShare = effectiveShares[partyCode];
-            const swing = currentSwings[partyCode] || 0;
-            const isDragging = draggingParty === partyCode;
-            const isHovered = hoveredParty === partyCode;
-            const isPositive = swing > 0.05;
-            const isNegative = swing < -0.05;
+        {/* The Segmented Slider Track (Horizontally scrollable on narrow screens) */}
+        <div className="w-full overflow-x-auto pb-1.5 scrollbar-thin">
+          <div
+            id="party-swing-progress-slider"
+            className="h-20 sm:h-22 min-w-[500px] w-full bg-white/5 rounded-xl overflow-hidden flex shadow-inner border border-white/10 select-none touch-pan-x relative"
+          >
+            {SLIDER_PARTIES.map((partyCode) => {
+              const party = PARTIES[partyCode];
+              const effShare = effectiveShares[partyCode];
+              const swing = currentSwings[partyCode] || 0;
+              const isDragging = draggingParty === partyCode;
+              const isHovered = hoveredParty === partyCode;
+              const isPositive = swing > 0.05;
+              const isNegative = swing < -0.05;
 
-            // Guaranteed minimum width: min-w-[64px]
-            // Proportional flex distribution based on effective share
-            const flexBasisPct = Math.max(5.0, effShare);
+              // Guaranteed minimum width: min-w-[64px]
+              // Proportional flex distribution based on effective share
+              const flexBasisPct = Math.max(5.0, effShare);
 
-            return (
+              return (
+                <div
+                  key={partyCode}
+                  id={`party-slider-${partyCode}`}
+                  onMouseDown={(e) => handleMouseDown(e, partyCode)}
+                  onTouchStart={(e) => handleTouchStart(e, partyCode)}
+                  onMouseEnter={() => setHoveredParty(partyCode)}
+                  onMouseLeave={() => setHoveredParty(null)}
+                  style={{
+                    flex: `${flexBasisPct} 1 0%`,
+                    minWidth: '64px',
+                    backgroundColor: party.color,
+                  }}
+                  className={`h-full relative flex flex-col items-center justify-between py-1.5 px-1 text-white font-sans transition-all duration-75 cursor-ns-resize group overflow-hidden border-r border-black/20 last:border-r-0 ${
+                    isDragging
+                      ? 'ring-2 ring-white z-20 brightness-110 shadow-lg'
+                      : 'hover:brightness-105'
+                  }`}
+                  title={`${party.fullName} (${partyCode}): Baseline ${baselineShares[partyCode].toFixed(1)}%, Swing: ${
+                    swing >= 0 ? '+' : ''
+                  }${swing.toFixed(1)}%, Current: ${effShare.toFixed(1)}%`}
+                >
+                  {/* Top Chevrons & Step Buttons */}
+                  <div className="w-full flex items-center justify-between px-1 opacity-70 group-hover:opacity-100 transition-opacity">
+                    <span className="text-[10px] font-bold tracking-wider font-mono">
+                      {partyCode}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleStepSwing(partyCode, 0.1);
+                      }}
+                      className="p-0.5 hover:bg-black/30 rounded text-white/80 hover:text-white transition-colors"
+                      title={`Increase ${partyCode} swing by +0.1%`}
+                      aria-label={`Increase ${partyCode} swing`}
+                    >
+                      <ArrowUp size={11} />
+                    </button>
+                  </div>
+
+                  {/* Center Swing Badge */}
+                  <div className="flex flex-col items-center justify-center my-auto pointer-events-none">
+                    <div
+                      className={`px-1.5 py-0.5 rounded text-[11px] font-mono font-bold tracking-tight shadow-sm flex items-center gap-0.5 ${
+                        isPositive
+                          ? 'bg-black/50 text-emerald-300 ring-1 ring-emerald-400/50'
+                          : isNegative
+                          ? 'bg-black/50 text-red-300 ring-1 ring-red-400/50'
+                          : 'bg-black/30 text-white/90'
+                      }`}
+                    >
+                      {isPositive ? '+' : ''}
+                      {swing.toFixed(1)}%
+                    </div>
+
+                    <span className="text-[10px] text-white/80 font-mono mt-0.5 drop-shadow">
+                      {effShare.toFixed(1)}%
+                    </span>
+                  </div>
+
+                  {/* Bottom Step Down Button & Drag indicator */}
+                  <div className="w-full flex items-center justify-between px-1 opacity-70 group-hover:opacity-100 transition-opacity">
+                    <span className="text-[8px] font-sans text-white/60 truncate pr-0.5">
+                      {party.name}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleStepSwing(partyCode, -0.1);
+                      }}
+                      className="p-0.5 hover:bg-black/30 rounded text-white/80 hover:text-white transition-colors"
+                      title={`Decrease ${partyCode} swing by -0.1%`}
+                      aria-label={`Decrease ${partyCode} swing`}
+                    >
+                      <ArrowDown size={11} />
+                    </button>
+                  </div>
+
+                  {/* Vertical drag indicator overlay */}
+                  {isDragging && (
+                    <div className="absolute inset-0 bg-white/10 pointer-events-none flex items-center justify-center">
+                      <MoveVertical size={20} className="text-white animate-bounce" />
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+
+            {/* Unallocated headroom block when autoRebalance is OFF and total < 100% */}
+            {!autoRebalance && remainingHeadroom > 0.1 && (
               <div
-                key={partyCode}
-                id={`party-slider-${partyCode}`}
-                onMouseDown={(e) => handleMouseDown(e, partyCode)}
-                onTouchStart={(e) => handleTouchStart(e, partyCode)}
-                onMouseEnter={() => setHoveredParty(partyCode)}
-                onMouseLeave={() => setHoveredParty(null)}
                 style={{
-                  flex: `${flexBasisPct} 1 0%`,
-                  minWidth: '64px',
-                  backgroundColor: party.color,
+                  flex: `${remainingHeadroom} 1 0%`,
+                  minWidth: '50px',
                 }}
-                className={`h-full relative flex flex-col items-center justify-between py-1.5 px-1 text-white font-sans transition-all duration-75 cursor-ns-resize group overflow-hidden border-r border-black/20 last:border-r-0 ${
-                  isDragging
-                    ? 'ring-2 ring-white z-20 brightness-110 shadow-lg'
-                    : 'hover:brightness-105'
-                }`}
-                title={`${party.fullName} (${partyCode}): Baseline ${baselineShares[partyCode].toFixed(1)}%, Swing: ${
-                  swing >= 0 ? '+' : ''
-                }${swing.toFixed(1)}%, Current: ${effShare.toFixed(1)}%`}
+                className="h-full bg-black/40 border-l border-white/10 flex flex-col items-center justify-center text-[10px] text-slate-400 font-mono select-none px-1"
+                title={`Unallocated capacity: ${remainingHeadroom.toFixed(1)}% (Total vote cannot exceed 100%)`}
               >
-                {/* Top Chevrons & Step Buttons */}
-                <div className="w-full flex items-center justify-between px-1 opacity-70 group-hover:opacity-100 transition-opacity">
-                  <span className="text-[10px] font-bold tracking-wider font-mono">
-                    {partyCode}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleStepSwing(partyCode, 0.1);
-                    }}
-                    className="p-0.5 hover:bg-black/30 rounded text-white/80 hover:text-white transition-colors"
-                    title={`Increase ${partyCode} swing by +0.1%`}
-                    aria-label={`Increase ${partyCode} swing`}
-                  >
-                    <ArrowUp size={11} />
-                  </button>
-                </div>
-
-                {/* Center Swing Badge */}
-                <div className="flex flex-col items-center justify-center my-auto pointer-events-none">
-                  <div
-                    className={`px-1.5 py-0.5 rounded text-[11px] font-mono font-bold tracking-tight shadow-sm flex items-center gap-0.5 ${
-                      isPositive
-                        ? 'bg-black/50 text-emerald-300 ring-1 ring-emerald-400/50'
-                        : isNegative
-                        ? 'bg-black/50 text-red-300 ring-1 ring-red-400/50'
-                        : 'bg-black/30 text-white/90'
-                    }`}
-                  >
-                    {isPositive ? '+' : ''}
-                    {swing.toFixed(1)}%
-                  </div>
-
-                  <span className="text-[10px] text-white/80 font-mono mt-0.5 drop-shadow">
-                    {effShare.toFixed(1)}%
-                  </span>
-                </div>
-
-                {/* Bottom Step Down Button & Drag indicator */}
-                <div className="w-full flex items-center justify-between px-1 opacity-70 group-hover:opacity-100 transition-opacity">
-                  <span className="text-[8px] font-sans text-white/60 truncate pr-0.5">
-                    {party.name}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleStepSwing(partyCode, -0.1);
-                    }}
-                    className="p-0.5 hover:bg-black/30 rounded text-white/80 hover:text-white transition-colors"
-                    title={`Decrease ${partyCode} swing by -0.1%`}
-                    aria-label={`Decrease ${partyCode} swing`}
-                  >
-                    <ArrowDown size={11} />
-                  </button>
-                </div>
-
-                {/* Vertical drag indicator overlay */}
-                {isDragging && (
-                  <div className="absolute inset-0 bg-white/10 pointer-events-none flex items-center justify-center">
-                    <MoveVertical size={20} className="text-white animate-bounce" />
-                  </div>
-                )}
+                <span className="text-[8px] uppercase tracking-wider opacity-60">Remaining</span>
+                <span className="text-[10px] text-slate-300 font-semibold">{remainingHeadroom.toFixed(1)}%</span>
               </div>
-            );
-          })}
-
-          {/* Unallocated headroom block when autoRebalance is OFF and total < 100% */}
-          {!autoRebalance && remainingHeadroom > 0.1 && (
-            <div
-              style={{
-                flex: `${remainingHeadroom} 1 0%`,
-                minWidth: '50px',
-              }}
-              className="h-full bg-black/40 border-l border-white/10 flex flex-col items-center justify-center text-[10px] text-slate-400 font-mono select-none px-1"
-              title={`Unallocated capacity: ${remainingHeadroom.toFixed(1)}% (Total vote cannot exceed 100%)`}
-            >
-              <span className="text-[8px] uppercase tracking-wider opacity-60">Remaining</span>
-              <span className="text-[10px] text-slate-300 font-semibold">{remainingHeadroom.toFixed(1)}%</span>
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
         {/* Legend and party quick stats */}
@@ -779,8 +806,8 @@ export const PartySwingBar: React.FC<PartySwingBarProps> = ({
                   </p>
                 </div>
 
-                {/* Swings summary breakdown tags */}
-                <div className="flex flex-wrap items-center gap-1 pt-1 border-t border-white/5">
+                {/* Swings summary breakdown tags (colored buttons with no abbreviations or dots) */}
+                <div className="flex flex-wrap items-center gap-1.5 pt-1.5 border-t border-white/5">
                   {SLIDER_PARTIES.filter((p) => Math.abs(decoded.global[p] || 0) >= 0.1).map(
                     (p) => {
                       const val = decoded.global[p] || 0;
@@ -788,16 +815,15 @@ export const PartySwingBar: React.FC<PartySwingBarProps> = ({
                       return (
                         <span
                           key={p}
-                          className="text-[9px] font-mono px-1 py-0.5 rounded bg-black/40 text-slate-300 flex items-center gap-1 border border-white/5"
+                          style={{
+                            backgroundColor: party.color,
+                            textShadow: '0 1px 2px rgba(0,0,0,0.6)',
+                          }}
+                          className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded text-white shadow-xs inline-flex items-center justify-center min-w-[34px] leading-none"
+                          title={`${party.fullName} (${p}): ${val > 0 ? '+' : ''}${val.toFixed(1)}%`}
                         >
-                          <span
-                            className="w-1.5 h-1.5 rounded-full shrink-0"
-                            style={{ backgroundColor: party.color }}
-                          />
-                          <span>
-                            {p} {val > 0 ? '+' : ''}
-                            {val.toFixed(1)}%
-                          </span>
+                          {val > 0 ? '+' : ''}
+                          {val.toFixed(1)}%
                         </span>
                       );
                     }
