@@ -1,6 +1,6 @@
 {
-  "summary": "Implementation plan for adding a collapsible, color-coded Preference Distribution Matrix below the Sankey diagram in the Preference Flow Simulator section.",
-  "updatedAt": "2026-11-06T13:00:13.062495551Z",
+  "summary": "Implementation plan for fetching, collating federal Senate preference flows by booth into Victorian state seats, filling VEC preference flow gaps, and adding a VEC vs Senate flow toggle.",
+  "updatedAt": "2026-11-06T15:44:17.815612794Z",
   "requestFeedback": true,
   "userFacing": true
 }
